@@ -32,7 +32,7 @@
     }
     *{margin:0;padding:0;box-sizing:border-box;}
     html{scroll-behavior:smooth;}
-    body{font-family:'Montserrat',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden;}
+    body{font-family:'Montserrat',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden;padding-top:80px;}
 
     .grain-overlay{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:0.022;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
     .cursor-glow{position:fixed;width:320px;height:320px;border-radius:50%;pointer-events:none;z-index:9997;background:radial-gradient(circle,rgba(110,11,20,0.05) 0%,transparent 70%);transform:translate(-50%,-50%);}
@@ -75,6 +75,7 @@
     @keyframes ornamentGrow{to{width:120px;}}
 
     .entrance-diamond{
+      display: none !important;
       width:6px;height:6px;border:1px solid rgba(212,175,127,0.4);
       transform:rotate(45deg);opacity:0;
       animation:diamondReveal 0.8s ease 1.8s forwards;
@@ -102,9 +103,9 @@
       animation:fadeUp 1s ease 2.2s forwards;
     }
     .entrance-sub{
-      font-family:'Montserrat',sans-serif;font-weight:300;
-      font-size:clamp(9px,1.2vw,11px);
-      color:rgba(237,224,212,0.3);opacity:0;margin-top:10px;
+      font-family:'Montserrat',sans-serif;font-weight:600;
+      font-size:clamp(9px,1.2vw,15px);
+      color:rgba(237, 224, 212, 0.495);opacity:0;margin-top:10px;
       animation:fadeUp 1s ease 2.8s forwards;letter-spacing:1px;
     }
     @keyframes fadeUp{to{opacity:1;transform:translateY(0);}from{transform:translateY(12px);}}
@@ -127,6 +128,7 @@
       min-height:100vh;position:relative;
       display:flex;align-items:center;justify-content:center;
       overflow:hidden;
+      margin-top:-80px;
     }
     .hero-bg{
       position:absolute;inset:0;
@@ -318,12 +320,21 @@
     }
 
     /* ============================================
-       NAVBAR LUXE
+       NAVBAR LUXE — CORRIGÉE (FIXE EN HAUT)
        ============================================ */
     .nav-luxe{
-      position:fixed;top:0;left:0;right:0;z-index:9990;
-      padding:0;display:flex;align-items:stretch;justify-content:center;
-      background:transparent;transition:all 0.6s cubic-bezier(.4,0,.2,1);
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:9990;
+      padding:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:transparent;
+      transition:background 0.6s cubic-bezier(.4,0,.2,1), backdrop-filter 0.6s ease;
+      height:80px;
     }
     .nav-luxe::before{
       content:'';position:absolute;top:0;left:0;right:0;height:1px;
@@ -331,31 +342,71 @@
       opacity:0;transition:opacity 0.6s ease;
     }
     .nav-luxe.scrolled::before{opacity:1;}
-    .nav-luxe.scrolled{background:rgba(250,249,246,0.88);backdrop-filter:blur(28px) saturate(1.3);-webkit-backdrop-filter:blur(28px) saturate(1.3);}
+    .nav-luxe.scrolled{
+      background:rgba(250,249,246,0.88);
+      backdrop-filter:blur(28px) saturate(1.3);
+      -webkit-backdrop-filter:blur(28px) saturate(1.3);
+    }
     .nav-luxe::after{
       content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
       background:linear-gradient(90deg,transparent 0%,rgba(110,11,20,0.1) 15%,rgba(110,11,20,0.15) 50%,rgba(110,11,20,0.1) 85%,transparent 100%);
       opacity:0;transition:opacity 0.6s ease;
     }
     .nav-luxe.scrolled::after{opacity:1;}
+
     .nav-inner{
-      width:100%;max-width:1280px;display:flex;align-items:center;justify-content:space-between;
-      padding:22px 48px;transition:padding 0.6s cubic-bezier(.4,0,.2,1);
+      width:100%;max-width:1280px;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 48px;
+      height:100%;
     }
-    .nav-luxe.scrolled .nav-inner{padding:16px 48px;}
-    .nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none;position:relative;}
-    .nav-logo-line{width:28px;height:1px;background:var(--gold);transition:width 0.4s ease,opacity 0.4s ease;opacity:0.6;}
-    .nav-logo:hover .nav-logo-line{width:36px;opacity:1;}
-    .nav-logo-text{font-family:'Playfair Display',serif;font-weight:700;font-size:22px;letter-spacing:6px;color:var(--nude);transition:color 0.5s ease,letter-spacing 0.5s ease;}
-    .nav-luxe.scrolled .nav-logo-text{color:var(--burgundy-deep);}
-    .nav-logo:hover .nav-logo-text{letter-spacing:8px;}
-    .nav-logo-line-r{width:28px;height:1px;background:var(--gold);transition:width 0.4s ease,opacity 0.4s ease;opacity:0.6;}
-    .nav-logo:hover .nav-logo-line-r{width:36px;opacity:1;}
-    .nav-links-luxe{display:flex;align-items:center;gap:32px;}
+
+    /* ===== LOGO ===== */
+    .nav-logo{
+      display:flex;align-items:center;gap:14px;text-decoration:none;
+      flex-shrink:0;
+    }
+    .nav-logo-img{
+      height:40px;width:auto;display:block;
+      transition:all 0.4s cubic-bezier(.4,0,.2,1);
+      filter:brightness(0) invert(1) drop-shadow(0 0 4px rgba(212,175,127,0.1));
+      opacity:0.95;
+    }
+    .nav-logo-img:hover{
+      opacity:1;transform:scale(1.04);
+      filter:brightness(0) invert(1) drop-shadow(0 0 12px rgba(212,175,127,0.25));
+    }
+    .nav-luxe.scrolled .nav-logo-img{
+      filter:brightness(0) saturate(1);
+      opacity:0.85;
+    }
+    .nav-luxe.scrolled .nav-logo-img:hover{
+      opacity:1;
+      filter:brightness(0) saturate(1);
+    }
+    .nav-logo-text-fallback{
+      font-family:'Playfair Display',serif;font-weight:700;
+      font-size:22px;letter-spacing:6px;color:var(--nude);
+      transition:color 0.5s ease,letter-spacing 0.5s ease;
+      display:none;
+    }
+    .nav-luxe.scrolled .nav-logo-text-fallback{color:var(--burgundy-deep);}
+    .nav-logo:hover .nav-logo-text-fallback{letter-spacing:8px;}
+
+    /* ===== LIENS DE NAVIGATION ===== */
+    .nav-links-luxe{
+      display:flex;align-items:center;gap:28px;
+      flex:1;justify-content:center;
+    }
     .nav-link-luxe{
-      font-family:'Montserrat',sans-serif;font-size:9.5px;font-weight:500;letter-spacing:3px;
-      text-transform:uppercase;color:rgba(237,224,212,0.7);text-decoration:none;
-      position:relative;padding:6px 0;transition:color 0.4s ease;
+      font-family:'Montserrat',sans-serif;
+      font-size:10px;font-weight:500;letter-spacing:2.5px;
+      text-transform:uppercase;
+      color:rgba(237,224,212,0.7);
+      text-decoration:none;
+      position:relative;padding:6px 0;
+      transition:color 0.4s ease;
+      white-space:nowrap;
     }
     .nav-luxe.scrolled .nav-link-luxe{color:var(--dark);}
     .nav-link-luxe::after{
@@ -365,15 +416,28 @@
     .nav-link-luxe:hover{color:var(--gold);}
     .nav-luxe.scrolled .nav-link-luxe:hover{color:var(--burgundy);}
     .nav-link-luxe:hover::after{width:100%;left:0;}
-    .nav-separator{width:1px;height:16px;background:linear-gradient(to bottom,transparent,rgba(212,175,127,0.4),transparent);margin:0 4px;}
-    .nav-luxe.scrolled .nav-separator{background:linear-gradient(to bottom,transparent,rgba(110,11,20,0.15),transparent);}
-    .nav-cta{
-      font-family:'Montserrat',sans-serif;font-size:9px;font-weight:600;letter-spacing:3px;
-      text-transform:uppercase;color:var(--gold);text-decoration:none;
-      padding:10px 24px;border:1px solid rgba(212,175,127,0.35);
-      transition:all 0.5s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;
+
+    /* ===== ACTIONS (CTA + HAMBURGER) ===== */
+    .nav-actions{
+      display:flex;align-items:center;gap:18px;
+      flex-shrink:0;
     }
-    .nav-cta::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 0.5s cubic-bezier(.4,0,.2,1);z-index:0;}
+
+    .nav-cta{
+      font-family:'Montserrat',sans-serif;
+      font-size:9px;font-weight:600;letter-spacing:3px;
+      text-transform:uppercase;
+      color:var(--gold);text-decoration:none;
+      padding:10px 24px;
+      border:1px solid rgba(212,175,127,0.35);
+      transition:all 0.5s cubic-bezier(.4,0,.2,1);
+      position:relative;overflow:hidden;
+    }
+    .nav-cta::before{
+      content:'';position:absolute;inset:0;
+      background:var(--gold);transform:scaleX(0);transform-origin:left;
+      transition:transform 0.5s cubic-bezier(.4,0,.2,1);z-index:0;
+    }
     .nav-cta span{position:relative;z-index:1;transition:color 0.5s ease;}
     .nav-cta:hover::before{transform:scaleX(1);}
     .nav-cta:hover{color:var(--burgundy-deep);border-color:var(--gold);}
@@ -382,6 +446,8 @@
     .nav-luxe.scrolled .nav-cta::before{background:var(--burgundy);}
     .nav-luxe.scrolled .nav-cta:hover{border-color:var(--burgundy);}
     .nav-luxe.scrolled .nav-cta:hover span{color:var(--nude);}
+
+    /* ===== BOUTON HAMBURGER ===== */
     .nav-toggle-luxe{
       display:none;flex-direction:column;justify-content:center;align-items:center;gap:6px;
       width:40px;height:40px;background:transparent;border:1px solid rgba(212,175,127,0.25);
@@ -396,6 +462,8 @@
     .nav-toggle-luxe.active .toggle-bar:nth-child(1){transform:rotate(45deg) translate(2px,2px);background:var(--burgundy);}
     .nav-toggle-luxe.active .toggle-bar:nth-child(2){opacity:0;transform:scaleX(0);}
     .nav-toggle-luxe.active .toggle-bar:nth-child(3){transform:rotate(-45deg) translate(3px,-3px);width:16px;background:var(--burgundy);}
+
+    /* ===== MENU MOBILE ===== */
     .mobile-menu-luxe{
       position:fixed;inset:0;z-index:9989;background:rgba(250,249,246,0.97);
       backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
@@ -407,15 +475,22 @@
       font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:var(--dark);
       text-decoration:none;padding:14px 0;position:relative;transition:color 0.3s ease,letter-spacing 0.4s ease;letter-spacing:1px;
     }
-    .mobile-menu-luxe a::after{content:'';position:absolute;bottom:10px;left:50%;width:0;height:1px;background:var(--burgundy);transition:width 0.4s ease,left 0.4s ease;}
+    .mobile-menu-luxe a::after{
+      content:'';position:absolute;bottom:10px;left:50%;width:0;height:1px;background:var(--burgundy);transition:width 0.4s ease,left 0.4s ease;
+    }
     .mobile-menu-luxe a:hover{color:var(--burgundy);letter-spacing:3px;}
     .mobile-menu-luxe a:hover::after{width:40px;left:calc(50% - 20px);}
     .mobile-menu-ornament{width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--burgundy-soft),transparent);margin:16px 0;}
+
+    /* ===== RESPONSIVE ===== */
     @media(max-width:900px){
-      .nav-links-luxe,.nav-separator,.nav-cta{display:none !important;}
+      .nav-links-luxe,.nav-cta{display:none !important;}
       .nav-toggle-luxe{display:flex !important;}
-      .nav-inner{padding:18px 24px !important;}
-      .nav-luxe.scrolled .nav-inner{padding:14px 24px !important;}
+      .nav-inner{padding:0 24px !important;}
+      .nav-logo-img{height:32px !important;}
+    }
+    @media(max-width:480px){
+      .nav-logo-img{height:28px !important;}
     }
 
     /* ===== ÉLÉMENTS COMMUNS ===== */
@@ -472,30 +547,44 @@
       <span class="entrance-letter">R</span>
       <span class="entrance-letter">R</span>
     </div>
-    <p class="entrance-tagline" style="margin-top:24px;">Origin Rituals & Revelations</p>
+    <p class="entrance-tagline" style="margin-top:24px; ">Origin Rituals & Revelations</p>
     <p class="entrance-sub">Des rituels hérités d'hier pour habiter pleinement aujourd'hui</p>
     <div class="entrance-ornament-bottom" aria-hidden="true"></div>
   </div>
 
-  <!-- ===== NAVBAR LUXE ===== -->
+  <!-- ===== NAVBAR LUXE — FIXE EN HAUT ===== -->
   <nav class="nav-luxe" id="navLuxe" role="navigation" aria-label="Navigation principale">
     <div class="nav-inner">
+      <!-- LOGO -->
       <a href="#essence" class="nav-logo">
-        <span class="nav-logo-line" aria-hidden="true"></span>
-        <span class="nav-logo-text">ORR</span>
-        <span class="nav-logo-line-r" aria-hidden="true"></span>
+        <img 
+          src="https://www.image2url.com/r2/default/images/1786963418142-bf624e31-8ef5-48ec-9139-ce2e816b8794.png" 
+          alt="ORR — Origin Rituals & Revelations" 
+          class="nav-logo-img"
+          loading="lazy"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+        >
+        <span class="nav-logo-text-fallback">ORR</span>
       </a>
+
+      <!-- LIENS DE NAVIGATION CENTRÉS -->
       <div class="nav-links-luxe">
-        <a href="#manifeste" class="nav-link-luxe">Le Manifeste</a>
-        <a href="#origine" class="nav-link-luxe">Les Origines</a>
-        <a href="#creations" class="nav-link-luxe">Les Créations</a>
-        <a href="#fondatrice" class="nav-link-luxe">La Fondatrice</a>
+        <a href="#manifeste" class="nav-link-luxe">Manifeste</a>
+        <a href="#origine" class="nav-link-luxe">Origines</a>
+        <a href="#creations" class="nav-link-luxe">Créations</a>
+        <a href="#fondatrice" class="nav-link-luxe">Fondatrice</a>
+        <a href="#communaute" class="nav-link-luxe">Communauté</a>
       </div>
-      <div class="nav-separator" aria-hidden="true"></div>
-      <a href="#communaute" class="nav-cta"><span>Rejoindre</span></a>
-      <button class="nav-toggle-luxe" id="navToggle" aria-label="Menu" aria-expanded="false">
-        <span class="toggle-bar"></span><span class="toggle-bar"></span><span class="toggle-bar"></span>
-      </button>
+
+      <!-- ACTIONS : CTA + HAMBURGER -->
+      <div class="nav-actions">
+        <a href="#communaute" class="nav-cta"><span>Rejoindre</span></a>
+        <button class="nav-toggle-luxe" id="navToggle" aria-label="Menu" aria-expanded="false">
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
+          <span class="toggle-bar"></span>
+        </button>
+      </div>
     </div>
   </nav>
 
@@ -505,6 +594,7 @@
     <div class="mobile-menu-ornament" aria-hidden="true"></div>
     <a href="#creations" onclick="closeMobile()">Créations</a>
     <a href="#fondatrice" onclick="closeMobile()">Fondatrice</a>
+    <a href="#communaute" onclick="closeMobile()">Communauté</a>
   </div>
 
   <main>
@@ -532,16 +622,11 @@
           <span class="hero-ornament-line"></span>
         </div>
 
-        <p class="hero-tagline reveal reveal-delay-1">Origin Rituals & Revelations</p>
+        <p class="hero-tagline reveal reveal-delay-1" style="font-weight:600;">Origin Rituals & Revelations</p>
 
         <h1 class="hero-title reveal reveal-delay-2">
           Des rituels hérités<br>d'hier pour habiter<br>pleinement aujourd'hui
         </h1>
-
-        <p class="hero-desc reveal reveal-delay-3">
-          ORR est une maison de rituels.
-Des plantes, des gestes et des soins inspirés des savoirs ancestraux pour accompagner les femmes vers plus de présence, de vitalité et de lien avec leur corps.
-        </p>
 
         <div class="hero-cta-wrap reveal reveal-delay-4">
           <a href="#manifeste" class="hero-cta">
@@ -557,402 +642,573 @@ Des plantes, des gestes et des soins inspirés des savoirs ancestraux pour accom
       </div>
     </section>
 
-    <!-- ===== LE MANIFESTE ===== -->
-    <section class="py-24 md:py-36 px-6" id="manifeste" style="background:var(--nude-light);">
-      <div class="max-w-5xl mx-auto">
-        <div class="text-center mb-20">
-          <p class="font-montserrat text-xs tracking-[4px] uppercase text-orr-burgundy-soft mb-4 reveal">Le Manifeste</p>
-          <h2 class="font-playfair text-3xl md:text-4xl font-bold text-orr-dark reveal reveal-delay-1">Habiter le bas du corps,<br><em class="font-normal not-italic" style="color:var(--burgundy);">là où vibre la vie</em></h2>
-          <div class="section-divider mt-8 reveal reveal-delay-2"></div>
-        </div>
-        <div class="grid md:grid-cols-2 gap-16 items-start">
-          <div class="space-y-7 text-lg leading-relaxed reveal reveal-delay-1" style="color:var(--dark); font-family:'Playfair Display', serif; font-style: italic;">
-            <p>Tu as appris à chercher les réponses partout.</p>
-            <p>Dans les livres. Chez les autres. Dans ce qu'il fallait faire, réussir ou devenir.</p>
-            <p>Et si les réponses les plus précieuses se trouvaient déjà là où la vie commence ?</p>
-            <p class="text-base" style="color:var(--burgundy);">Ton corps porte une mémoire plus ancienne que les mots. Il connaît le rythme, les saisons, les plantes, l'eau, le feu, les odeurs, les gestes et les silences.</p>
-          </div>
-          <div class="font-montserrat font-light text-sm space-y-6 leading-[2] reveal reveal-delay-2" style="color:var(--dark); opacity:0.75;">
-            <p>ORR est née pour t'aider à retrouver ce langage oublié.</p>
-            <p>Nous croyons que les rituels ne sont pas des traditions du passé. Ce sont des chemins vers toi. Ils ralentissent le temps, ouvrent un espace d'écoute et te permettent de renouer avec ton intuition, ta vitalité et ton héritage.</p>
-            <p>Chaque plante, chaque bain, chaque infusion, chaque huile et chaque geste est une invitation à revenir vers toi.</p>
-            <p>À retrouver ce qui n'a jamais disparu, mais que le bruit du monde a parfois recouvert.</p>
-          </div>
-        </div>
-        <div class="mt-20 text-center reveal reveal-delay-3">
-          <div class="inline-block p-10 md:p-14 border" style="border-color:rgba(110,11,20,0.15); background:rgba(110,11,20,0.02);">
-            <p class="font-playfair text-xl md:text-2xl font-bold mb-4" style="color:var(--burgundy);">ORR t'invite à te souvenir.</p>
-            <p class="font-montserrat text-xs tracking-[3px] uppercase mb-6" style="color:var(--burgundy-soft);">À te reconnecter à ton corps. À honorer ton histoire.</p>
-            <p class="font-playfair italic text-2xl md:text-3xl" style="color:var(--dark);">À retrouver la femme que tu as toujours été.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== LES ORIGINES ===== -->
-    <section class="relative py-24 md:py-36 overflow-hidden" id="origine" style="background:var(--burgundy);">
-      <div class="absolute inset-0" aria-hidden="true" style="background:url('https://i.pinimg.com/736x/f4/5e/61/f45e617f0262260daf24766ee5c479bd.jpg') center/cover no-repeat;opacity:0.1;filter:saturate(0.3) sepia(0.2);"></div>
-      <div class="relative z-10 max-w-6xl mx-auto px-6">
-        <div class="text-center mb-20">
-          <p class="font-montserrat text-xs tracking-[4px] uppercase mb-4 reveal" style="color:var(--gold);">Les Origines</p>
-          <h2 class="font-playfair text-3xl md:text-5xl font-bold leading-tight reveal reveal-delay-1" style="color:var(--nude);">Revenir à l'essentiel,<br><em class="font-normal not-italic" style="color:var(--gold);">là où tout commence</em></h2>
-          <div class="section-divider mt-8 reveal reveal-delay-2" style="background:var(--gold);"></div>
-        </div>
-        <div class="grid md:grid-cols-2 gap-16 items-start">
-          <div class="space-y-6 reveal reveal-delay-1">
-            <p class="font-montserrat font-light text-sm leading-[2]" style="color:rgba(237,224,212,0.8);">Il fut un temps où prendre soin de toi faisait partie de la vie.</p>
-            <p class="font-montserrat font-light text-sm leading-[2]" style="color:rgba(237,224,212,0.7);">Les femmes connaissaient les plantes. Elles préparaient des infusions, des huiles, des bains, des fumigations. Elles se transmettaient des gestes, des chants, des recettes et des rituels. Elles savaient que le corps avait besoin de temps, de repos, de cycles et d'attention.</p>
-            <div class="w-10 h-px my-8" style="background:var(--gold);"></div>
-            <p class="font-playfair italic text-lg" style="color:var(--gold);">Puis le monde a accéléré.</p>
-          </div>
-          <div class="space-y-6 reveal reveal-delay-2">
-            <p class="font-montserrat font-light text-sm leading-[2]" style="color:rgba(237,224,212,0.7);">Tu cours davantage. Tu dors moins. Tu portes plus que tu ne devrais. Tu donnes beaucoup. Et, parfois, sans même t'en rendre compte, tu t'éloignes de ton propre corps.</p>
-            <p class="font-montserrat font-light text-sm leading-[2]" style="color:rgba(237,224,212,0.7);">Tu oublies de respirer. De sentir. D'écouter. De te choisir.</p>
-            <div class="w-10 h-px my-8" style="background:var(--gold);"></div>
-            <p class="font-playfair text-lg font-bold" style="color:var(--nude);">ORR est née de ce constat.<br><span style="color:var(--gold);">Pour te ramener vers l'essentiel.</span></p>
-          </div>
-        </div>
-        <div class="mt-20 max-w-3xl mx-auto text-center reveal reveal-delay-3">
-          <div class="p-10 md:p-14 border" style="border-color:rgba(212,175,127,0.2); background:rgba(0,0,0,0.1); backdrop-filter: blur(4px);">
-            <p class="font-montserrat font-light text-sm leading-[2] mb-6" style="color:rgba(237,224,212,0.75);">Nous croyons que ton corps possède une intelligence, une mémoire et un rythme qui méritent d'être écoutés.</p>
-            <p class="font-montserrat font-light text-sm leading-[2]" style="color:rgba(237,224,212,0.75);">C'est pourquoi ORR s'inspire des savoirs ancestraux pour créer des rituels contemporains. Des plantes, des bains, des huiles, des infusions et des gestes qui t'invitent à ralentir, à ressentir et à retrouver une relation plus profonde avec toi-même.</p>
-          </div>
-        </div>
-        <div class="mt-16 text-center reveal reveal-delay-4">
-          <p class="font-playfair italic text-xl md:text-2xl leading-relaxed" style="color:var(--nude);">Parce qu'il arrive qu'en revenant à l'origine,<br>tu retrouves une part de toi que tu croyais perdue.</p>
-          <div class="w-10 h-px mx-auto mt-8 mb-6" style="background:var(--gold);"></div>
-          <p class="font-playfair text-2xl md:text-3xl font-bold" style="color:var(--gold);">Et que tout commence à nouveau.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== CRÉATIONS ===== -->
-    <section class="py-24 md:py-36 px-6" id="creations" style="background:var(--nude);">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <p class="font-montserrat text-xs tracking-[4px] uppercase mb-4 reveal" style="color:var(--burgundy-soft);">Les Créations ORR</p>
-          <h2 class="font-playfair text-3xl md:text-4xl font-bold text-orr-dark reveal reveal-delay-1">Une exposition de nos trésors sacrés,<br><em class="font-normal not-italic" style="color:var(--burgundy);">pour un soin rituel authentique</em></h2>
-          <div class="section-divider mt-8 reveal reveal-delay-2"></div>
-        </div>
-        <div class="grid md:grid-cols-3 gap-6 md:gap-8 mb-20">
-          <div class="product-category-card p-8 text-center reveal reveal-delay-1">
-            <div class="w-16 h-16 rounded-full mx-auto mb-5 flex items-center justify-center" style="background:rgba(110,11,20,0.05);"><i class="fa-regular fa-gem text-2xl" style="color:var(--burgundy-soft);"></i></div>
-            <h3 class="font-playfair text-xl font-bold mb-2" style="color:var(--burgundy);">Sels Rituels</h3>
-            <p class="font-montserrat text-xs font-light leading-relaxed" style="opacity:0.65;">Sels de l'Atlas, sels de la mer morte, sels aux plantes sauvages. Pour les bains de purification, les ancrages et les rituels de libération.</p>
-            <div class="mt-4 flex flex-wrap justify-center gap-2">
-              <span class="inline-block px-3 py-1 text-[9px] tracking-wider uppercase" style="background:rgba(110,11,20,0.06);color:var(--burgundy-soft);">Purification</span>
-              <span class="inline-block px-3 py-1 text-[9px] tracking-wider uppercase" style="background:rgba(110,11,20,0.06);color:var(--burgundy-soft);">Ancrage</span>
-            </div>
-          </div>
-          <div class="product-category-card p-8 text-center reveal reveal-delay-2">
-            <div class="w-16 h-16 rounded-full mx-auto mb-5 flex items-center justify-center" style="background:rgba(110,11,20,0.05);"><i class="fa-regular fa-leaf text-2xl" style="color:var(--burgundy-soft);"></i></div>
-            <h3 class="font-playfair text-xl font-bold mb-2" style="color:var(--burgundy);">Plantes Médicinales</h3>
-            <p class="font-montserrat text-xs font-light leading-relaxed" style="opacity:0.65;">Sauge, romarin, camomille, verveine, menthe poivrée… Cueillies à la main, séchées avec soin, pour vos infusions, fumigations et soins du corps.</p>
-            <div class="mt-4 flex flex-wrap justify-center gap-2">
-              <span class="inline-block px-3 py-1 text-[9px] tracking-wider uppercase" style="background:rgba(110,11,20,0.06);color:var(--burgundy-soft);">Infusions</span>
-              <span class="inline-block px-3 py-1 text-[9px] tracking-wider uppercase" style="background:rgba(110,11,20,0.06);color:var(--burgundy-soft);">Fumigations</span>
-            </div>
-          </div>
-          <div class="product-category-card p-8 text-center reveal reveal-delay-3">
-            <div class="w-16 h-16 rounded-full mx-auto mb-5 flex items-center justify-center" style="background:rgba(110,11,20,0.05);"><i class="fa-regular fa-fire text-2xl" style="color:var(--burgundy-soft);"></i></div>
-            <h3 class="font-playfair text-xl font-bold mb-2" style="color:var(--burgundy);">Encens Sacrés</h3>
-            <p class="font-montserrat text-xs font-light leading-relaxed" style="opacity:0.65;">Encens de myrrhe, oliban, copal, benjoin. Des fumigations pour élever l'intention, purifier l'espace et accompagner vos rituels.</p>
-            <div class="mt-4 flex flex-wrap justify-center gap-2">
-              <span class="inline-block px-3 py-1 text-[9px] tracking-wider uppercase" style="background:rgba(110,11,20,0.06);color:var(--burgundy-soft);">Élévation</span>
-              <span class="inline-block px-3 py-1 text-[9px] tracking-wider uppercase" style="background:rgba(110,11,20,0.06);color:var(--burgundy-soft);">Purification</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="mb-20">
-          <p class="font-montserrat text-xs tracking-[3px] uppercase text-center mb-10 reveal" style="color:var(--burgundy-soft);">Nos Collections</p>
-          <div class="grid md:grid-cols-3 gap-6">
-            <div class="collection-card p-8 text-center border" style="border-color:rgba(110,11,20,0.10);background:var(--cream);">
-              <div class="w-20 h-20 mx-auto mb-5 rounded-full overflow-hidden border-2" style="border-color:var(--gold);"><img src="https://www.image2url.com/r2/default/images/1786459457358-1dbb6d45-c10b-4fad-9430-d0d0b8828760.jpg" alt="Collection Lunaire" class="w-full h-full object-cover" onload="this.classList.add('loaded')" loading="lazy"></div>
-              <h4 class="font-playfair text-xl font-bold mb-2" style="color:var(--burgundy);">Collection Lunaire</h4>
-              <p class="font-montserrat text-xs font-light leading-relaxed" style="opacity:0.6;">Sels, plantes et encens pour chaque phase de la lune.</p>
-              <button onclick="showToast('Collection Lunaire — disponible sur demande.')" class="mt-4 font-montserrat text-[10px] tracking-[2px] uppercase px-6 py-2 border transition-colors duration-300" style="border-color:var(--burgundy);color:var(--burgundy);background:transparent;cursor:pointer;">Découvrir</button>
-            </div>
-            <div class="collection-card p-8 text-center border" style="border-color:rgba(110,11,20,0.10);background:var(--cream);">
-              <div class="w-20 h-20 mx-auto mb-5 rounded-full overflow-hidden border-2" style="border-color:var(--gold);"><img src="https://www.image2url.com/r2/default/images/1786460751758-5dbd4967-7cad-4b06-be7c-3572389021a0.jpg" alt="Collection Sacrée" class="w-full h-full object-cover" onload="this.classList.add('loaded')" loading="lazy"></div>
-              <h4 class="font-playfair text-xl font-bold mb-2" style="color:var(--burgundy);">Collection Sacrée</h4>
-              <p class="font-montserrat text-xs font-light leading-relaxed" style="opacity:0.6;">Pour les rituels profonds, les cérémonies et les passages.</p>
-              <button onclick="showToast('Collection Sacrée — disponible sur demande.')" class="mt-4 font-montserrat text-[10px] tracking-[2px] uppercase px-6 py-2 border transition-colors duration-300" style="border-color:var(--burgundy);color:var(--burgundy);background:transparent;cursor:pointer;">Découvrir</button>
-            </div>
-            <div class="collection-card p-8 text-center border" style="border-color:rgba(110,11,20,0.10);background:var(--cream);">
-              <div class="w-20 h-20 mx-auto mb-5 rounded-full overflow-hidden border-2" style="border-color:var(--gold);"><img src="https://www.image2url.com/r2/default/images/1786461053402-99eb9be0-f080-4a9d-8d57-9aebc04f24f8.jpg" alt="Collection Sauvage" class="w-full h-full object-cover" onload="this.classList.add('loaded')" loading="lazy"></div>
-              <h4 class="font-playfair text-xl font-bold mb-2" style="color:var(--burgundy);">Collection Sauvage</h4>
-              <p class="font-montserrat text-xs font-light leading-relaxed" style="opacity:0.6;">Plantes et encens cueillis dans la nature, pour une connexion brute.</p>
-              <button onclick="showToast('Collection Sauvage — disponible sur demande.')" class="mt-4 font-montserrat text-[10px] tracking-[2px] uppercase px-6 py-2 border transition-colors duration-300" style="border-color:var(--burgundy);color:var(--burgundy);background:transparent;cursor:pointer;">Découvrir</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="mb-20">
-          <p class="font-montserrat text-xs tracking-[3px] uppercase text-center mb-10 reveal" style="color:var(--burgundy-soft);">Les Box Rituelles ORR</p>
-          <div class="grid md:grid-cols-3 gap-6">
-            <div class="box-card p-8 border text-center" style="border-color:rgba(110,11,20,0.10);background:var(--cream);">
-              <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full" style="background:rgba(212,175,127,0.12);"><i class="fa-regular fa-moon text-2xl" style="color:var(--gold);"></i></div>
-              <h4 class="font-playfair text-lg font-bold mb-2" style="color:var(--burgundy);">Box Nuit Sacrée</h4>
-              <p class="font-montserrat text-xs font-light leading-relaxed mb-4" style="opacity:0.6;">Sel de l'Atlas, fleurs de camomille, encens de myrrhe, bougie de soja.</p>
-              <span class="inline-block text-[10px] tracking-wider uppercase px-4 py-1.5" style="background:var(--burgundy);color:var(--nude);">Rituel du Soir</span>
-            </div>
-            <div class="box-card p-8 border text-center" style="border-color:rgba(110,11,20,0.10);background:var(--cream);">
-              <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full" style="background:rgba(212,175,127,0.12);"><i class="fa-regular fa-sun text-2xl" style="color:var(--gold);"></i></div>
-              <h4 class="font-playfair text-lg font-bold mb-2" style="color:var(--burgundy);">Box Éveil Vital</h4>
-              <p class="font-montserrat text-xs font-light leading-relaxed mb-4" style="opacity:0.6;">Sel de mer, romarin, encens d'oliban, huile essentielle de menthe.</p>
-              <span class="inline-block text-[10px] tracking-wider uppercase px-4 py-1.5" style="background:var(--burgundy);color:var(--nude);">Rituel Matinal</span>
-            </div>
-            <div class="box-card p-8 border text-center" style="border-color:rgba(110,11,20,0.10);background:var(--cream);">
-              <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full" style="background:rgba(212,175,127,0.12);"><i class="fa-regular fa-star text-2xl" style="color:var(--gold);"></i></div>
-              <h4 class="font-playfair text-lg font-bold mb-2" style="color:var(--burgundy);">Box Ancrage Lunaire</h4>
-              <p class="font-montserrat text-xs font-light leading-relaxed mb-4" style="opacity:0.6;">Sel du bassin, sauge blanche, encens de copal, pierre de lune.</p>
-              <span class="inline-block text-[10px] tracking-wider uppercase px-4 py-1.5" style="background:var(--burgundy);color:var(--nude);">Rituel Complet</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="text-center reveal">
-          <p class="font-montserrat text-xs font-light mb-6" style="opacity:0.5;">Disponibles sur demande, lors des retraites ou en main propre.</p>
-          <button onclick="showToast('Demande de création enregistrée. Nous vous contacterons.')" class="inline-block border font-montserrat text-xs tracking-[2px] uppercase px-10 py-4 hover:bg-orr-dark hover:text-orr-nude transition-all duration-500 bg-transparent cursor-pointer" style="border-color:var(--dark);">Commander</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== QUESTIONNAIRE ===== -->
-    <section class="py-24 md:py-36 px-6" style="background:var(--cream);" id="questionnaire">
-      <div class="max-w-2xl mx-auto">
-        <div class="text-center mb-16">
-          <p class="font-montserrat text-xs tracking-[4px] uppercase mb-4 reveal" style="color:var(--burgundy-soft);">Decouverte Personnalisee</p>
-          <h2 class="font-playfair text-3xl md:text-4xl font-bold reveal reveal-delay-1">Quel rituel vous appelle ?</h2>
-          <p class="font-montserrat font-light text-sm mt-4 reveal reveal-delay-2" style="opacity:0.55;">Repondez en toute liberte.</p>
-        </div>
-        <div id="quizContainer" class="reveal reveal-delay-2">
-          <div class="w-full h-px mb-10" style="background:rgba(110,11,20,0.12);"><div class="progress-bar" id="quizProgress" style="width:20%;"></div></div>
-          
-          <div class="quiz-step" data-step="1">
-            <p class="font-playfair text-xl font-bold mb-2">Comment vous sentez-vous ?</p>
-            <p class="font-montserrat text-xs mb-8" style="color:var(--burgundy-soft);">Ecueillez ce qui resonnne le plus.</p>
-            <div class="space-y-3">
-              <button class="q-option" data-value="deconnectee">Deconnectee de mon corps</button>
-              <button class="q-option" data-value="tensionnee">Tensionnee dans le ventre et le bas du dos</button>
-              <button class="q-option" data-value="perdue">Perdue, en quete de sens</button>
-              <button class="q-option" data-value="curieuse">Curieuse, prete a explorer</button>
-            </div>
-          </div>
-          
-          <div class="quiz-step hidden" data-step="2">
-            <p class="font-playfair text-xl font-bold mb-2">Quelle zone appelle votre attention ?</p>
-            <p class="font-montserrat text-xs mb-8" style="color:var(--burgundy-soft);">Fermez les yeux une seconde.</p>
-            <div class="space-y-3">
-              <button class="q-option" data-value="ventre">Le ventre, le bas-ventre</button>
-              <button class="q-option" data-value="hanches">Les hanches, le bassin</button>
-              <button class="q-option" data-value="poitrine">La poitrine, la gorge</button>
-              <button class="q-option" data-value="tout">Tout le corps</button>
-            </div>
-          </div>
-          
-          <div class="quiz-step hidden" data-step="3">
-            <p class="font-playfair text-xl font-bold mb-2">Quel geste vous fait envie ?</p>
-            <p class="font-montserrat text-xs mb-8" style="color:var(--burgundy-soft);">Imaginez que personne ne vous regarde.</p>
-            <div class="space-y-3">
-              <button class="q-option" data-value="repos">M'allonger et ne rien faire</button>
-              <button class="q-option" data-value="mouvement">Bouger, danser</button>
-              <button class="q-option" data-value="toucher">Me toucher avec douceur</button>
-              <button class="q-option" data-value="ecrire">Ecrire, crier, liberer</button>
-            </div>
-          </div>
-          
-          <div class="quiz-step hidden" data-step="4">
-            <p class="font-playfair text-xl font-bold mb-2">Quel moment de la journée ?</p>
-            <p class="font-montserrat text-xs mb-8" style="color:var(--burgundy-soft);">Quand vous sentez-vous le plus vous-même ?</p>
-            <div class="space-y-3">
-              <button class="q-option" data-value="aube">L'aube</button>
-              <button class="q-option" data-value="midi">Le milieu du jour</button>
-              <button class="q-option" data-value="crepuscule">Le crepuscule</button>
-              <button class="q-option" data-value="nuit">La nuit</button>
-            </div>
-          </div>
-          
-          <div class="quiz-step hidden" data-step="5">
-            <p class="font-playfair text-xl font-bold mb-2">Quelle parole avez-vous besoin d'entendre ?</p>
-            <p class="font-montserrat text-xs mb-8" style="color:var(--burgundy-soft);">Celle que vous n'osez pas vous dire.</p>
-            <div class="space-y-3">
-              <button class="q-option" data-value="douceur">"Tu as le droit d'etre douce avec toi-meme."</button>
-              <button class="q-option" data-value="puissante">"Tu es plus puissante que tu ne le crois."</button>
-              <button class="q-option" data-value="libre">"Tu es libre de choisir qui tu es."</button>
-              <button class="q-option" data-value="accueil">"Tout ce que tu ressens est legitime."</button>
-            </div>
-          </div>
-          
-          <div class="quiz-step hidden" data-step="result">
-            <div class="text-center mb-8">
-              <div class="w-12 h-12 border flex items-center justify-center mx-auto mb-6" style="border-color:var(--burgundy);"><i class="fa-regular fa-star" style="color:var(--burgundy);"></i></div>
-              <p class="font-montserrat text-xs tracking-[3px] uppercase mb-3" style="color:var(--burgundy-soft);">Votre rituel</p>
-              <h3 class="font-playfair text-2xl md:text-3xl font-bold" id="rituelResultTitle"></h3>
-            </div>
-            <p class="font-montserrat font-light text-sm leading-[1.9] mb-8 text-center" style="opacity:0.7;" id="rituelResultDesc"></p>
-            <div class="p-8 border mb-8" style="border-color:var(--burgundy);background:rgba(110,11,20,0.03);">
-              <p class="font-playfair italic text-base text-center" style="color:var(--burgundy);" id="rituelResultMantra"></p>
-            </div>
-            <div class="text-center">
-              <button onclick="resetQuiz()" class="font-montserrat text-xs tracking-[2px] uppercase hover:text-orr-burgundy transition-colors bg-transparent border-none cursor-pointer" style="color:var(--burgundy-soft);">Recommencer</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== LA FONDATRICE ===== -->
-    <!-- <section class="py-24 md:py-36 px-6" id="fondatrice" style="background:var(--cream);">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-20">
-          <p class="font-montserrat text-xs tracking-[4px] uppercase mb-4 reveal" style="color:var(--burgundy-soft);">La Fondatrice</p>
-          <h2 class="font-playfair text-3xl md:text-4xl font-bold reveal reveal-delay-1">L'âme d'ORR,<br><em class="font-normal not-italic" style="color:var(--burgundy);">entre mémoire et transmission</em></h2>
-          <div class="section-divider mt-8 reveal reveal-delay-2"></div>
-        </div>
-        <div class="max-w-3xl mx-auto text-center mb-16 reveal reveal-delay-2">
-          <p class="font-playfair italic text-xl md:text-2xl leading-relaxed" style="color:var(--burgundy);">"Il doit y avoir quelque chose d'étrangement sacré dans le sel, puisqu'il est dans nos larmes et dans la mer."</p>
-          <p class="font-montserrat text-xs tracking-[2px] uppercase mt-3" style="color:var(--burgundy-soft);">— Khalil Gibran</p>
-          <div class="w-10 h-px mx-auto my-8" style="background:var(--gold);"></div>
-          <p class="font-montserrat font-light text-sm leading-[2]" style="opacity:0.7;">Peut-être que le sel est l'une des plus belles empreintes du divin sur la Terre. Présent dans nos larmes, dans la mer et dans notre corps, il nous rappelle que les plus grands mystères se cachent souvent dans les choses les plus discrètes.</p>
-        </div>
-        <div class="grid md:grid-cols-3 gap-8 mb-20">
-          <div class="fondatrice-card p-8 reveal reveal-delay-1">
-            <div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:rgba(110,11,20,0.04);"><i class="fa-regular fa-fire text-xl" style="color:var(--burgundy-soft);"></i></div><h3 class="font-playfair text-2xl font-bold" style="color:var(--burgundy);">L'Encens</h3></div>
-            <div class="citation-block mb-4"><p class="font-playfair italic text-base leading-relaxed" style="color:var(--burgundy-soft);">"L'encens ne chasse pas seulement les odeurs. Il prépare le cœur à la présence."</p></div>
-            <p class="font-montserrat text-xs font-light leading-relaxed" style="opacity:0.65;">Depuis la nuit des temps, les femmes allument l'encens pour marquer un passage : une naissance, une prière, un deuil, une fête, un nouveau départ. Sa fumée disparaît, mais ce qu'elle éveille demeure.</p>
-          </div>
-          <div class="fondatrice-card p-8 reveal reveal-delay-2">
-            <div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:rgba(110,11,20,0.04);"><i class="fa-regular fa-leaf text-xl" style="color:var(--burgundy-soft);"></i></div><h3 class="font-playfair text-2xl font-bold" style="color:var(--burgundy);">Les Infusions</h3></div>
-            <div class="citation-block mb-4"><p class="font-playfair italic text-base leading-relaxed" style="color:var(--burgundy-soft);">"Dieu n'a fait descendre aucune maladie sans avoir fait descendre son remède."</p></div>
-            <p class="font-montserrat text-xs font-light leading-relaxed" style="opacity:0.65;">Les plantes font bien plus que ce que l'on croit. Depuis la nuit des temps, elles nourrissent, soignent et accompagnent les femmes et les hommes. Peut-être qu'elles sont l'une des plus belles façons dont le vivant nous rappelle que le divin pousse aussi en silence.</p>
-          </div>
-          <div class="fondatrice-card p-8 reveal reveal-delay-3">
-            <div class="flex items-center gap-4 mb-6"><div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:rgba(110,11,20,0.04);"><i class="fa-regular fa-gem text-xl" style="color:var(--burgundy-soft);"></i></div><h3 class="font-playfair text-2xl font-bold" style="color:var(--burgundy);">Le Sel</h3></div>
-            <div class="citation-block mb-4"><p class="font-playfair italic text-base leading-relaxed" style="color:var(--burgundy-soft);">"Le sel est le souvenir de la mer dans notre corps."</p></div>
-            <p class="font-montserrat text-xs font-light leading-relaxed" style="opacity:0.65;">Le sel est l'empreinte la plus ancienne de la Terre sur notre peau. Il est dans nos larmes, dans la mer, dans le souffle de la vie. Il purifie, il conserve, il guérit. Chaque grain de sel porte une mémoire — celle de l'océan, celle du corps, celle du sacré.</p>
-          </div>
-        </div>
-        <div class="grid md:grid-cols-2 gap-16 items-center">
-          <div class="reveal reveal-delay-1"><div class="aspect-[4/5] overflow-hidden max-w-md mx-auto md:mx-0"><img src="https://www.image2url.com/r2/default/images/1786627476346-877b5b5d-befc-4cd0-b9c0-5556e685e46f.jpeg" alt="Portrait de la fondatrice ORR" class="w-full h-full object-cover" onload="this.classList.add('loaded')" loading="lazy"></div></div>
-          <div class="reveal reveal-delay-2">
-            <p class="font-montserrat text-xs tracking-[3px] uppercase mb-4" style="color:var(--burgundy);">Sa Vision</p>
-            <h3 class="font-playfair text-2xl md:text-3xl font-bold mb-6" style="color:var(--burgundy-deep);">"Redonner au corps sa place sacrée"</h3>
-            <p class="font-montserrat font-light text-sm leading-[2] mb-6" style="opacity:0.7;">Asmaa, fondatrice d'ORR, a passé des années à explorer les traditions de soin du corps et de l'âme. Du Maroc à l'Europe, elle a collecté des savoirs, des gestes et des paroles.</p>
-            <p class="font-montserrat font-light text-sm leading-[2] mb-6" style="opacity:0.7;">ORR est née de cette quête : un espace où les rituels ancestraux deviennent des outils de reconnexion, où le sel, l'encens et les plantes sont des portes vers l'intime.</p>
-            <div class="flex items-center gap-4 mt-8"><div class="w-10 h-px" style="background:var(--gold);"></div><p class="font-playfair italic text-sm" style="color:var(--burgundy-soft);">"Chaque création ORR porte une intention de guérison."</p></div>
-            <button onclick="showToast('En savoir plus sur la fondatrice — bientôt disponible.')" class="mt-8 font-montserrat text-[10px] tracking-[2px] uppercase px-8 py-3 border transition-colors duration-300" style="border-color:var(--burgundy);color:var(--burgundy);background:transparent;cursor:pointer;">Découvrir son histoire</button>
-          </div>
-        </div>
-        <div class="mt-20 text-center reveal reveal-delay-3">
-          <div class="max-w-3xl mx-auto p-10 md:p-14 border" style="border-color:rgba(212,175,127,0.2); background:rgba(250,249,246,0.5);">
-            <p class="font-playfair italic text-xl md:text-2xl leading-relaxed" style="color:var(--burgundy-soft);">"Le sel, l'encens, les plantes — ce ne sont pas des objets. Ce sont des ponts entre le visible et l'invisible, entre toi et ce qui te dépasse."</p>
-            <div class="w-10 h-px mx-auto my-6" style="background:var(--gold);"></div>
-            <p class="font-montserrat text-xs font-light" style="opacity:0.5;">— La fondatrice d'ORR</p>
-          </div>
-        </div>
-      </div>
-    </section> -->
-    <!-- ===== LA FONDATRICE ===== -->
-<section class="relative py-24 md:py-36 px-6 overflow-hidden" id="fondatrice" style="background:linear-gradient(135deg, #4A0810 0%, #6E0B14 50%, #8B2030 100%);">
-  <!-- Effet de texture luxueuse -->
-  <div class="absolute inset-0" aria-hidden="true" style="background:url('https://i.pinimg.com/736x/6b/3e/90/6b3e90ee9b044ba33ccfbf11cb8328a6.jpg') center/cover no-repeat;opacity:0.08;filter:saturate(0.3) sepia(0.2);"></div>
-  
-  <!-- Ornements dorés en arrière-plan -->
-  <div class="absolute top-10 left-10 w-32 h-32 border" style="border-color:rgba(212,175,127,0.1);" aria-hidden="true"></div>
-  <div class="absolute bottom-10 right-10 w-32 h-32 border" style="border-color:rgba(212,175,127,0.1);" aria-hidden="true"></div>
-  <div class="absolute top-1/2 left-0 w-px h-64" style="background:linear-gradient(to bottom,transparent,rgba(212,175,127,0.2),transparent);" aria-hidden="true"></div>
-  <div class="absolute top-1/2 right-0 w-px h-64" style="background:linear-gradient(to bottom,transparent,rgba(212,175,127,0.2),transparent);" aria-hidden="true"></div>
-  
-  <div class="relative z-10 max-w-6xl mx-auto">
+    <!-- ===== LE MANIFESTE — VERSION ALLÉGÉE ===== -->
+<section class="py-24 md:py-36 px-6" id="manifeste" style="background:var(--nude-light);">
+  <div class="max-w-5xl mx-auto">
     <div class="text-center mb-20">
-      <p class="font-montserrat text-xs tracking-[4px] uppercase mb-4 reveal" style="color:var(--gold);">La Fondatrice</p>
-      <h2 class="font-playfair text-3xl md:text-4xl font-bold reveal reveal-delay-1" style="color:var(--nude);">L'âme d'ORR,<br><em class="font-normal not-italic" style="color:var(--gold);">entre mémoire et transmission</em></h2>
-      <div class="section-divider mt-8 reveal reveal-delay-2" style="background:var(--gold);"></div>
+      <p class="font-montserrat text-xs tracking-[4px] uppercase text-orr-burgundy-soft mb-4 reveal" style="font-weight:600;">Le Manifeste</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-bold text-orr-dark reveal reveal-delay-1">
+        Habiter le bas du corps,<br>
+        <em class="font-normal not-italic" style="color:var(--burgundy);">là où vibre la vie</em>
+      </h2>
+      <div class="section-divider mt-8 reveal reveal-delay-2"></div>
     </div>
-    
-    <div class="max-w-3xl mx-auto text-center mb-16 reveal reveal-delay-2">
-      <p class="font-playfair italic text-xl md:text-2xl leading-relaxed" style="color:var(--gold-light);">"Il doit y avoir quelque chose d'étrangement sacré dans le sel, puisqu'il est dans nos larmes et dans la mer."</p>
-      <p class="font-montserrat text-xs tracking-[2px] uppercase mt-3" style="color:rgba(212,175,127,0.6);">— Khalil Gibran</p>
-      <div class="w-10 h-px mx-auto my-8" style="background:var(--gold);"></div>
-      <p class="font-montserrat font-light text-sm leading-[2]" style="color:rgba(237,224,212,0.6);">Peut-être que le sel est l'une des plus belles empreintes du divin sur la Terre. Présent dans nos larmes, dans la mer et dans notre corps, il nous rappelle que les plus grands mystères se cachent souvent dans les choses les plus discrètes.</p>
-    </div>
-    
-    <div class="grid md:grid-cols-3 gap-8 mb-20">
-      <div class="fondatrice-card p-8 reveal reveal-delay-1" style="background:rgba(74,8,16,0.3);border:1px solid rgba(212,175,127,0.15);backdrop-filter:blur(10px);">
-        <div class="flex items-center gap-4 mb-6">
-          <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:rgba(212,175,127,0.1);border:1px solid rgba(212,175,127,0.2);">
-            <i class="fa-regular fa-fire text-xl" style="color:var(--gold);"></i>
-          </div>
-          <h3 class="font-playfair text-2xl font-bold" style="color:var(--gold);">L'Encens</h3>
-        </div>
-        <div class="citation-block mb-4">
-          <p class="font-playfair italic text-base leading-relaxed" style="color:rgba(212,175,127,0.7);">"L'encens ne chasse pas seulement les odeurs. Il prépare le cœur à la présence."</p>
-        </div>
-        <p class="font-montserrat text-xs font-light leading-relaxed" style="color:rgba(237,224,212,0.55);">Depuis la nuit des temps, les femmes allument l'encens pour marquer un passage : une naissance, une prière, un deuil, une fête, un nouveau départ. Sa fumée disparaît, mais ce qu'elle éveille demeure.</p>
+
+    <div class="grid md:grid-cols-2 gap-16 items-start">
+      <div class="space-y-8 text-lg leading-relaxed reveal reveal-delay-1" style="color:var(--dark); font-family:'Playfair Display', serif; font-style: italic;">
+        <p>Tu as appris à chercher les réponses partout.</p>
+        <p>Et si les réponses les plus précieuses se trouvaient déjà là où tout commence ?</p>
+        <div style="width:40px;height:1px;background:var(--burgundy-soft);margin:8px 0;"></div>
+        <p class="text-base" style="color:var(--burgundy);">Ton corps porte une mémoire plus ancienne que les mots.</p>
+        <p class="text-base" style="color:var(--burgundy);">Il connaît le rythme, les saisons, les gestes et les silences.</p>
       </div>
-      
-      <div class="fondatrice-card p-8 reveal reveal-delay-2" style="background:rgba(74,8,16,0.3);border:1px solid rgba(212,175,127,0.15);backdrop-filter:blur(10px);">
-        <div class="flex items-center gap-4 mb-6">
-          <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:rgba(212,175,127,0.1);border:1px solid rgba(212,175,127,0.2);">
-            <i class="fa-regular fa-leaf text-xl" style="color:var(--gold);"></i>
-          </div>
-          <h3 class="font-playfair text-2xl font-bold" style="color:var(--gold);">Les Infusions</h3>
-        </div>
-        <div class="citation-block mb-4">
-          <p class="font-playfair italic text-base leading-relaxed" style="color:rgba(212,175,127,0.7);">"Dieu n'a fait descendre aucune maladie sans avoir fait descendre son remède."</p>
-        </div>
-        <p class="font-montserrat text-xs font-light leading-relaxed" style="color:rgba(237,224,212,0.55);">Les plantes font bien plus que ce que l'on croit. Depuis la nuit des temps, elles nourrissent, soignent et accompagnent les femmes et les hommes. Peut-être qu'elles sont l'une des plus belles façons dont le vivant nous rappelle que le divin pousse aussi en silence.</p>
-      </div>
-      
-      <div class="fondatrice-card p-8 reveal reveal-delay-3" style="background:rgba(74,8,16,0.3);border:1px solid rgba(212,175,127,0.15);backdrop-filter:blur(10px);">
-        <div class="flex items-center gap-4 mb-6">
-          <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:rgba(212,175,127,0.1);border:1px solid rgba(212,175,127,0.2);">
-            <i class="fa-regular fa-gem text-xl" style="color:var(--gold);"></i>
-          </div>
-          <h3 class="font-playfair text-2xl font-bold" style="color:var(--gold);">Le Sel</h3>
-        </div>
-        <div class="citation-block mb-4">
-          <p class="font-playfair italic text-base leading-relaxed" style="color:rgba(212,175,127,0.7);">"Le sel est le souvenir de la mer dans notre corps."</p>
-        </div>
-        <p class="font-montserrat text-xs font-light leading-relaxed" style="color:rgba(237,224,212,0.55);">Le sel est l'empreinte la plus ancienne de la Terre sur notre peau. Il est dans nos larmes, dans la mer, dans le souffle de la vie. Il purifie, il conserve, il guérit. Chaque grain de sel porte une mémoire — celle de l'océan, celle du corps, celle du sacré.</p>
+
+      <div class="font-montserrat font-light text-sm space-y-6 leading-[2] reveal reveal-delay-2" style="color:var(--dark); opacity:0.75;">
+        <p><span style="font-weight:600;color:var(--burgundy);">ORR est née pour t'aider à retrouver ce langage oublié.</span></p>
+        <p>Nous croyons que les rituels ne sont pas des traditions du passé. Ce sont des chemins vers toi.</p>
+        <div style="width:40px;height:1px;background:var(--burgundy-soft);margin:12px 0;"></div>
+        <p>Chaque geste est une invitation à revenir vers toi.</p>
       </div>
     </div>
-    
-    <div class="grid md:grid-cols-2 gap-16 items-center">
-      <div class="reveal reveal-delay-1">
-        <div class="aspect-[4/5] overflow-hidden max-w-md mx-auto md:mx-0" style="border:1px solid rgba(212,175,127,0.2);box-shadow:0 0 40px rgba(212,175,127,0.1);">
-          <img src="https://www.image2url.com/r2/default/images/1786627476346-877b5b5d-befc-4cd0-b9c0-5556e685e46f.jpeg" alt="Portrait de la fondatrice ORR" class="w-full h-full object-cover" onload="this.classList.add('loaded')" loading="lazy">
-        </div>
-      </div>
-      <div class="reveal reveal-delay-2">
-        <p class="font-montserrat text-xs tracking-[3px] uppercase mb-4" style="color:var(--gold);">Sa Vision</p>
-        <h3 class="font-playfair text-2xl md:text-3xl font-bold mb-6" style="color:var(--nude);">"Redonner au corps sa place sacrée"</h3>
-        <p class="font-montserrat font-light text-sm leading-[2] mb-6" style="color:rgba(237,224,212,0.6);">Asmaa, fondatrice d'ORR, a passé des années à explorer les traditions de soin du corps et de l'âme. Du Maroc à l'Europe, elle a collecté des savoirs, des gestes et des paroles.</p>
-        <p class="font-montserrat font-light text-sm leading-[2] mb-6" style="color:rgba(237,224,212,0.6);">ORR est née de cette quête : un espace où les rituels ancestraux deviennent des outils de reconnexion, où le sel, l'encens et les plantes sont des portes vers l'intime.</p>
-        <div class="flex items-center gap-4 mt-8">
-          <div class="w-10 h-px" style="background:var(--gold);"></div>
-          <p class="font-playfair italic text-sm" style="color:var(--gold-light);">"Chaque création ORR porte une intention de guérison."</p>
-        </div>
-        <button onclick="showToast('En savoir plus sur la fondatrice — bientôt disponible.')" class="mt-8 font-montserrat text-[10px] tracking-[2px] uppercase px-8 py-3 border transition-all duration-300 hover:bg-gold hover:text-burgundy-deep cursor-pointer" style="border-color:var(--gold);color:var(--gold);background:transparent;">Découvrir son histoire</button>
-      </div>
-    </div>
-    
+
     <div class="mt-20 text-center reveal reveal-delay-3">
-      <div class="max-w-3xl mx-auto p-10 md:p-14" style="border:1px solid rgba(212,175,127,0.2); background:rgba(74,8,16,0.3);backdrop-filter:blur(10px);">
-        <p class="font-playfair italic text-xl md:text-2xl leading-relaxed" style="color:var(--gold-light);">"Le sel, l'encens, les plantes — ce ne sont pas des objets. Ce sont des ponts entre le visible et l'invisible, entre toi et ce qui te dépasse."</p>
-        <div class="w-10 h-px mx-auto my-6" style="background:var(--gold);"></div>
-        <p class="font-montserrat text-xs font-light" style="color:rgba(212,175,127,0.5);">— La fondatrice d'ORR</p>
+      <div class="inline-block p-10 md:p-14 border" style="border-color:rgba(110,11,20,0.15); background:rgba(110,11,20,0.02);">
+        <p class="font-playfair text-xl md:text-2xl font-bold mb-4" style="color:var(--burgundy);">ORR t'invite à te souvenir.</p>
+        <p class="font-montserrat text-xs tracking-[3px] uppercase mb-6" style="color:var(--burgundy-soft);">À te reconnecter à ton corps. À honorer ton histoire.</p>
+        <p class="font-playfair italic text-2xl md:text-3xl" style="color:var(--dark);">À retrouver la femme que tu as toujours été.</p>
+        <div style="width:40px;height:1px;background:var(--burgundy-soft);margin:20px auto;"></div>
+        <p class="font-playfair text-lg md:text-xl" style="color:var(--burgundy);">
+          <em>"Habiter le bas du corps,<br>là où vibre la vie."</em>
+        </p>
       </div>
     </div>
   </div>
 </section>
 
+    <!-- ===== LES ORIGINES — VERSION ALLÉGÉE ===== -->
+<section class="relative py-24 md:py-36 overflow-hidden" id="origine" style="background:var(--burgundy);">
+  <div class="absolute inset-0" aria-hidden="true" style="background:url('https://i.pinimg.com/736x/f4/5e/61/f45e617f0262260daf24766ee5c479bd.jpg') center/cover no-repeat;opacity:0.1;filter:saturate(0.3) sepia(0.2);"></div>
+  <div class="relative z-10 max-w-6xl mx-auto px-6">
+    <div class="text-center mb-20">
+      <p class="font-montserrat text-xs tracking-[4px] uppercase mb-4 reveal" style="color:var(--gold); font-weight:600;">Les Origines</p>
+      <h2 class="font-playfair text-3xl md:text-5xl font-bold leading-tight reveal reveal-delay-1" style="color:var(--nude);">Revenir à l'essentiel,<br><em class="font-normal not-italic" style="color:var(--gold);">là où tout commence</em></h2>
+      <div class="section-divider mt-8 reveal reveal-delay-2" style="background:var(--gold);"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-16 items-start">
+      <div class="space-y-6 reveal reveal-delay-1">
+        <p class="font-montserrat font-light text-sm leading-[2]" style="color:rgba(237,224,212,0.8);">Il fut un temps où prendre soin de toi faisait partie de la vie.</p>
+        <p class="font-montserrat font-light text-sm leading-[2]" style="color:rgba(237,224,212,0.7);">Les femmes se transmettaient des gestes, des recettes et des rituels. Elles savaient que le corps avait besoin de temps, de repos et d'attention.</p>
+        <div class="w-10 h-px my-8" style="background:var(--gold);"></div>
+        <p class="font-playfair italic text-lg" style="color:var(--gold);">Puis le monde a accéléré.</p>
+      </div>
+
+      <div class="space-y-6 reveal reveal-delay-2">
+        <p class="font-montserrat font-light text-sm leading-[2]" style="color:rgba(237,224,212,0.7);">Tu as oublié de ralentir. D'écouter. De te choisir.</p>
+        <div class="w-10 h-px my-8" style="background:var(--gold);"></div>
+        <p class="font-playfair text-lg font-bold" style="color:var(--nude);">ORR est née de ce constat.<br><span style="color:var(--gold);">Pour te ramener vers l'essentiel.</span></p>
+      </div>
+    </div>
+
+    <div class="mt-20 max-w-3xl mx-auto text-center reveal reveal-delay-3">
+      <div class="p-10 md:p-14 border" style="border-color:rgba(212,175,127,0.2); background:rgba(0,0,0,0.1); backdrop-filter: blur(4px);">
+        <p class="font-montserrat font-light text-sm leading-[2] mb-6" style="color:rgba(237,224,212,0.75);">Nous croyons que ton corps possède une mémoire et un rythme qui méritent d'être écoutés.</p>
+        <p class="font-montserrat font-light text-sm leading-[2]" style="color:rgba(237,224,212,0.75);">C'est pourquoi ORR s'inspire des savoirs ancestraux pour créer des rituels contemporains.</p>
+      </div>
+    </div>
+
+    <div class="mt-16 text-center reveal reveal-delay-4">
+      <p class="font-playfair italic text-xl md:text-2xl leading-relaxed" style="color:var(--nude);">Parce qu'il arrive qu'en revenant à l'origine,<br>tu retrouves une part de toi que tu croyais perdue.</p>
+      <div class="w-10 h-px mx-auto mt-8 mb-6" style="background:var(--gold);"></div>
+      <p class="font-playfair text-2xl md:text-3xl font-bold" style="color:var(--gold);">Et que tout commence à nouveau.</p>
+    </div>
+  </div>
+</section>
+
+    <!-- ===== CRÉATIONS — VERSION SANS LES 3 CATÉGORIES ===== -->
+<section class="py-24 md:py-36 px-6" id="creations" style="background:var(--nude);">
+  <div class="max-w-6xl mx-auto">
+
+    <!-- ===== TITRE ===== -->
+    <div class="text-center mb-20">
+      <p class="font-montserrat text-xs tracking-[4px] uppercase mb-4 reveal" style="color:var(--burgundy-soft); font-weight:600">Les Créations ORR</p>
+      <h2 class="font-playfair text-3xl md:text-4xl font-bold text-orr-dark reveal reveal-delay-1">Une exposition de nos trésors sacrés,<br><em class="font-normal not-italic" style="color:var(--burgundy);">pour un soin rituel authentique</em></h2>
+      <div class="section-divider mt-8 reveal reveal-delay-2"></div>
+    </div>
+
+    <!-- ===== NOS COLLECTIONS — PARTIE PRINCIPALE ===== -->
+    <div class="mb-24">
+      <p class="font-montserrat text-xs tracking-[3px] uppercase text-center mb-12 reveal" style="color:var(--burgundy-soft);">Nos Collections</p>
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Collection Lunaire -->
+        <div class="text-center border p-8" style="border-color:rgba(110,11,20,0.10);background:var(--cream);">
+          <div class="w-20 h-20 mx-auto mb-5 rounded-full overflow-hidden border-2" style="border-color:var(--gold);">
+            <img src="https://www.image2url.com/r2/default/images/1786459457358-1dbb6d45-c10b-4fad-9430-d0d0b8828760.jpg" alt="Collection Lunaire" class="w-full h-full object-cover" onload="this.classList.add('loaded')" loading="lazy">
+          </div>
+          <h4 class="font-playfair text-xl font-bold mb-2" style="color:var(--burgundy);">Collection Lunaire</h4>
+          <p class="font-montserrat text-xs font-light leading-relaxed mb-5" style="opacity:0.6;">Sels, plantes et encens pour chaque phase de la lune.</p>
+          <button onclick="showToast('Collection Lunaire — disponible sur demande.')" class="font-montserrat text-[10px] tracking-[2px] uppercase px-6 py-2 border transition-colors duration-300" style="border-color:var(--burgundy);color:var(--burgundy);background:transparent;cursor:pointer;">Découvrir</button>
+        </div>
+
+        <!-- Collection Sacrée -->
+        <div class="text-center border p-8" style="border-color:rgba(110,11,20,0.10);background:var(--cream);">
+          <div class="w-20 h-20 mx-auto mb-5 rounded-full overflow-hidden border-2" style="border-color:var(--gold);">
+            <img src="https://www.image2url.com/r2/default/images/1786460751758-5dbd4967-7cad-4b06-be7c-3572389021a0.jpg" alt="Collection Sacrée" class="w-full h-full object-cover" onload="this.classList.add('loaded')" loading="lazy">
+          </div>
+          <h4 class="font-playfair text-xl font-bold mb-2" style="color:var(--burgundy);">Collection Sacrée</h4>
+          <p class="font-montserrat text-xs font-light leading-relaxed mb-5" style="opacity:0.6;">Pour les rituels profonds, les cérémonies et les passages.</p>
+          <button onclick="showToast('Collection Sacrée — disponible sur demande.')" class="font-montserrat text-[10px] tracking-[2px] uppercase px-6 py-2 border transition-colors duration-300" style="border-color:var(--burgundy);color:var(--burgundy);background:transparent;cursor:pointer;">Découvrir</button>
+        </div>
+
+        <!-- Collection Sauvage -->
+        <div class="text-center border p-8" style="border-color:rgba(110,11,20,0.10);background:var(--cream);">
+          <div class="w-20 h-20 mx-auto mb-5 rounded-full overflow-hidden border-2" style="border-color:var(--gold);">
+            <img src="https://www.image2url.com/r2/default/images/1786461053402-99eb9be0-f080-4a9d-8d57-9aebc04f24f8.jpg" alt="Collection Sauvage" class="w-full h-full object-cover" onload="this.classList.add('loaded')" loading="lazy">
+          </div>
+          <h4 class="font-playfair text-xl font-bold mb-2" style="color:var(--burgundy);">Collection Sauvage</h4>
+          <p class="font-montserrat text-xs font-light leading-relaxed mb-5" style="opacity:0.6;">Plantes et encens cueillis dans la nature, pour une connexion brute.</p>
+          <button onclick="showToast('Collection Sauvage — disponible sur demande.')" class="font-montserrat text-[10px] tracking-[2px] uppercase px-6 py-2 border transition-colors duration-300" style="border-color:var(--burgundy);color:var(--burgundy);background:transparent;cursor:pointer;">Découvrir</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== LES BOX RITUELLES — PARTIE SECONDAIRE ===== -->
+    <div class="mb-20">
+      <p class="font-montserrat text-xs tracking-[3px] uppercase text-center mb-10 reveal" style="color:var(--burgundy-soft);">Les Box Rituelles ORR</p>
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Box Nuit Sacrée -->
+        <div class="text-center border p-8" style="border-color:rgba(110,11,20,0.10);background:var(--cream);">
+          <div class="w-14 h-14 mx-auto mb-4 flex items-center justify-center rounded-full" style="background:rgba(212,175,127,0.12);">
+            <i class="fa-regular fa-moon text-xl" style="color:var(--gold);"></i>
+          </div>
+          <h4 class="font-playfair text-lg font-bold mb-2" style="color:var(--burgundy);">Box Nuit Sacrée</h4>
+          <p class="font-montserrat text-xs font-light leading-relaxed mb-4" style="opacity:0.6;">Sel de l'Atlas, fleurs de camomille, encens de myrrhe.</p>
+          <span class="inline-block text-[9px] tracking-wider uppercase px-4 py-1.5" style="background:var(--burgundy);color:var(--nude);">Rituel du Soir</span>
+        </div>
+
+        <!-- Box Éveil Vital -->
+        <div class="text-center border p-8" style="border-color:rgba(110,11,20,0.10);background:var(--cream);">
+          <div class="w-14 h-14 mx-auto mb-4 flex items-center justify-center rounded-full" style="background:rgba(212,175,127,0.12);">
+            <i class="fa-regular fa-sun text-xl" style="color:var(--gold);"></i>
+          </div>
+          <h4 class="font-playfair text-lg font-bold mb-2" style="color:var(--burgundy);">Box Éveil Vital</h4>
+          <p class="font-montserrat text-xs font-light leading-relaxed mb-4" style="opacity:0.6;">Sel de mer, romarin, encens d'oliban.</p>
+          <span class="inline-block text-[9px] tracking-wider uppercase px-4 py-1.5" style="background:var(--burgundy);color:var(--nude);">Rituel Matinal</span>
+        </div>
+
+        <!-- Box Ancrage Lunaire -->
+        <div class="text-center border p-8" style="border-color:rgba(110,11,20,0.10);background:var(--cream);">
+          <div class="w-14 h-14 mx-auto mb-4 flex items-center justify-center rounded-full" style="background:rgba(212,175,127,0.12);">
+            <i class="fa-regular fa-star text-xl" style="color:var(--gold);"></i>
+          </div>
+          <h4 class="font-playfair text-lg font-bold mb-2" style="color:var(--burgundy);">Box Ancrage Lunaire</h4>
+          <p class="font-montserrat text-xs font-light leading-relaxed mb-4" style="opacity:0.6;">Sel du bassin, sauge blanche, encens de copal.</p>
+          <span class="inline-block text-[9px] tracking-wider uppercase px-4 py-1.5" style="background:var(--burgundy);color:var(--nude);">Rituel Complet</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== COMMANDER — CTA FINAL ===== -->
+    <div class="text-center reveal">
+      <p class="font-montserrat text-xs font-light mb-6" >Disponibles sur demande, lors des retraites ou en main propre.</p>
+      <button onclick="showToast('Demande de création enregistrée. Nous vous contacterons.')" class="inline-block border font-montserrat text-xs tracking-[2px] uppercase px-10 py-4 hover:bg-orr-dark hover:text-orr-nude transition-all duration-500 bg-transparent cursor-pointer" style="border-color:var(--dark);">Commander</button>
+    </div>
+
+  </div>
+</section>
+
+    <!-- ===== FONDATRICE ===== -->
+    <section class="relative py-24 md:py-36 px-6 overflow-hidden" id="fondatrice" style="background:linear-gradient(135deg, #4A0810 0%, #6E0B14 50%, #8B2030 100%);">
+      <div class="absolute inset-0" aria-hidden="true" style="background:url('https://i.pinimg.com/736x/6b/3e/90/6b3e90ee9b044ba33ccfbf11cb8328a6.jpg') center/cover no-repeat;opacity:0.06;filter:saturate(0.3) sepia(0.2);"></div>
+      <div class="absolute top-10 left-10 w-32 h-32 border" style="border-color:rgba(212,175,127,0.06);" aria-hidden="true"></div>
+      <div class="absolute bottom-10 right-10 w-32 h-32 border" style="border-color:rgba(212,175,127,0.06);" aria-hidden="true"></div>
+
+      <div class="relative z-10 max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+          <p class="font-montserrat text-xs tracking-[4px] uppercase mb-4 reveal" style="color:var(--gold); font-weight:600">La Fondatrice</p>
+          <h2 class="font-playfair text-3xl md:text-5xl font-bold reveal reveal-delay-1" style="color:var(--nude);">Asmaa Belh</h2>
+          <div class="section-divider mt-8 reveal reveal-delay-2" style="background:var(--gold);"></div>
+          
+        </div>
+
+        <!-- ===== NAVIGATION FONDATRICE - VERSION AMÉLIORÉE POUR MOBILE ===== -->
+        <nav class="sticky top-0 z-20 py-4 mb-12" style="background:rgba(74,8,16,0.85); backdrop-filter:blur(16px); border-bottom:1px solid rgba(212,175,127,0.1);" id="founderNav">
+          <!-- Version Desktop (affichée sur > 768px) -->
+          <div class="hidden md:flex flex-wrap justify-center items-center gap-2 md:gap-6">
+            <button class="founder-nav-btn active px-4 py-2 text-xs md:text-sm font-montserrat tracking-[2px] uppercase transition-all duration-300 border-b-2" data-target="qui" style="border-color:var(--gold); color:var(--gold); background:rgba(212,175,127,0.05);">
+              Qui est Asmaa ?
+            </button>
+            <button class="founder-nav-btn px-4 py-2 text-xs md:text-sm font-montserrat tracking-[2px] uppercase transition-all duration-300 border-b-2" data-target="chemin" style="border-color:transparent; color:rgba(237,224,212,0.4);">
+              Son chemin
+            </button>
+            <button class="founder-nav-btn px-4 py-2 text-xs md:text-sm font-montserrat tracking-[2px] uppercase transition-all duration-300 border-b-2" data-target="pourquoi" style="border-color:transparent; color:rgba(237,224,212,0.4);">
+              Pourquoi ORR ?
+            </button>
+            <button class="founder-nav-btn px-4 py-2 text-xs md:text-sm font-montserrat tracking-[2px] uppercase transition-all duration-300 border-b-2" data-target="vision" style="border-color:transparent; color:rgba(237,224,212,0.4);">
+              Sa vision
+            </button>
+          </div>
+
+          <!-- Version Mobile (affichée sur < 768px) - NOUVELLE VERSION AMÉLIORÉE -->
+          <div class="md:hidden grid grid-cols-2 gap-2 px-2">
+            <button class="founder-nav-btn-mobile active px-3 py-3 text-xs font-montserrat font-semibold tracking-[2px] uppercase transition-all duration-300 rounded-sm" data-target="qui" style="border:1px solid rgba(212,175,127,0.3); color:var(--gold); background:rgba(212,175,127,0.08);">
+              Qui est Asmaa ?
+            </button>
+            <button class="founder-nav-btn-mobile px-3 py-3 text-xs font-montserrat font-semibold tracking-[2px] uppercase transition-all duration-300 rounded-sm" data-target="chemin" style="border:1px solid rgba(212,175,127,0.12); color:rgba(237,224,212,0.5); background:rgba(74,8,16,0.3);">
+              Son chemin
+            </button>
+            <button class="founder-nav-btn-mobile px-3 py-3 text-xs font-montserrat font-semibold tracking-[2px] uppercase transition-all duration-300 rounded-sm" data-target="pourquoi" style="border:1px solid rgba(212,175,127,0.12); color:rgba(237,224,212,0.5); background:rgba(74,8,16,0.3);">
+              Pourquoi ORR ?
+            </button>
+            <button class="founder-nav-btn-mobile px-3 py-3 text-xs font-montserrat font-semibold tracking-[2px] uppercase transition-all duration-300 rounded-sm" data-target="vision" style="border:1px solid rgba(212,175,127,0.12); color:rgba(237,224,212,0.5); background:rgba(74,8,16,0.3);">
+              Sa vision
+            </button>
+          </div>
+        </nav>
+
+        <div class="founder-sections-container">
+          <div class="founder-section active" id="section-qui">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+              <div class="reveal reveal-delay-1">
+                <div class="aspect-[4/5] overflow-hidden max-w-md mx-auto md:mx-0" style="border:1px solid rgba(212,175,127,0.12); box-shadow:0 0 60px rgba(212,175,127,0.04);">
+                  <img src="https://www.image2url.com/r2/default/images/1786627476346-877b5b5d-befc-4cd0-b9c0-5556e685e46f.jpeg" alt="Asmaa Belh, fondatrice d'ORR" class="w-full h-full object-cover" onload="this.classList.add('loaded')" loading="lazy">
+                </div>
+              </div>
+              <div class="space-y-6 reveal reveal-delay-2">
+                <p class="font-montserrat text-xs tracking-[3px] uppercase" style="color:var(--gold);">Son histoire</p>
+                <h3 class="font-playfair text-2xl md:text-3xl font-bold" style="color:var(--nude);">Qui est Asmaa Belh ?</h3>
+                <div class="space-y-4 font-light text-sm leading-[1.9]" style="color:rgba(237,224,212,0.6);">
+                  <p>Asmaa Belh est la fondatrice d'ORR. Son cheminement personnel, ses rencontres et ses questionnements l'ont naturellement conduite à créer cet espace dédié aux rituels et à la reconnexion.</p>
+                  <p>Passionnée par les savoirs traditionnels et la transmission, elle a souhaité offrir à d'autres femmes un cadre pour ralentir, s'écouter et renouer avec des gestes porteurs de sens.</p>
+                  <div class="founder-more-content hidden space-y-4">
+                    <p>Asmaa puise son inspiration dans les traditions marocaines et les savoirs ancestraux qu'elle a découverts au fil de ses voyages et de ses rencontres. Elle croit que chaque geste, chaque plante, chaque mot porte une mémoire qu'il est essentiel de préserver et de transmettre.</p>
+                    <p>Son parcours est marqué par une quête constante de sens, une volonté de comprendre comment les pratiques d'hier peuvent éclairer et enrichir nos vies d'aujourd'hui.</p>
+                  </div>
+                </div>
+                <button class="founder-read-more font-montserrat text-xs tracking-[2px] uppercase px-6 py-3 border transition-all duration-300 mt-2" style="border-color:var(--gold); color:var(--gold); background:transparent;">
+                  Lire la suite
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="founder-section hidden" id="section-chemin">
+            <div class="max-w-3xl mx-auto text-center reveal reveal-delay-1">
+              <p class="font-montserrat text-xs tracking-[3px] uppercase mb-4" style="color:var(--gold);">Son cheminement</p>
+              <h3 class="font-playfair text-2xl md:text-3xl font-bold mb-6" style="color:var(--nude);">Le chemin vers les rituels</h3>
+              <div class="founder-text-wrapper space-y-4 font-light text-sm leading-[1.9] text-left" style="color:rgba(237,224,212,0.6);">
+                <p>Les rituels ne sont pas pour Asmaa une simple mode ou un concept, mais une réponse à une nécessité intérieure. C'est un langage du corps et de l'âme qui s'est imposé à elle comme une évidence.</p>
+                <p>Son parcours l'a amenée à explorer différentes pratiques et à se questionner sur la manière dont les gestes ancestraux peuvent encore avoir du sens dans nos vies contemporaines.</p>
+                <div class="founder-more-content hidden space-y-4">
+                  <p>Asmaa a longtemps cherché des réponses dans les livres, les rencontres et les voyages. C'est en revenant à l'essentiel, en écoutant son corps et en observant la nature qu'elle a trouvé un chemin qui résonnait profondément avec elle.</p>
+                  <p>Aujourd'hui, à travers ORR, elle souhaite partager cette approche et offrir des outils pour que chacune puisse se réapproprier ces pratiques, à son rythme et selon ses propres besoins.</p>
+                  <div class="p-6 mt-6" style="border-left:2px solid var(--gold); background:rgba(212,175,127,0.04);">
+                    <p class="font-playfair italic text-base" style="color:var(--gold-light);">"J'ai compris que les rituels ne sont pas des souvenirs du passé, mais des chemins vers soi."</p>
+                  </div>
+                </div>
+              </div>
+              <button class="founder-read-more font-montserrat text-xs tracking-[2px] uppercase px-6 py-3 border transition-all duration-300 mt-6" style="border-color:var(--gold); color:var(--gold); background:transparent;">
+                Lire la suite
+              </button>
+            </div>
+          </div>
+
+          <div class="founder-section hidden" id="section-pourquoi">
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+              <div class="reveal reveal-delay-1">
+                <p class="font-montserrat text-xs tracking-[3px] uppercase mb-4" style="color:var(--gold);">La naissance d'ORR</p>
+                <h3 class="font-playfair text-2xl md:text-3xl font-bold mb-6" style="color:var(--nude);">Pourquoi créer ORR ?</h3>
+                <div class="founder-text-wrapper space-y-4 font-light text-sm leading-[1.9]" style="color:rgba(237,224,212,0.6);">
+                  <p>ORR est né d'une volonté de transmettre et de rassembler. Asmaa a voulu créer un espace où les rituels, les savoirs ancestraux et la mémoire du corps peuvent être honorés et réinterprétés pour le monde d'aujourd'hui.</p>
+                  <p>Ce n'est pas une simple marque de produits, mais une proposition de chemin, une invitation à renouer avec une forme de sagesse oubliée.</p>
+                  <div class="founder-more-content hidden space-y-4">
+                    <p>ORR, ce sont des gestes, des paroles et des objets qui agissent comme des portes vers l'intime, vers une présence plus pleine à soi-même et au monde.</p>
+                    <p>Asmaa croit que la transmission est un acte de résistance face à l'oubli. En créant ORR, elle souhaite offrir un héritage vivant, accessible et contemporain.</p>
+                  </div>
+                </div>
+                <button class="founder-read-more font-montserrat text-xs tracking-[2px] uppercase px-6 py-3 border transition-all duration-300 mt-2" style="border-color:var(--gold); color:var(--gold); background:transparent;">
+                  Lire la suite
+                </button>
+              </div>
+              <div class="p-8 md:p-12 reveal reveal-delay-2" style="background:rgba(74,8,16,0.3); border:1px solid rgba(212,175,127,0.12); backdrop-filter:blur(10px);">
+                <blockquote class="font-playfair italic text-lg md:text-xl leading-relaxed" style="color:var(--gold-light);">
+                  "Chaque geste, chaque ingrédient, chaque création ORR porte une intention. Celle d'un retour à l'essentiel et d'une réconciliation avec ce qui nous habite profondément."
+                </blockquote>
+                <div class="mt-4 font-montserrat text-xs tracking-[2px] uppercase" style="color:rgba(212,175,127,0.35);">— Asmaa Belh, fondatrice d'ORR</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="founder-section hidden" id="section-vision">
+            <div class="max-w-3xl mx-auto text-center reveal reveal-delay-1">
+              <p class="font-montserrat text-xs tracking-[3px] uppercase mb-4" style="color:var(--gold);">Sa vision</p>
+              <h3 class="font-playfair text-2xl md:text-3xl font-bold mb-6" style="color:var(--nude);">Ce qu'elle défend à travers ORR</h3>
+              <div class="founder-text-wrapper space-y-4 font-light text-sm leading-[1.9] text-left" style="color:rgba(237,224,212,0.6);">
+                <p>La vision d'Asmaa pour ORR va au-delà des produits. Il s'agit de défendre une certaine idée de la lenteur, de la présence et de la transmission.</p>
+                <p>Elle croit en l'importance de renouer avec un héritage oublié, de redonner sa place au corps et au sensible dans un monde qui va trop vite.</p>
+                <div class="founder-more-content hidden space-y-4">
+                  <p>ORR est son moyen de contribuer à cette renaissance, en offrant des espaces de reconnexion, des gestes porteurs de sens et une communauté de femmes qui partagent cette quête d'authenticité.</p>
+                  <p>Asmaa souhaite que chaque personne qui croise le chemin d'ORR puisse y trouver une résonance personnelle, un espace pour se poser et se redécouvrir.</p>
+                  <div class="w-10 h-px mx-auto my-8" style="background:var(--gold);"></div>
+                  <div class="font-playfair italic text-xl md:text-2xl" style="color:var(--gold);">
+                    "Redonner au corps sa place sacrée et au geste sa profondeur."
+                  </div>
+                </div>
+              </div>
+              <button class="founder-read-more font-montserrat text-xs tracking-[2px] uppercase px-6 py-3 border transition-all duration-300 mt-6" style="border-color:var(--gold); color:var(--gold); background:transparent;">
+                Lire la suite
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center pt-16 mt-12 border-t" style="border-color:rgba(212,175,127,0.06);">
+          <div class="font-playfair text-2xl md:text-4xl font-bold leading-tight" style="color:var(--gold);">
+            "Habiter le bas du corps, <br>là où vibre la vie."
+          </div>
+          <div class="w-10 h-px mx-auto my-6" style="background:var(--gold);"></div>
+          <p class="font-montserrat text-xs tracking-[3px] uppercase" style="color:rgba(237,224,212,0.2);"> </p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      /* ===== STYLES POUR LES BOUTONS MOBILE ===== */
+      .founder-nav-btn-mobile {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+        text-align: center;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.2;
+        transition: all 0.3s cubic-bezier(.4,0,.2,1);
+        font-size: 11px !important;
+        letter-spacing: 1.5px !important;
+        padding: 12px 8px !important;
+        border-radius: 4px;
+      }
+
+      /* État actif pour mobile */
+      .founder-nav-btn-mobile.active {
+        border-color: rgba(212, 175, 127, 0.4) !important;
+        color: var(--gold) !important;
+        background: rgba(212, 175, 127, 0.08) !important;
+        box-shadow: 0 0 20px rgba(212, 175, 127, 0.04);
+      }
+
+      /* Effet au survol/tap pour mobile */
+      .founder-nav-btn-mobile:active {
+        transform: scale(0.97);
+        border-color: rgba(212, 175, 127, 0.3) !important;
+        background: rgba(212, 175, 127, 0.05) !important;
+      }
+
+      /* Ajustements pour très petits écrans */
+      @media (max-width: 400px) {
+        .founder-nav-btn-mobile {
+          font-size: 10px !important;
+          padding: 10px 6px !important;
+          letter-spacing: 1px !important;
+          min-height: 42px;
+        }
+      }
+
+      /* Espacement entre les boutons */
+      @media (max-width: 768px) {
+        #founderNav {
+          padding: 12px 0 !important;
+          margin-bottom: 24px !important;
+          background: rgba(74, 8, 16, 0.92) !important;
+        }
+        #founderNav .grid {
+          gap: 6px !important;
+          padding: 0 4px !important;
+        }
+      }
+
+      /* ===== STYLES EXISTANTS POUR LA NAV ===== */
+      .founder-nav-btn {
+        transition: all 0.4s cubic-bezier(.4,0,.2,1);
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        padding-bottom: 8px;
+      }
+      .founder-nav-btn:hover {
+        color: var(--gold);
+      }
+      .founder-nav-btn.active {
+        color: var(--gold);
+        border-bottom-color: var(--gold);
+        background: rgba(212,175,127,0.04);
+      }
+
+      /* ===== STYLES POUR LES SECTIONS ===== */
+      .founder-section {
+        animation: fadeSection 0.6s cubic-bezier(.4,0,.2,1) forwards;
+      }
+      @keyframes fadeSection {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .founder-section.hidden { display: none; }
+      .founder-section.active { display: block; }
+
+      .founder-read-more {
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(.4,0,.2,1);
+        display: inline-block;
+      }
+      .founder-read-more:hover {
+        background: var(--gold);
+        color: var(--burgundy-deep) !important;
+        border-color: var(--gold) !important;
+      }
+    </style>
+
+    <script>
+      // ===== FONCTIONNALITÉ POUR LA NAVIGATION FONDATRICE =====
+      document.addEventListener('DOMContentLoaded', function() {
+        // Sélectionner tous les boutons (desktop et mobile)
+        const navButtons = document.querySelectorAll('.founder-nav-btn, .founder-nav-btn-mobile');
+        const sections = {
+          qui: document.getElementById('section-qui'),
+          chemin: document.getElementById('section-chemin'),
+          pourquoi: document.getElementById('section-pourquoi'),
+          vision: document.getElementById('section-vision')
+        };
+
+        function switchSection(targetId) {
+          // Mettre à jour les boutons desktop
+          document.querySelectorAll('.founder-nav-btn').forEach(btn => {
+            btn.classList.remove('active');
+            btn.style.borderBottomColor = 'transparent';
+            btn.style.color = 'rgba(237,224,212,0.4)';
+            btn.style.background = 'transparent';
+          });
+          const activeDesktopBtn = document.querySelector(`.founder-nav-btn[data-target="${targetId}"]`);
+          if (activeDesktopBtn) {
+            activeDesktopBtn.classList.add('active');
+            activeDesktopBtn.style.borderBottomColor = 'var(--gold)';
+            activeDesktopBtn.style.color = 'var(--gold)';
+            activeDesktopBtn.style.background = 'rgba(212,175,127,0.04)';
+          }
+
+          // Mettre à jour les boutons mobile
+          document.querySelectorAll('.founder-nav-btn-mobile').forEach(btn => {
+            btn.classList.remove('active');
+            btn.style.borderColor = 'rgba(212,175,127,0.12)';
+            btn.style.color = 'rgba(237,224,212,0.5)';
+            btn.style.background = 'rgba(74,8,16,0.3)';
+          });
+          const activeMobileBtn = document.querySelector(`.founder-nav-btn-mobile[data-target="${targetId}"]`);
+          if (activeMobileBtn) {
+            activeMobileBtn.classList.add('active');
+            activeMobileBtn.style.borderColor = 'rgba(212,175,127,0.4)';
+            activeMobileBtn.style.color = 'var(--gold)';
+            activeMobileBtn.style.background = 'rgba(212,175,127,0.08)';
+          }
+
+          // Afficher la section correspondante
+          Object.values(sections).forEach(section => {
+            if (section) {
+              section.classList.remove('active');
+              section.classList.add('hidden');
+            }
+          });
+          const targetSection = sections[targetId];
+          if (targetSection) {
+            targetSection.classList.remove('hidden');
+            targetSection.classList.add('active');
+          }
+
+          // Réinitialiser les "Lire la suite"
+          document.querySelectorAll('.founder-more-content').forEach(content => {
+            content.classList.add('hidden');
+          });
+          document.querySelectorAll('.founder-read-more').forEach(btn => {
+            btn.textContent = 'Lire la suite';
+          });
+
+          // Mettre à jour l'URL
+          history.pushState(null, null, `#fondatrice-${targetId}`);
+        }
+
+        // Ajouter les événements à tous les boutons
+        navButtons.forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = this.dataset.target;
+            if (target && sections[target]) {
+              switchSection(target);
+            }
+          });
+        });
+
+        // Gérer le hash dans l'URL
+        if (window.location.hash.includes('fondatrice-')) {
+          const target = window.location.hash.replace('#fondatrice-', '');
+          if (sections[target]) {
+            setTimeout(() => switchSection(target), 100);
+          }
+        }
+
+        // ===== FONCTIONNALITÉ "LIRE LA SUITE" =====
+        document.querySelectorAll('.founder-read-more').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            let parent = this.closest('.founder-section');
+            if (!parent) {
+              parent = this.closest('.max-w-3xl');
+            }
+            if (!parent) {
+              parent = this.closest('.grid');
+            }
+            const moreContent = parent ? parent.querySelector('.founder-more-content') : null;
+            if (moreContent) {
+              if (moreContent.classList.contains('hidden')) {
+                moreContent.classList.remove('hidden');
+                this.textContent = 'Voir moins';
+                setTimeout(() => {
+                  moreContent.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+              } else {
+                moreContent.classList.add('hidden');
+                this.textContent = 'Lire la suite';
+              }
+            } else {
+              const allMoreContents = document.querySelectorAll('.founder-more-content');
+              let targetContent = null;
+              allMoreContents.forEach(content => {
+                if (this.closest('.founder-section') && this.closest('.founder-section').contains(content)) {
+                  targetContent = content;
+                }
+              });
+              if (targetContent) {
+                if (targetContent.classList.contains('hidden')) {
+                  targetContent.classList.remove('hidden');
+                  this.textContent = 'Voir moins';
+                  setTimeout(() => {
+                    targetContent.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                  }, 100);
+                } else {
+                  targetContent.classList.add('hidden');
+                  this.textContent = 'Lire la suite';
+                }
+              }
+            }
+          });
+        });
+      });
+    </script>
+
     <!-- ===== COMMUNAUTE ===== -->
-    <section class="py-24 md:py-36 px-6" id="communaute" style="background:var(--nude-light);">
+    <section class="py-24 md:py-36 px-6" id="communaute" style="background:var(--nude-light); font-weight:600">
       <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-20"><p class="font-montserrat text-xs tracking-[4px] uppercase mb-4 reveal" style="color:var(--burgundy-soft);">Communaute</p><h2 class="font-playfair text-3xl md:text-4xl font-bold reveal reveal-delay-1">Vous n'etes pas seulle</h2><p class="font-montserrat font-light text-sm mt-4 max-w-lg mx-auto reveal reveal-delay-2" style="opacity:0.55;">Un cercle de femmes qui choisissent de guérir ensemble.</p><div class="section-divider mt-8 reveal reveal-delay-2"></div></div>
+        <div class="text-center mb-20"><p class="font-montserrat text-xs tracking-[4px] uppercase mb-4 reveal" style="color:var(--burgundy-soft);">Communaute</p><h2 class="font-playfair text-3xl md:text-4xl font-bold reveal reveal-delay-1">Vous n'etes pas seule</h2><p class="font-montserrat font-light text-sm mt-4 max-w-lg mx-auto reveal reveal-delay-2" style="opacity:0.55;">Un cercle de femmes qui choisissent de guérir ensemble.</p><div class="section-divider mt-8 reveal reveal-delay-2"></div></div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div class="p-8 border hover:border-orr-burgundy-soft transition-all duration-500 reveal reveal-delay-1" style="border-color:rgba(110,11,20,0.08);background:var(--cream);"><div class="w-10 h-10 border flex items-center justify-center mb-6" style="border-color:var(--burgundy-soft);"><i class="fa-regular fa-circle text-sm" style="color:var(--burgundy);"></i></div><h3 class="font-playfair text-lg font-bold mb-3">Le Cercle ORR</h3><p class="font-montserrat text-xs font-light leading-relaxed mb-6" style="opacity:0.55;">Espace intime de partage mensuel.</p><button onclick="showToast('Demande au Cercle ORR enregistree.')" class="font-montserrat text-xs tracking-[2px] uppercase bg-transparent border-none cursor-pointer p-0" style="color:var(--burgundy);">Rejoindre</button></div>
           <div class="p-8 border hover:border-orr-burgundy-soft transition-all duration-500 reveal reveal-delay-2" style="border-color:rgba(110,11,20,0.08);background:var(--cream);"><div class="w-10 h-10 border flex items-center justify-center mb-6" style="border-color:var(--burgundy-soft);"><i class="fa-regular fa-play-circle text-sm" style="color:var(--burgundy);"></i></div><h3 class="font-playfair text-lg font-bold mb-3">Masterclasses</h3><p class="font-montserrat text-xs font-light leading-relaxed mb-6" style="opacity:0.55;">Sessions profondes accessibles de chez vous.</p><button onclick="showToast('Prochaines masterclasses bientot.')" class="font-montserrat text-xs tracking-[2px] uppercase bg-transparent border-none cursor-pointer p-0" style="color:var(--burgundy);">Voir le programme</button></div>
@@ -965,19 +1221,35 @@ Des plantes, des gestes et des soins inspirés des savoirs ancestraux pour accom
     </section>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="py-20 px-6" style="background:var(--burgundy-deep);">
+    <footer class="py-12 px-6" style="background:var(--burgundy-deep);">
       <div class="max-w-5xl mx-auto">
-        <div class="text-center mb-16">
-          <p class="font-playfair text-4xl md:text-5xl font-bold tracking-wider" style="color:var(--gold);">ORR</p>
-          <p class="font-montserrat text-xs tracking-[4px] uppercase mt-3" style="color:rgba(237,224,212,0.35);">Origin Rituals & Revelations</p>
-          <p class="font-playfair italic text-sm mt-6" style="color:rgba(237,224,212,0.45);">Des rituels hérités d'hier pour habiter pleinement aujourd'hui</p>
+        <div class="text-center mb-8">
+          <p class="font-playfair text-3xl md:text-5xl font-bold tracking-wider" style="color:var(--gold);">ORR</p>
+          <p class="font-montserrat text-[10px] tracking-[4px] uppercase mt-2" style="color:rgba(237,224,212,0.35);">Origin Rituals & Revelations</p>
         </div>
-        <div class="grid md:grid-cols-3 gap-10 mb-16">
-          <div><p class="font-montserrat text-xs tracking-[2px] uppercase mb-4" style="color:var(--gold);">Explorer</p><div class="space-y-3"><a href="#manifeste" class="block font-montserrat text-xs font-light hover:text-orr-gold transition-colors" style="color:rgba(237,224,212,0.45);text-decoration:none;">Le Manifeste</a><a href="#origine" class="block font-montserrat text-xs font-light hover:text-orr-gold transition-colors" style="color:rgba(237,224,212,0.45);text-decoration:none;">Les Origines</a><a href="#creations" class="block font-montserrat text-xs font-light hover:text-orr-gold transition-colors" style="color:rgba(237,224,212,0.45);text-decoration:none;">Les Créations</a><a href="#fondatrice" class="block font-montserrat text-xs font-light hover:text-orr-gold transition-colors" style="color:rgba(237,224,212,0.45);text-decoration:none;">La Fondatrice</a></div></div>
-          <div><p class="font-montserrat text-xs tracking-[2px] uppercase mb-4" style="color:var(--gold);">Rejoindre</p><div class="space-y-3"><a href="#communaute" class="block font-montserrat text-xs font-light hover:text-orr-gold transition-colors" style="color:rgba(237,224,212,0.45);text-decoration:none;">Le Cercle ORR</a><a href="#communaute" class="block font-montserrat text-xs font-light hover:text-orr-gold transition-colors" style="color:rgba(237,224,212,0.45);text-decoration:none;">Masterclasses</a><a href="#communaute" class="block font-montserrat text-xs font-light hover:text-orr-gold transition-colors" style="color:rgba(237,224,212,0.45);text-decoration:none;">Retraites</a><a href="#communaute" class="block font-montserrat text-xs font-light hover:text-orr-gold transition-colors" style="color:rgba(237,224,212,0.45);text-decoration:none;">Lettre ORR</a></div></div>
-          <div><p class="font-montserrat text-xs tracking-[2px] uppercase mb-4" style="color:var(--gold);">Suivre</p><div class="flex gap-5"><a href="#" style="color:var(--gold);" aria-label="Instagram" onclick="event.preventDefault();showToast('Suivez ORR sur Instagram @orr.universe');"><i class="fa-brands fa-instagram text-lg"></i></a><a href="#" style="color:var(--gold);" aria-label="YouTube" onclick="event.preventDefault();showToast('YouTube bientot disponible');"><i class="fa-brands fa-youtube text-lg"></i></a><a href="#" style="color:var(--gold);" aria-label="Spotify" onclick="event.preventDefault();showToast('Spotify bientot disponible');"><i class="fa-brands fa-spotify text-lg"></i></a></div><p class="font-montserrat text-xs font-light mt-6" style="color:rgba(237,224,212,0.25);">contact@orr-universe.com</p></div>
+
+        <div class="text-center mb-8">
+          <p class="font-montserrat text-[10px] tracking-[2px] uppercase mb-3" style="color:var(--gold);">Suivre</p>
+          <div class="flex justify-center gap-6 mb-3">
+            <a href="#" style="color:rgba(237,224,212,0.5);" aria-label="Instagram" onclick="event.preventDefault();showToast('Suivez ORR sur Instagram @orr.universe');" class="hover:text-orr-gold transition-colors">
+              <i class="fa-brands fa-instagram text-xl"></i>
+            </a>
+            <a href="#" style="color:rgba(237,224,212,0.5);" aria-label="YouTube" onclick="event.preventDefault();showToast('YouTube bientot disponible');" class="hover:text-orr-gold transition-colors">
+              <i class="fa-brands fa-youtube text-xl"></i>
+            </a>
+            <a href="#" style="color:rgba(237,224,212,0.5);" aria-label="Spotify" onclick="event.preventDefault();showToast('Spotify bientot disponible');" class="hover:text-orr-gold transition-colors">
+              <i class="fa-brands fa-spotify text-xl"></i>
+            </a>
+          </div>
+          <a href="mailto:contact@orr-universe.com" class="font-montserrat text-[11px] font-light hover:text-orr-gold transition-colors" style="color:rgba(237,224,212,0.4); text-decoration:none;">
+            contact@orr-universe.com
+          </a>
         </div>
-        <div class="border-t pt-8 text-center" style="border-color:rgba(212,175,127,0.1);"><p class="font-montserrat text-xs font-light" style="color:rgba(237,224,212,0.2);">2026 ORR. Tous droits reserves.</p><p class="font-playfair italic text-xs mt-3" style="color:rgba(212,175,127,0.25);">"Habiter le bas du corps, là où vibre la vie."</p></div>
+
+        <div class="border-t pt-6 text-center" style="border-color:rgba(212,175,127,0.06);">
+          <p class="font-montserrat text-[10px] font-light" style="color:rgba(237,224,212,0.2);">© 2026 ORR. Tous droits réservés.</p>
+          <p class="font-playfair italic text-[10px] mt-2" style="color:rgba(212,175,127,0.2);">"Habiter le bas du corps, là où vibre la vie."</p>
+        </div>
       </div>
     </footer>
 
@@ -1010,7 +1282,14 @@ Des plantes, des gestes et des soins inspirés des savoirs ancestraux pour accom
 
       /* ===== NAV ===== */
       const navLuxe=document.getElementById('navLuxe');
-      window.addEventListener('scroll',()=>navLuxe.classList.toggle('scrolled',window.scrollY>60));
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 60) {
+          navLuxe.classList.add('scrolled');
+        } else {
+          navLuxe.classList.remove('scrolled');
+        }
+      });
+      
       const navToggle=document.getElementById('navToggle'),mobileMenu=document.getElementById('mobileMenu');
       let menuOpen=false;
       navToggle.addEventListener('click',()=>{
@@ -1034,178 +1313,12 @@ Des plantes, des gestes et des soins inspirés des savoirs ancestraux pour accom
       },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
       document.querySelectorAll('.reveal').forEach(el=>rO.observe(el));
 
-      /* ===== TABS ===== */
-      document.querySelectorAll('.ritual-tab').forEach(tab=>{
-        tab.addEventListener('click',()=>{
-          document.querySelectorAll('.ritual-tab').forEach(t=>t.classList.remove('active'));
-          document.querySelectorAll('.ritual-panel').forEach(p=>p.classList.remove('active'));
-          tab.classList.add('active');
-          document.getElementById('panel-'+tab.dataset.tab).classList.add('active');
-        });
-      });
-
-      /* ===== LUNAR ===== */
-      function getMoonPhase(){
-        const n=new Date(),y=n.getFullYear(),m=n.getMonth()+1,d=n.getDate();
-        let c=0,e=0;
-        if(m<3){c=y-1;e=m+12;}else{c=y;e=m;}
-        return((Math.floor(365.25*(c+4716))+Math.floor(30.6001*(e+1))+d-1524.5-2451549.5)/29.53058867)%1;
-      }
-      const ph=getMoonPhase();
-      function gMI(p){
-        if(p<0.0625)return'Nouvelle Lune';
-        if(p<0.1875)return'Premier Croissant';
-        if(p<0.3125)return'Premier Quartier';
-        if(p<0.4375)return'Gibbeuse Croissante';
-        if(p<0.5625)return'Pleine Lune';
-        if(p<0.6875)return'Gibbeuse Décroissante';
-        if(p<0.8125)return'Dernier Quartier';
-        if(p<0.9375)return'Dernier Croissant';
-        return'Nouvelle Lune';
-      }
-      
-      // Vérifier si les éléments de lune existent avant de les utiliser
-      const moonNameEl = document.getElementById('moonName');
-      if(moonNameEl) moonNameEl.textContent=gMI(ph);
-      
-      const moonDateEl = document.getElementById('moonDate');
-      if(moonDateEl) moonDateEl.textContent=new Date().toLocaleDateString('fr-FR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-      
-      const mE=document.getElementById('moonPhase');
-      if(mE) mE.style.boxShadow=`inset ${Math.round((ph-0.5)*32)}px 0 0 0 var(--burgundy-deep),0 0 30px rgba(110,11,20,0.15)`;
-      
-      const pC=document.getElementById('moonPhases');
-      if(pC){
-        [{n:'Nouvelle',p:0},{n:'Croissante',p:0.25},{n:'Pleine',p:0.5},{n:'Decroissante',p:0.75}].forEach(f=>{
-          const a=Math.abs(ph-f.p)<0.15||Math.abs(ph-f.p)>0.85;
-          const d=document.createElement('div');
-          d.className='text-center p-3';
-          d.innerHTML=`<div class="w-8 h-8 rounded-full mx-auto mb-2" style="background:${a?'var(--burgundy)':'rgba(110,11,20,0.1)'};box-shadow:${a?'0 0 12px rgba(110,11,20,0.3)':'none'};transition:all 0.3s;"></div><p class="font-montserrat text-xs font-medium" style="color:${a?'var(--dark)':'var(--burgundy-soft)'};">${f.n}</p>`;
-          pC.appendChild(d);
-        });
-      }
-
-      /* ===== AUDIO ===== */
-      const audioLibraryEl = document.getElementById('audioLibrary');
-      if(audioLibraryEl){
-        [{t:'Méditation Racine',d:'12:34',y:'Guidée'},
-         {t:'Chant du Bassin',d:'8:21',y:'Chant'},
-         {t:'Paysage Nocturne',d:'20:00',y:'Ambiance'},
-         {t:'Respiration Lunaire',d:'6:45',y:'Guidée'},
-         {t:'Vibration Ancestrale',d:'15:10',y:'Son thérapeutique'}].forEach(t=>{
-          let b='';
-          for(let j=0;j<20;j++)b+=`<span class="waveform-bar" style="--h:${Math.floor(Math.random()*20)+8}px;animation-delay:${(j*0.08).toFixed(2)}s;"></span>`;
-          const d=document.createElement('div');
-          d.className='flex items-center gap-4 p-4 border hover:border-orr-burgundy-soft transition-all duration-300 cursor-pointer group';
-          d.style.cssText='border-color:rgba(110,11,20,0.08);background:var(--cream);';
-          d.innerHTML=`<div class="w-10 h-10 border flex items-center justify-center flex-shrink-0 group-hover:bg-orr-burgundy transition-colors duration-300" style="border-color:var(--burgundy-soft);"><i class="fa-solid fa-play text-xs" style="color:var(--burgundy);margin-left:2px;"></i></div><div class="flex-1 min-w-0"><p class="font-montserrat text-sm font-medium truncate">${t.t}</p><div class="flex items-center gap-3 mt-1"><span class="font-montserrat text-xs" style="color:var(--burgundy-soft);">${t.y}</span><span class="font-montserrat text-xs" style="opacity:0.4;">${t.d}</span></div></div><div class="hidden md:flex items-end gap-0.5 opacity-30 group-hover:opacity-100 transition-opacity">${b}</div>`;
-          d.addEventListener('click',()=>showToast('"'+t.t+'" bientot disponible.'));
-          audioLibraryEl.appendChild(d);
-        });
-      }
-
-      /* ===== QUIZ - CORRIGÉ ===== */
-      const qA=[];
-      let cS=1;
-      
-      document.querySelectorAll('.q-option').forEach(o=>{
-        o.addEventListener('click',()=>{
-          // Désélectionner les autres options dans le même groupe
-          o.parentElement.querySelectorAll('.q-option').forEach(x=>x.classList.remove('selected'));
-          // Sélectionner l'option cliquée
-          o.classList.add('selected');
-          // Sauvegarder la réponse
-          qA[cS-1]=o.dataset.value;
-          // Passer à l'étape suivante après un court délai
-          setTimeout(aQ,400);
-        });
-      });
-      
-      function aQ(){
-        console.log('Étape actuelle:', cS, 'Réponses:', qA);
-        
-        if(cS < 5){
-          // Masquer l'étape actuelle
-          const currentStep = document.querySelector(`.quiz-step[data-step="${cS}"]`);
-          if(currentStep) currentStep.classList.add('hidden');
-          
-          // Incrémenter l'étape
-          cS++;
-          
-          // Afficher l'étape suivante
-          const nextStep = document.querySelector(`.quiz-step[data-step="${cS}"]`);
-          if(nextStep) nextStep.classList.remove('hidden');
-          
-          // Mettre à jour la barre de progression
-          const progressBar = document.getElementById('quizProgress');
-          if(progressBar) progressBar.style.width=(cS/5*100)+'%';
-          
-        } else {
-          // C'est la dernière question, afficher le résultat
-          const currentStep = document.querySelector(`.quiz-step[data-step="${cS}"]`);
-          if(currentStep) currentStep.classList.add('hidden');
-          
-          const resultStep = document.querySelector('.quiz-step[data-step="result"]');
-          if(resultStep) resultStep.classList.remove('hidden');
-          
-          const progressBar = document.getElementById('quizProgress');
-          if(progressBar) progressBar.style.width='100%';
-          
-          // Définir les résultats basés sur les réponses
-          const R={
-            // Question 1 - État émotionnel
-            deconnectee:{t:'Rituel de l\'Ancrage Matinal',d:'Votre corps appelle à revenir à lui, en douceur. Ce rituel vous accompagne chaque matin pour poser votre conscience dans le bas-ventre, là où la vie commence.',m:'"Je choisis de commencer chaque jour par moi-même."'},
-            tensionnee:{t:'Rituel de la Libération par le Mouvement',d:'La tension dans votre corps est une énergie qui demande à circuler. La danse, le mouvement et le souffle conscient libèrent ce qui est retenu.',m:'"Mon corps est un fleuve. Je laisse couler."'},
-            perdue:{t:'Rituel de la Parole Nocturne',d:'Vous portez des mots qui n\'ont pas été dits. Ce rituel vous invite à écrire, à exprimer, à libérer la parole retenue.',m:'"Ce que je n\'ai pas dit ne me définit pas."'},
-            curieuse:{t:'Rituel du Soin de l\'Âme',d:'Votre curiosité est une porte ouverte vers vous-même. Ce rituel explore le toucher conscient comme langage sacré.',m:'"Je mérite le même soin que j\'offre au monde."'},
-            
-            // Question 2 - Zone du corps
-            ventre:{t:'Rituel de l\'Énergie Vitale',d:'Votre ventre est le centre de votre énergie créatrice. Ce rituel aide à libérer les tensions accumulées dans le bas-ventre et à réactiver votre force vitale.',m:'"Mon ventre est mon centre. Je l\'écoute et je le respecte."'},
-            hanches:{t:'Rituel de Libération Pelvienne',d:'Vos hanches portent les mémoires anciennes. Ce rituel de mouvement et de respiration aide à libérer ce qui ne vous appartient plus.',m:'"Je libère ce qui ne m\'appartient plus."'},
-            poitrine:{t:'Rituel de l\'Ouverture du Cœur',d:'Votre poitrine et votre gorge appellent à l\'expression. Ce rituel combine souffle, sons et intentions pour ouvrir l\'espace du cœur.',m:'"Ma voix est sacrée. Je m\'autorise à m\'exprimer."'},
-            tout:{t:'Rituel de l\'Harmonisation Complète',d:'Tout votre corps demande de l\'attention. Ce rituel global rééquilibre chaque partie de vous, du sommet du crâne à la plante des pieds.',m:'"Mon corps est un tout sacré. Je l\'honore dans son entièreté."'},
-            
-            // Question 3 - Geste désiré
-            repos:{t:'Rituel du Repos Sacré',d:'Votre corps réclame du repos. Ce rituel d\'immobilité et de silence permet une profonde régénération du système nerveux.',m:'"Le repos est sacré. Je m\'autorise à ne rien faire."'},
-            mouvement:{t:'Rituel de la Danse Libre',d:'Votre corps veut s\'exprimer par le mouvement. La danse libre libère les émotions bloquées et réveille la joie intérieure.',m:'"Mon corps danse sa vérité. Je le suis."'},
-            toucher:{t:'Rituel du Soin Sensoriel',d:'Le toucher doux et conscient est votre médecine. Ce rituel de soin du corps restaure la connexion avec votre enveloppe physique.',m:'"Je m\'offre la douceur que je mérite."'},
-            ecrire:{t:'Rituel de la Libération Verbale',d:'Les mots retenus demandent à sortir. L\'écriture et l\'expression vocale libèrent la parole et allègent l\'âme.',m:'"Ma parole est une porte. Je l\'ouvre en confiance."'},
-            
-            // Question 4 - Moment de la journée
-            aube:{t:'Rituel de l\'Aube Nouvelle',d:'Les premières lueurs du jour sont votre moment sacré. Ce rituel matinal pose l\'intention et ouvre la journée sous le signe du renouveau.',m:'"Chaque aube est une nouvelle naissance. Je l\'accueille."'},
-            midi:{t:'Rituel du Soleil Zénithal',d:'Le plein jour est votre allié. Ce rituel active votre énergie vitale et votre présence au monde.',m:'"Au zénith de mon énergie, je rayonne."'},
-            crepuscule:{t:'Rituel du Passage',d:'Le crépuscule est votre moment de transition. Ce rituel accompagne le passage du jour à la nuit, de l\'action au repos.',m:'"J\'accueille la douceur du passage."'},
-            nuit:{t:'Rituel de la Nuit Révélatrice',d:'La nuit vous révèle vos profondeurs. Ce rituel nocturne ouvre l\'espace aux rêves, aux intuitions et aux messages subtils.',m:'"La nuit me guide vers mes vérités profondes."'},
-            
-            // Question 5 - Parole nécessaire
-            douceur:{t:'Rituel de la Douceur Retrouvée',d:'Vous avez besoin de douceur. Ce rituel vous apprend à vous traiter avec la même tendresse que vous offrez aux autres.',m:'"Je suis douce avec moi-même."'},
-            puissante:{t:'Rituel de la Puissance Révélée',d:'Votre puissance intérieure attend d\'être reconnue. Ce rituel active la force qui sommeille en vous.',m:'"Je suis plus puissante que je ne le crois."'},
-            libre:{t:'Rituel de la Liberté Choisie',d:'La liberté est votre droit fondamental. Ce rituel libère les chaînes invisibles qui vous retiennent.',m:'"Je suis libre de choisir qui je suis."'},
-            accueil:{t:'Rituel de l\'Accueil Inconditionnel',d:'Tout ce que vous ressentez est légitime. Ce rituel vous apprend à accueillir chaque émotion sans jugement.',m:'"J\'accueille tout ce qui est en moi."'}
-          };
-          
-          // Utiliser la première réponse comme base, avec des variations selon les autres réponses
-          const r=R[qA[0]]||R.curieuse;
-          
-          const resultTitle = document.getElementById('rituelResultTitle');
-          const resultDesc = document.getElementById('rituelResultDesc');
-          const resultMantra = document.getElementById('rituelResultMantra');
-          
-          if(resultTitle) resultTitle.textContent=r.t;
-          if(resultDesc) resultDesc.textContent=r.d;
-          if(resultMantra) resultMantra.textContent=r.m;
-        }
-      }
-      
-      function resetQuiz(){
-        qA.length=0;
-        cS=1;
-        document.querySelectorAll('.quiz-step').forEach(s=>s.classList.add('hidden'));
-        const firstStep = document.querySelector('.quiz-step[data-step="1"]');
-        if(firstStep) firstStep.classList.remove('hidden');
-        document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('selected'));
-        const progressBar = document.getElementById('quizProgress');
-        if(progressBar) progressBar.style.width='20%';
+      /* ===== TOAST ===== */
+      function showToast(m){
+        const t=document.getElementById('toast');
+        t.textContent=m;
+        t.classList.add('show');
+        setTimeout(()=>t.classList.remove('show'),3500);
       }
 
       /* ===== NEWSLETTER ===== */
@@ -1216,14 +1329,6 @@ Des plantes, des gestes et des soins inspirés des savoirs ancestraux pour accom
           showToast('Bienvenue dans la Lettre ORR.');
           i.value='';
         }
-      }
-
-      /* ===== TOAST ===== */
-      function showToast(m){
-        const t=document.getElementById('toast');
-        t.textContent=m;
-        t.classList.add('show');
-        setTimeout(()=>t.classList.remove('show'),3500);
       }
 
       /* ===== IMAGES ===== */
