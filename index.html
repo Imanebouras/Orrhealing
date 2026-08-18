@@ -3,1353 +3,816 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ORR — Origin Rituals & Revelations. Maison de rituels premium inspirée des savoirs ancestraux marocains. Sels, plantes, encens et cérémonies pour habiter pleinement aujourd'hui.">
+  <meta name="theme-color" content="#4A0810">
   <title>ORR — Origin Rituals & Revelations</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'orr': {
-              burgundy: '#6E0B14', 'burgundy-deep': '#4A0810', 'burgundy-soft': '#8B2030',
-              gold: '#D4AF7F', 'gold-light': '#E5CC9E', nude: '#EDE0D4', 'nude-light': '#F5EDE4',
-              cream: '#FAF9F6', night: '#0B1F3A', dark: '#3D2B2B', 'dark-warm': '#5C3A3A', sage: '#929471'
-            }
-          },
-          fontFamily: { playfair: ['Playfair Display','serif'], montserrat: ['Montserrat','sans-serif'] }
-        }
-      }
-    }
-  </script>
+
+  <!-- === POLICES : PRELOAD + FALLBACK SANS BLOCKING === -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
+
   <style>
-    :root {
+    /* ===== DESIGN TOKENS ===== */
+    :root{
       --burgundy:#6E0B14;--burgundy-deep:#4A0810;--burgundy-soft:#8B2030;
       --gold:#D4AF7F;--gold-light:#E5CC9E;--nude:#EDE0D4;--nude-light:#F5EDE4;
-      --cream:#FAF9F6;--night:#0B1F3A;--dark:#3D2B2B;--sage:#929471;
+      --cream:#FAF9F6;--dark:#3D2B2B;--sage:#929471;
+      --ease: cubic-bezier(.4,0,.2,1);
     }
     *{margin:0;padding:0;box-sizing:border-box;}
-    html{scroll-behavior:smooth;}
-    body{font-family:'Montserrat',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden;padding-top:80px;}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+    body{
+      font-family:'Montserrat',system-ui,sans-serif;
+      background:var(--cream);color:var(--dark);
+      padding-top:72px;line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+    }
+    img{max-width:100%;display:block;}
+    a{text-decoration:none;color:inherit;}
+    button{font-family:inherit;cursor:pointer;}
+    .serif{font-family:'Playfair Display',Georgia,serif;}
+    .hidden{display:none !important;}
 
-    .grain-overlay{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:0.022;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
-    .cursor-glow{position:fixed;width:320px;height:320px;border-radius:50%;pointer-events:none;z-index:9997;background:radial-gradient(circle,rgba(110,11,20,0.05) 0%,transparent 70%);transform:translate(-50%,-50%);}
-    @media(max-width:768px){.cursor-glow{display:none;}}
+    /* ===== GRAIN LÉGER ===== */
+    .grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.016;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
-    /* ============================================
-       ENTRÉE — IMMERSIVE LUXE
-       ============================================ */
-    .entrance-overlay{
-      position:fixed;inset:0;z-index:10000;
-      background:var(--burgundy-deep);
-      display:flex;flex-direction:column;align-items:center;justify-content:center;
-      transition:opacity 1.6s cubic-bezier(.4,0,.2,1),visibility 1.6s;
-      overflow:hidden;
-    }
-    .entrance-overlay.hidden{opacity:0;visibility:hidden;}
-
-    .entrance-halo{
-      position:absolute;width:320px;height:320px;border-radius:50%;
-      background:radial-gradient(circle,rgba(212,175,127,0.07) 0%,transparent 70%);
-      animation:haloPulse 3s ease-in-out infinite;
-      pointer-events:none;
-    }
-    @keyframes haloPulse{
-      0%,100%{transform:scale(1);opacity:1;}
-      50%{transform:scale(1.15);opacity:0.6;}
-    }
-
-    .entrance-ornament{
-      width:0;height:1px;
-      background:linear-gradient(90deg,transparent,rgba(212,175,127,0.5),transparent);
-      animation:ornamentGrow 1.2s ease 1.4s forwards;
-      margin-bottom:32px;
-    }
-    .entrance-ornament-bottom{
-      width:0;height:1px;margin-top:32px;
-      background:linear-gradient(90deg,transparent,rgba(212,175,127,0.5),transparent);
-      animation:ornamentGrow 1.2s ease 2.8s forwards;
-    }
-    @keyframes ornamentGrow{to{width:120px;}}
-
-    .entrance-diamond{
-      display: none !important;
-      width:6px;height:6px;border:1px solid rgba(212,175,127,0.4);
-      transform:rotate(45deg);opacity:0;
-      animation:diamondReveal 0.8s ease 1.8s forwards;
-      margin-bottom:24px;
-    }
-    @keyframes diamondReveal{to{opacity:1;}}
-
-    .entrance-letter{
-      display:inline-block;font-family:'Playfair Display',serif;font-weight:700;
-      font-size:clamp(56px,12vw,110px);color:var(--gold);
-      opacity:0;transform:translateY(30px) scale(0.85);
-      animation:letterReveal 1.2s cubic-bezier(.4,0,.2,1) forwards;
-      text-shadow:0 0 60px rgba(212,175,127,0.15);
-      position:relative;z-index:2;
-    }
-    .entrance-letter:nth-child(1){animation-delay:0.5s;}
-    .entrance-letter:nth-child(2){animation-delay:0.9s;}
-    .entrance-letter:nth-child(3){animation-delay:1.3s;}
-    @keyframes letterReveal{to{opacity:1;transform:translateY(0) scale(1);}}
-
-    .entrance-tagline{
-      font-family:'Playfair Display',serif;font-style:italic;
-      font-size:clamp(10px,1.6vw,13px);
-      color:var(--nude);opacity:0;letter-spacing:5px;text-transform:uppercase;
-      animation:fadeUp 1s ease 2.2s forwards;
-    }
-    .entrance-sub{
-      font-family:'Montserrat',sans-serif;font-weight:600;
-      font-size:clamp(9px,1.2vw,15px);
-      color:rgba(237, 224, 212, 0.495);opacity:0;margin-top:10px;
-      animation:fadeUp 1s ease 2.8s forwards;letter-spacing:1px;
-    }
-    @keyframes fadeUp{to{opacity:1;transform:translateY(0);}from{transform:translateY(12px);}}
-
-    .entrance-particle{
-      position:absolute;width:2px;height:2px;border-radius:50%;
-      background:rgba(212,175,127,0.3);pointer-events:none;
-      animation:entranceFloat var(--dur,10s) ease-in-out infinite;
-      animation-delay:var(--delay,0s);
-    }
-    @keyframes entranceFloat{
-      0%,100%{transform:translateY(0) scale(1);opacity:0.15;}
-      50%{transform:translateY(calc(var(--drift,-30px))) scale(1.5);opacity:0.5;}
-    }
-
-    /* ============================================
-       HERO — IMMERSIVE LUXE
-       ============================================ */
-    .hero-section{
-      min-height:100vh;position:relative;
+    /* ===== ENTRÉE IMMERSIVE ===== */
+    .entrance{position:fixed;inset:0;z-index:10000;background:var(--burgundy-deep);
       display:flex;align-items:center;justify-content:center;
-      overflow:hidden;
-      margin-top:-80px;
-    }
-    .hero-bg{
-      position:absolute;inset:0;
-      background:url('https://github.com/user-attachments/assets/d7e59e25-7d58-4089-ac1b-4c5a5f3ec743') center/cover no-repeat;
-      filter:brightness(0.28) saturate(0.65) sepia(0.2);
-      transform:scale(1.08);
-      animation:heroZoom 25s ease-in-out infinite alternate;
-    }
-    @keyframes heroZoom{from{transform:scale(1.08)}to{transform:scale(1.16)}}
+      transition:opacity .7s var(--ease),visibility .7s;flex-direction:column;text-align:center;padding:24px;}
+    .entrance.done{opacity:0;visibility:hidden;pointer-events:none;}
+    .entrance .letters{display:flex;justify-content:center;gap:6px;}
+    .entrance .l{font-family:'Playfair Display',serif;font-weight:700;color:var(--gold);
+      font-size:clamp(54px,12vw,110px);opacity:0;transform:translateY(16px);animation:lReveal 1s var(--ease) forwards;}
+    .entrance .l:nth-child(1){animation-delay:.15s}.entrance .l:nth-child(2){animation-delay:.5s}.entrance .l:nth-child(3){animation-delay:.85s}
+    @keyframes lReveal{to{opacity:1;transform:none;}}
+    .entrance .tag{font-family:'Playfair Display',serif;font-style:italic;color:var(--nude);
+      letter-spacing:.45em;text-transform:uppercase;margin-top:20px;font-size:clamp(10px,1.6vw,13px);
+      opacity:0;animation:fUp .8s var(--ease) 1.6s forwards;}
+    .entrance .sub{font-weight:400;color:rgba(237,224,212,.5);margin-top:10px;
+      font-size:clamp(10px,1.2vw,14px);opacity:0;animation:fUp .8s var(--ease) 2s forwards;}
+    @keyframes fUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none;}}
 
-    .hero-overlay{
-      position:absolute;inset:0;
-      background:linear-gradient(180deg,
-        rgba(74,8,16,0.75) 0%,
-        rgba(110,11,20,0.5) 30%,
-        rgba(139,32,48,0.3) 55%,
-        rgba(250, 249, 246, 0) 100%
-      );
-    }
+    /* ===== NAVBAR (minimaliste) ===== */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:9990;height:72px;
+      display:flex;align-items:center;transition:background .4s var(--ease),box-shadow .4s;}
+    .nav.scrolled{background:rgba(250,249,246,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 1px 0 rgba(110,11,20,.06);}
+    .nav-in{width:100%;max-width:1320px;margin:0 auto;padding:0 28px;
+      display:flex;align-items:center;justify-content:space-between;}
+    .nav .logo{height:34px;width:auto;}
+    .nav .logo img{height:100%;width:auto;filter:brightness(0) invert(1);opacity:.95;transition:filter .3s var(--ease),opacity .3s;}
+    .nav.scrolled .logo img{filter:none;opacity:.85;}
+    .nav-links{display:flex;gap:34px;}
+    .nav-links a{font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;
+      color:rgba(237,224,212,.85);transition:color .3s;position:relative;white-space:nowrap;}
+    .nav-links a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--gold);transition:width .35s var(--ease);}
+    .nav-links a:hover::after{width:100%;}
+    .nav-links a:hover{color:var(--gold);}
+    .nav.scrolled .nav-links a{color:var(--dark);}
+    .nav.scrolled .nav-links a:hover{color:var(--burgundy);}
+    .nav-cta{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+      color:var(--gold);border:1px solid rgba(212,175,127,.4);padding:10px 20px;transition:all .3s;white-space:nowrap;}
+    .nav-cta:hover{background:var(--gold);color:var(--burgundy-deep);}
+    .nav.scrolled .nav-cta{color:var(--burgundy);border-color:rgba(110,11,20,.25);}
+    .nav.scrolled .nav-cta:hover{background:var(--burgundy);color:var(--nude);}
+    .nav-burger{display:none;flex-direction:column;gap:5px;width:42px;height:42px;
+      border:1px solid rgba(212,175,127,.3);background:transparent;align-items:center;justify-content:center;}
+    .nav-burger span{width:18px;height:1px;background:var(--gold);transition:all .3s var(--ease);}
+    .nav-burger span:nth-child(2){width:12px;margin-left:6px;}
+    .nav.scrolled .nav-burger span{background:var(--dark);}
+    .nav-burger.open span:nth-child(1){transform:rotate(45deg) translate(3px,3px);}
+    .nav-burger.open span:nth-child(2){opacity:0;transform:translateX(-6px);}
+    .nav-burger.open span:nth-child(3){transform:rotate(-45deg) translate(3px,-3px);width:18px;margin-left:0;}
 
-    .hero-light-ray{
-      position:absolute;top:-15%;left:50%;transform:translateX(-50%);
-      width:280px;height:130%;pointer-events:none;
-      background:radial-gradient(ellipse at top center,
-        rgba(212,175,127,0.05) 0%,
-        rgba(212,175,127,0.02) 30%,
-        transparent 65%
-      );
-      animation:rayPulse 6s ease-in-out infinite;
-    }
-    @keyframes rayPulse{
-      0%,100%{opacity:1;width:280px;}
-      50%{opacity:0.6;width:340px;}
-    }
+    /* Menu mobile */
+    .mmenu{position:fixed;inset:0;z-index:9989;background:rgba(250,249,246,.97);backdrop-filter:blur(28px);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+      opacity:0;visibility:hidden;transition:opacity .4s var(--ease),visibility .4s;}
+    .mmenu.open{opacity:1;visibility:visible;}
+    .mmenu a{font-family:'Playfair Display',serif;font-size:26px;color:var(--dark);padding:12px 0;transition:color .3s,letter-spacing .3s;}
+    .mmenu a:hover{color:var(--burgundy);letter-spacing:.05em;}
+    .mmenu .orn{width:1px;height:26px;background:linear-gradient(to bottom,transparent,var(--burgundy-soft),transparent);margin:6px 0;}
 
-    .hero-vignette{
-      position:absolute;inset:0;pointer-events:none;
-      background:radial-gradient(ellipse at center,transparent 35%,rgba(74,8,16,0.35) 100%);
-    }
+    /* ===== HERO ===== */
+    .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;
+      overflow:hidden;margin-top:-72px;text-align:center;}
+    .hero-bg{position:absolute;inset:-60px 0 0 0;background:url('https://raw.githubusercontent.com/Imanebouras/Orrhealing/main/images/ChatGPT%20Image%2018%20ao%C3%BBt%202026%2C%2011_29_19.png') center/cover no-repeat;
+      filter:brightness(.32) saturate(.7) sepia(.15);transform:scale(1.04);will-change:transform;}
+    .hero-ovl{position:absolute;inset:0;
+      background:linear-gradient(180deg,rgba(74,8,16,.8) 0%,rgba(110,11,20,.45) 30%,rgba(139,32,48,.15) 55%,rgba(250,249,246,0) 100%);}
+    .hero-core{position:relative;z-index:2;padding:0 24px;max-width:780px;display:flex;flex-direction:column;align-items:center;gap:26px;}
+    .hero-logo{height:clamp(84px,16vw,150px);width:auto;opacity:.96;
+      animation:heroIn 1.2s var(--ease) .2s both;}
+    .hero-label{font-size:10px;font-weight:500;letter-spacing:.5em;text-transform:uppercase;color:rgba(212,175,127,.75);
+      animation:heroIn 1.2s var(--ease) .5s both;}
+    .hero-title{font-family:'Playfair Display',serif;font-weight:400;font-style:italic;
+      color:var(--nude);line-height:1.25;font-size:clamp(24px,4.6vw,44px);max-width:640px;
+      animation:heroIn 1.2s var(--ease) .7s both;}
+    .hero-line{width:40px;height:1px;background:var(--gold);opacity:.6;animation:heroIn 1.2s var(--ease) .9s both;}
+    .hero-desc{font-weight:300;font-size:13px;line-height:1.9;color:rgba(237,224,212,.65);
+      max-width:460px;margin:0 auto;animation:heroIn 1.2s var(--ease) 1.1s both;}
+    .hero-cta{display:inline-flex;align-items:center;gap:14px;padding:17px 42px;
+      border:1px solid rgba(212,175,127,.45);color:var(--gold);transition:all .4s;animation:heroIn 1.2s var(--ease) 1.3s both;}
+    .hero-cta .t{font-size:10px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;}
+    .hero-cta .a{width:18px;height:1px;background:currentColor;position:relative;transition:width .4s;}
+    .hero-cta .a::after{content:'';position:absolute;right:0;top:50%;width:5px;height:5px;
+      transform:translateY(-50%) rotate(-45deg);border-right:1px solid currentColor;border-top:1px solid currentColor;}
+    .hero-cta:hover{border-color:var(--gold);background:rgba(212,175,127,.06);}
+    .hero-cta:hover .a{width:30px;}
+    .hero-scroll{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:2;
+      font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(237,224,212,.4);
+      animation:fUp 1.5s var(--ease) 1.8s both;cursor:pointer;}
+    @keyframes heroIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none;}}
 
-    .hero-particle{
-      position:absolute;border-radius:50%;pointer-events:none;
-      background:rgba(212,175,127,0.35);
-      animation:heroParticleFloat var(--dur,12s) ease-in-out infinite;
-      animation-delay:var(--delay,0s);
-      filter:blur(0.5px);
-    }
-    @keyframes heroParticleFloat{
-      0%{transform:translateY(0) translateX(0);opacity:0;}
-      15%{opacity:var(--peak-op,0.4);}
-      50%{transform:translateY(var(--rise,-80px)) translateX(var(--drift,15px));opacity:var(--peak-op,0.4);}
-      85%{opacity:var(--peak-op,0.4);}
-      100%{transform:translateY(var(--rise,-160px)) translateX(calc(var(--drift,15px)*-0.5));opacity:0;}
-    }
+    /* ===== REVEAL ===== */
+    .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
+    .reveal.in{opacity:1;transform:none;}
+    .r1{transition-delay:.08s}.r2{transition-delay:.16s}.r3{transition-delay:.24s}.r4{transition-delay:.32s}
 
-    .hero-content{position:relative;z-index:10;text-align:center;padding:0 24px;max-width:680px;}
+    /* ===== SECTIONS COMMUNES ===== */
+    .sec{padding:clamp(72px,12vw,130px) 28px;}
+    .wrap{max-width:1200px;margin:0 auto;}
+    .wrap-n{max-width:900px;margin:0 auto;}
+    .eyebrow{font-size:11px;font-weight:600;letter-spacing:.4em;text-transform:uppercase;color:var(--burgundy-soft);margin-bottom:18px;}
+    .hd{font-family:'Playfair Display',serif;font-weight:400;color:var(--dark);line-height:1.2;
+      font-size:clamp(26px,4.4vw,44px);}
+    .hd em{font-style:italic;color:var(--burgundy);}
+    .rule{width:38px;height:1px;background:var(--burgundy-soft);opacity:.3;margin:22px 0;}
+    .center{text-align:center;}
+    .center .rule{margin-left:auto;margin-right:auto;}
 
-    .hero-ornament{
-      display:flex;align-items:center;justify-content:center;gap:16px;
-      margin-bottom:28px;
-    }
-    .hero-ornament-line{
-      width:40px;height:1px;
-      background:linear-gradient(90deg,transparent,rgba(212,175,127,0.5));
-    }
-    .hero-ornament-line:last-child{
-      background:linear-gradient(90deg,rgba(212,175,127,0.5),transparent);
-    }
-    .hero-ornament-diamond{
-      width:5px;height:5px;border:1px solid rgba(212,175,127,0.5);
-      transform:rotate(45deg);flex-shrink:0;
-    }
+    /* ===== MANIFESTE — ÉDITORIAL LUXE ===== */
+    #manifeste{background:var(--nude-light);}
+    .manifeste-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(40px,6vw,90px);align-items:center;}
+    .mf-img{position:relative;overflow:hidden;aspect-ratio:4/5;}
+    .mf-img img{width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.02);
+      transition:transform 1.2s var(--ease);}
+    .mf-img:hover img{transform:scale(1.03);}
+    .mf-img::after{content:'';position:absolute;inset:0;
+      background:linear-gradient(180deg,rgba(74,8,16,0) 30%,rgba(74,8,16,.18) 100%);}
+    .mf-editorial{display:flex;flex-direction:column;}
+    .mf-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
+    .mf-word{font-size:11px;font-weight:600;letter-spacing:.45em;text-transform:uppercase;color:var(--burgundy-soft);}
+    .mf-num{font-family:'Playfair Display',serif;font-style:italic;font-size:12px;letter-spacing:.1em;color:var(--gold);opacity:.8;}
+    .mf-title{font-size:clamp(27px,3.6vw,42px);line-height:1.18;margin-bottom:26px;}
+    .mf-title em{font-style:italic;color:var(--burgundy);}
+    .mf-ornament{display:flex;align-items:center;gap:10px;margin-bottom:26px;}
+    .mf-ornament .line{width:32px;height:1px;background:var(--burgundy-soft);opacity:.35;}
+    .mf-ornament .dot{width:4px;height:4px;border-radius:50%;background:var(--gold);}
+    .mf-drop{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(17px,1.9vw,21px);
+      line-height:1.75;color:var(--dark);margin-bottom:28px;}
+    .mf-drop .dropcap{font-size:3.2em;line-height:.85;font-weight:700;color:var(--burgundy);
+      float:left;margin:2px 12px 0 0;}
+    .mf-accent{font-style:italic;color:var(--burgundy);}
+    .mf-lines{display:flex;flex-direction:column;gap:12px;margin-bottom:28px;
+      padding-left:22px;border-left:1px solid rgba(110,11,20,.18);}
+    .mf-line{font-weight:300;font-size:14px;line-height:1.9;color:var(--dark);opacity:.75;}
+    .mf-claim{font-weight:300;font-size:14px;letter-spacing:.02em;color:var(--dark);opacity:.75;}
+    .mf-claim strong{font-family:'Playfair Display',serif;font-weight:600;font-size:15px;color:var(--burgundy);letter-spacing:.25em;text-transform:uppercase;}
+    .mf-sig{display:flex;align-items:center;gap:14px;margin-top:32px;
+      border-top:1px solid rgba(110,11,20,.1);padding-top:20px;}
+    .mf-symbol{color:var(--gold);font-size:10px;}
+    .mf-role{font-size:10px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--dark);opacity:.55;}
 
-    .hero-tagline{
-      font-family:'Montserrat',sans-serif;font-weight:400;
-      font-size:10px;letter-spacing:6px;text-transform:uppercase;
-      color:rgba(212,175,127,0.65);
-      margin-bottom:36px;
-    }
-    .hero-title{
-      font-family:'Playfair Display',serif;font-weight:400;font-style:italic;
-      font-size:clamp(28px,5.5vw,56px);line-height:1.2;
-      color:var(--nude);margin-bottom:28px;
-      text-shadow:0 2px 40px rgba(0,0,0,0.15);
-    }
-    .hero-desc{
-      font-family:'Montserrat',sans-serif;font-weight:300;
-      font-size:13px;line-height:1.9;
-      color:rgba(237,224,212,0.55);max-width:440px;
-      margin:0 auto 52px;letter-spacing:0.3px;
-    }
+    /* ===== ORIGINES (alternating 50/50) ===== */
+    #origine{background:var(--cream);}
+    .og-row{display:grid;grid-template-columns:1fr 1fr;min-height:min(72vh,640px);align-items:stretch;}
+    .og-img{overflow:hidden;position:relative;}
+    .og-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease);}
+    .og-img:hover img{transform:scale(1.03);}
+    .og-txt{display:flex;flex-direction:column;justify-content:center;padding:60px clamp(32px,5vw,80px);}
+    .og-txt.r{order:2;}
+    .og-num{font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--burgundy-soft);opacity:.8;margin-bottom:12px;}
+    .og-txt h3{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(24px,3vw,36px);color:var(--dark);margin-bottom:8px;line-height:1.25;}
+    .og-txt .rule{margin-bottom:20px;}
+    .og-txt p{font-weight:300;font-size:14px;line-height:1.95;color:var(--dark);opacity:.68;max-width:440px;}
+    .og-txt p + p{margin-top:14px;}
+    .og-ital{font-family:'Playfair Display',serif;font-style:italic;font-size:17px;color:var(--burgundy);opacity:.92;margin-top:14px;}
 
-    /* ============================================
-       BOUTON ENTRER — PREMIUM LUXE
-       ============================================ */
-    .hero-cta-wrap{
-      position:relative;display:inline-block;
-    }
-    .hero-cta{
-      position:relative;display:inline-flex;align-items:center;gap:14px;
-      padding:18px 44px;
-      border:1px solid rgba(212,175,127,0.35);
-      background:transparent;
-      text-decoration:none;overflow:hidden;
-      transition:all 0.7s cubic-bezier(.4,0,.2,1);
-      box-shadow:
-        0 0 0 1px rgba(212,175,127,0.06),
-        0 0 40px rgba(212,175,127,0.04),
-        inset 0 0 40px rgba(212,175,127,0.02);
-      cursor:pointer;
-    }
-    .hero-cta::before{
-      content:'';position:absolute;inset:0;
-      background:linear-gradient(105deg,
-        transparent 0%,
-        rgba(212,175,127,0.08) 45%,
-        rgba(212,175,127,0.14) 50%,
-        rgba(212,175,127,0.08) 55%,
-        transparent 100%
-      );
-      transform:translateX(-120%);
-      transition:transform 0.9s cubic-bezier(.4,0,.2,1);
-    }
-    .hero-cta::after{
-      content:'';position:absolute;
-      bottom:0;left:50%;width:0;height:1px;
-      background:var(--gold);
-      transition:width 0.6s cubic-bezier(.4,0,.2,1),left 0.6s cubic-bezier(.4,0,.2,1);
-    }
+    /* ===== CRÉATIONS ===== */
+    #creations{background:var(--nude);}
+    .crea-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px;}
+    .crea{background:var(--cream);border:1px solid rgba(110,11,20,.08);padding:clamp(26px,3vw,40px);display:flex;flex-direction:column;gap:14px;transition:transform .5s var(--ease),box-shadow .5s;}
+    .crea:hover{transform:translateY(-6px);box-shadow:0 18px 40px -24px rgba(74,8,16,.18);}
+    .crea .ico{width:46px;height:46px;border-radius:50%;background:rgba(212,175,127,.14);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:17px;margin-bottom:6px;}
+    .crea.photo .ico{border:1px solid var(--gold);background:transparent;overflow:hidden;padding:0;}
+    .crea.photo .ico img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+    .crea h4{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--burgundy);}
+    .crea p{font-weight:300;font-size:13px;line-height:1.8;color:var(--dark);opacity:.6;flex:1;}
+    .crea .tag{display:inline-block;width:max-content;font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+      background:var(--burgundy);color:var(--nude);padding:6px 12px;}
+    .crea .lnk{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--burgundy);cursor:pointer;background:none;border:none;padding:0;text-align:left;transition:opacity .3s;width:max-content;}
+    .crea .lnk:hover{opacity:.6;}
+    .crea-cta{display:block;margin:52px auto 0;text-align:center;font-size:11px;font-weight:500;letter-spacing:.24em;
+      text-transform:uppercase;color:var(--burgundy);border:1px solid var(--burgundy);padding:15px 42px;transition:all .35s;background:transparent;width:max-content;}
+    .crea-cta:hover{background:var(--burgundy);color:var(--nude);}
 
-    .cta-shimmer{
-      position:absolute;top:0;left:-100%;width:60%;height:100%;
-      background:linear-gradient(105deg,transparent 35%,rgba(212,175,127,0.06) 50%,transparent 65%);
-      animation:ctaShimmer 5s ease-in-out infinite;
-      pointer-events:none;
-    }
-    @keyframes ctaShimmer{
-      0%,100%{left:-100%;}
-      50%{left:140%;}
-    }
+    /* ===== FONDATRICE ===== */
+    #fondatrice{position:relative;overflow:hidden;background:linear-gradient(140deg,#4A0810,#6E0B14 55%,#8B2030);}
+    #fondatrice::before{content:'';position:absolute;inset:0;
+      background:url('https://i.pinimg.com/736x/6b/3e/90/6b3e90ee9b044ba33ccfbf11cb8328a6.jpg') center/cover;opacity:.05;filter:saturate(.3) sepia(.2);}
+    #fondatrice .wrap{position:relative;z-index:2;max-width:980px;}
+    #fondatrice .eyebrow{color:var(--gold);}
+    #fondatrice .hd{color:var(--nude);}
+    .f-nav{display:flex;justify-content:center;gap:clamp(8px,3vw,28px);margin:44px auto 52px;border-bottom:1px solid rgba(212,175,127,.12);padding-bottom:2px;flex-wrap:wrap;}
+    .f-nav button{background:none;border:none;padding:12px 6px;font-size:11px;font-weight:500;letter-spacing:.2em;
+      text-transform:uppercase;color:rgba(237,224,212,.45);border-bottom:2px solid transparent;transition:all .3s;white-space:nowrap;}
+    .f-nav button:hover{color:var(--gold);}
+    .f-nav button.active{color:var(--gold);border-bottom-color:var(--gold);}
+    .f-sec{display:none;}
+    .f-sec.active{display:block;animation:fSec .5s var(--ease);}
+    @keyframes fSec{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none;}}
+    .f-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center;}
+    .f-portrait{aspect-ratio:4/5;overflow:hidden;border:1px solid rgba(212,175,127,.14);}
+    .f-portrait img{width:100%;height:100%;object-fit:cover;}
+    .f-body{display:flex;flex-direction:column;gap:18px;}
+    .f-body p{font-weight:300;font-size:14px;line-height:2;color:rgba(237,224,212,.68);}
+    .f-body .sub{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);}
+    .f-body h3{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(22px,2.6vw,30px);color:var(--nude);line-height:1.3;}
+    .f-more{display:none;flex-direction:column;gap:16px;}
+    .f-more.open{display:flex;}
+    .f-more p{font-weight:300;font-size:14px;line-height:2;color:rgba(237,224,212,.68);}
+    .f-blockquote{border-left:2px solid var(--gold);background:rgba(212,175,127,.05);padding:22px 26px;margin-top:6px;
+      font-family:'Playfair Display',serif;font-style:italic;font-size:16px;color:var(--gold-light);line-height:1.7;}
+    .f-btn{align-self:flex-start;background:none;border:1px solid var(--gold);color:var(--gold);
+      font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;padding:12px 26px;transition:all .3s;margin-top:6px;}
+    .f-btn:hover{background:var(--gold);color:var(--burgundy-deep);}
+    .f-signature{text-align:center;padding-top:70px;margin-top:50px;border-top:1px solid rgba(212,175,127,.08);}
+    .f-signature .big{font-family:'Playfair Display',serif;font-size:clamp(24px,4vw,38px);color:var(--gold);line-height:1.3;}
+    .f-signature .line{width:40px;height:1px;background:var(--gold);opacity:.5;margin:20px auto;}
 
-    .cta-text{
-      font-family:'Montserrat',sans-serif;font-weight:500;
-      font-size:10px;letter-spacing:4px;text-transform:uppercase;
-      color:var(--gold);
-      position:relative;z-index:2;
-      transition:color 0.6s ease,letter-spacing 0.6s ease;
-    }
-    .cta-arrow{
-      position:relative;z-index:2;
-      width:20px;height:1px;background:var(--gold);
-      transition:width 0.6s cubic-bezier(.4,0,.2,1),background 0.6s ease;
-      flex-shrink:0;
-    }
-    .cta-arrow::after{
-      content:'';position:absolute;right:0;top:50%;
-      transform:translateY(-50%) rotate(-45deg);
-      width:5px;height:5px;border-right:1px solid var(--gold);
-      border-top:1px solid var(--gold);
-      transition:border-color 0.6s ease,transform 0.6s ease;
-    }
+    /* ===== COMMUNAUTÉ ===== */
+    #communaute{background:var(--nude-light);}
+    .com-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:56px;}
+    .com{background:var(--cream);padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:14px;border:1px solid rgba(110,11,20,.07);transition:border-color .3s;}
+    .com:hover{border-color:var(--burgundy-soft);}
+    .com .ico{width:40px;height:40px;border:1px solid var(--burgundy-soft);display:flex;align-items:center;justify-content:center;color:var(--burgundy);font-size:15px;}
+    .com h4{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--dark);}
+    .com p{font-weight:300;font-size:13px;line-height:1.8;color:var(--dark);opacity:.55;flex:1;}
+    .com .act{background:none;border:none;padding:0;font-size:10px;font-weight:500;letter-spacing:.18em;
+      text-transform:uppercase;color:var(--burgundy);text-align:left;transition:opacity .3s;width:max-content;}
+    .com .act:hover{opacity:.6;}
+    .nl{display:flex;gap:10px;flex-wrap:wrap;}
+    .nl input{flex:1;min-width:150px;background:transparent;border:1px solid rgba(110,11,20,.15);padding:13px 14px;
+      font-size:12px;outline:none;color:var(--dark);transition:border-color .3s;}
+    .nl input:focus{border-color:var(--burgundy);}
+    .nl .go{background:var(--burgundy);color:#faf9f6;border:none;font-size:11px;letter-spacing:.1em;
+      text-transform:uppercase;padding:0 22px;transition:opacity .3s;}
+    .nl .go:hover{opacity:.88;}
 
-    .hero-cta:hover{
-      border-color:rgba(212,175,127,0.6);
-      box-shadow:
-        0 0 0 1px rgba(212,175,127,0.1),
-        0 0 60px rgba(212,175,127,0.1),
-        inset 0 0 60px rgba(212,175,127,0.04);
-    }
-    .hero-cta:hover::before{transform:translateX(120%);}
-    .hero-cta:hover::after{width:100%;left:0;}
-    .hero-cta:hover .cta-text{color:var(--burgundy-deep);letter-spacing:5px;}
-    .hero-cta:hover .cta-arrow{width:32px;background:var(--burgundy-deep);}
-    .hero-cta:hover .cta-arrow::after{border-color:var(--burgundy-deep);transform:translateY(-50%) rotate(-45deg) translateX(2px);}
+    /* ===== FOOTER ===== */
+    footer{background:var(--burgundy-deep);padding:64px 28px 36px;text-align:center;}
+    .foot-logo{font-family:'Playfair Display',serif;font-weight:700;letter-spacing:.06em;color:var(--gold);font-size:clamp(38px,6vw,56px);}
+    .foot-tag{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:rgba(237,224,212,.35);margin-top:8px;}
+    .foot-social{display:flex;justify-content:center;gap:26px;margin:36px 0 20px;}
+    .foot-social a{color:rgba(237,224,212,.5);font-size:19px;transition:color .3s,transform .3s;}
+    .foot-social a:hover{color:var(--gold);transform:translateY(-2px);}
+    .foot-mail{color:rgba(237,224,212,.45);font-size:12px;font-weight:300;transition:color .3s;}
+    .foot-mail:hover{color:var(--gold);}
+    .foot-bottom{border-top:1px solid rgba(212,175,127,.07);margin-top:38px;padding-top:24px;
+      display:flex;flex-direction:column;gap:8px;font-size:10px;color:rgba(237,224,212,.25);}
+    .foot-bottom .serif{color:rgba(212,175,127,.3);font-style:italic;font-size:11px;}
 
-    .hero-scroll-line{
-      position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:10;
-    }
-    .hero-scroll-line-inner{
-      width:1px;height:48px;position:relative;overflow:hidden;
-    }
-    .hero-scroll-line-inner::before{
-      content:'';position:absolute;top:-100%;left:0;width:1px;height:100%;
-      background:linear-gradient(to bottom,transparent,rgba(212,175,127,0.5));
-      animation:scrollLine 2.5s ease-in-out infinite;
-    }
-    @keyframes scrollLine{
-      0%{top:-100%;}50%,100%{top:100%;}
-    }
+    /* ===== TOAST ===== */
+    .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(90px);z-index:10001;
+      background:var(--burgundy-deep);color:var(--nude);font-size:12px;padding:14px 30px;letter-spacing:.02em;
+      transition:transform .4s var(--ease);box-shadow:0 10px 34px rgba(74,8,16,.35);pointer-events:none;max-width:90vw;text-align:center;}
+    .toast.show{transform:translateX(-50%) translateY(0);}
 
-    /* ============================================
-       NAVBAR LUXE — CORRIGÉE (FIXE EN HAUT)
-       ============================================ */
-    .nav-luxe{
-      position:fixed;
-      top:0;
-      left:0;
-      right:0;
-      z-index:9990;
-      padding:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:transparent;
-      transition:background 0.6s cubic-bezier(.4,0,.2,1), backdrop-filter 0.6s ease;
-      height:80px;
-    }
-    .nav-luxe::before{
-      content:'';position:absolute;top:0;left:0;right:0;height:1px;
-      background:linear-gradient(90deg,transparent 0%,rgba(212,175,127,0.5) 20%,rgba(212,175,127,0.7) 50%,rgba(212,175,127,0.5) 80%,transparent 100%);
-      opacity:0;transition:opacity 0.6s ease;
-    }
-    .nav-luxe.scrolled::before{opacity:1;}
-    .nav-luxe.scrolled{
-      background:rgba(250,249,246,0.88);
-      backdrop-filter:blur(28px) saturate(1.3);
-      -webkit-backdrop-filter:blur(28px) saturate(1.3);
-    }
-    .nav-luxe::after{
-      content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
-      background:linear-gradient(90deg,transparent 0%,rgba(110,11,20,0.1) 15%,rgba(110,11,20,0.15) 50%,rgba(110,11,20,0.1) 85%,transparent 100%);
-      opacity:0;transition:opacity 0.6s ease;
-    }
-    .nav-luxe.scrolled::after{opacity:1;}
-
-    .nav-inner{
-      width:100%;max-width:1280px;
-      display:flex;align-items:center;justify-content:space-between;
-      padding:0 48px;
-      height:100%;
-    }
-
-    /* ===== LOGO ===== */
-    .nav-logo{
-      display:flex;align-items:center;gap:14px;text-decoration:none;
-      flex-shrink:0;
-    }
-    .nav-logo-img{
-      height:40px;width:auto;display:block;
-      transition:all 0.4s cubic-bezier(.4,0,.2,1);
-      filter:brightness(0) invert(1) drop-shadow(0 0 4px rgba(212,175,127,0.1));
-      opacity:0.95;
-    }
-    .nav-logo-img:hover{
-      opacity:1;transform:scale(1.04);
-      filter:brightness(0) invert(1) drop-shadow(0 0 12px rgba(212,175,127,0.25));
-    }
-    .nav-luxe.scrolled .nav-logo-img{
-      filter:brightness(0) saturate(1);
-      opacity:0.85;
-    }
-    .nav-luxe.scrolled .nav-logo-img:hover{
-      opacity:1;
-      filter:brightness(0) saturate(1);
-    }
-    .nav-logo-text-fallback{
-      font-family:'Playfair Display',serif;font-weight:700;
-      font-size:22px;letter-spacing:6px;color:var(--nude);
-      transition:color 0.5s ease,letter-spacing 0.5s ease;
-      display:none;
-    }
-    .nav-luxe.scrolled .nav-logo-text-fallback{color:var(--burgundy-deep);}
-    .nav-logo:hover .nav-logo-text-fallback{letter-spacing:8px;}
-
-    /* ===== LIENS DE NAVIGATION ===== */
-    .nav-links-luxe{
-      display:flex;align-items:center;gap:28px;
-      flex:1;justify-content:center;
-    }
-    .nav-link-luxe{
-      font-family:'Montserrat',sans-serif;
-      font-size:10px;font-weight:500;letter-spacing:2.5px;
-      text-transform:uppercase;
-      color:rgba(237,224,212,0.7);
-      text-decoration:none;
-      position:relative;padding:6px 0;
-      transition:color 0.4s ease;
-      white-space:nowrap;
-    }
-    .nav-luxe.scrolled .nav-link-luxe{color:var(--dark);}
-    .nav-link-luxe::after{
-      content:'';position:absolute;bottom:0;left:50%;width:0;height:1px;
-      background:var(--gold);transition:width 0.5s cubic-bezier(.4,0,.2,1),left 0.5s cubic-bezier(.4,0,.2,1);
-    }
-    .nav-link-luxe:hover{color:var(--gold);}
-    .nav-luxe.scrolled .nav-link-luxe:hover{color:var(--burgundy);}
-    .nav-link-luxe:hover::after{width:100%;left:0;}
-
-    /* ===== ACTIONS (CTA + HAMBURGER) ===== */
-    .nav-actions{
-      display:flex;align-items:center;gap:18px;
-      flex-shrink:0;
-    }
-
-    .nav-cta{
-      font-family:'Montserrat',sans-serif;
-      font-size:9px;font-weight:600;letter-spacing:3px;
-      text-transform:uppercase;
-      color:var(--gold);text-decoration:none;
-      padding:10px 24px;
-      border:1px solid rgba(212,175,127,0.35);
-      transition:all 0.5s cubic-bezier(.4,0,.2,1);
-      position:relative;overflow:hidden;
-    }
-    .nav-cta::before{
-      content:'';position:absolute;inset:0;
-      background:var(--gold);transform:scaleX(0);transform-origin:left;
-      transition:transform 0.5s cubic-bezier(.4,0,.2,1);z-index:0;
-    }
-    .nav-cta span{position:relative;z-index:1;transition:color 0.5s ease;}
-    .nav-cta:hover::before{transform:scaleX(1);}
-    .nav-cta:hover{color:var(--burgundy-deep);border-color:var(--gold);}
-    .nav-cta:hover span{color:var(--burgundy-deep);}
-    .nav-luxe.scrolled .nav-cta{color:var(--burgundy);border-color:rgba(110,11,20,0.25);}
-    .nav-luxe.scrolled .nav-cta::before{background:var(--burgundy);}
-    .nav-luxe.scrolled .nav-cta:hover{border-color:var(--burgundy);}
-    .nav-luxe.scrolled .nav-cta:hover span{color:var(--nude);}
-
-    /* ===== BOUTON HAMBURGER ===== */
-    .nav-toggle-luxe{
-      display:none;flex-direction:column;justify-content:center;align-items:center;gap:6px;
-      width:40px;height:40px;background:transparent;border:1px solid rgba(212,175,127,0.25);
-      cursor:pointer;transition:border-color 0.4s ease;padding:0;
-    }
-    .nav-toggle-luxe:hover{border-color:var(--gold);}
-    .nav-luxe.scrolled .nav-toggle-luxe{border-color:rgba(110,11,20,0.15);}
-    .nav-luxe.scrolled .nav-toggle-luxe:hover{border-color:var(--burgundy);}
-    .toggle-bar{display:block;width:16px;height:1px;background:var(--gold);transition:all 0.4s cubic-bezier(.4,0,.2,1);}
-    .nav-luxe.scrolled .toggle-bar{background:var(--dark);}
-    .toggle-bar:last-child{width:10px;}
-    .nav-toggle-luxe.active .toggle-bar:nth-child(1){transform:rotate(45deg) translate(2px,2px);background:var(--burgundy);}
-    .nav-toggle-luxe.active .toggle-bar:nth-child(2){opacity:0;transform:scaleX(0);}
-    .nav-toggle-luxe.active .toggle-bar:nth-child(3){transform:rotate(-45deg) translate(3px,-3px);width:16px;background:var(--burgundy);}
-
-    /* ===== MENU MOBILE ===== */
-    .mobile-menu-luxe{
-      position:fixed;inset:0;z-index:9989;background:rgba(250,249,246,0.97);
-      backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
-      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
-      opacity:0;visibility:hidden;transition:all 0.6s cubic-bezier(.4,0,.2,1);
-    }
-    .mobile-menu-luxe.open{opacity:1;visibility:visible;}
-    .mobile-menu-luxe a{
-      font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:var(--dark);
-      text-decoration:none;padding:14px 0;position:relative;transition:color 0.3s ease,letter-spacing 0.4s ease;letter-spacing:1px;
-    }
-    .mobile-menu-luxe a::after{
-      content:'';position:absolute;bottom:10px;left:50%;width:0;height:1px;background:var(--burgundy);transition:width 0.4s ease,left 0.4s ease;
-    }
-    .mobile-menu-luxe a:hover{color:var(--burgundy);letter-spacing:3px;}
-    .mobile-menu-luxe a:hover::after{width:40px;left:calc(50% - 20px);}
-    .mobile-menu-ornament{width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--burgundy-soft),transparent);margin:16px 0;}
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar{width:4px;}
+    ::-webkit-scrollbar-track{background:var(--cream);}
+    ::-webkit-scrollbar-thumb{background:var(--burgundy-soft);}
 
     /* ===== RESPONSIVE ===== */
-    @media(max-width:900px){
-      .nav-links-luxe,.nav-cta{display:none !important;}
-      .nav-toggle-luxe{display:flex !important;}
-      .nav-inner{padding:0 24px !important;}
-      .nav-logo-img{height:32px !important;}
+    @media(max-width:940px){
+      .nav-links,.nav-cta{display:none;}
+      .nav-burger{display:flex;}
+      .nav-in{padding:0 18px;}
+      .manifeste-grid,.og-row,.f-grid{grid-template-columns:1fr;}
+      .mf-img{aspect-ratio:4/3;max-height:52vh;}
+      .og-img{min-height:48vh;}
+      .og-txt{padding:52px 26px;}
+      .og-img.r{order:0;}
+      .og-txt.r{order:0;}
+      .crea-grid,.com-grid{grid-template-columns:1fr 1fr;}
     }
-    @media(max-width:480px){
-      .nav-logo-img{height:28px !important;}
+    @media(max-width:600px){
+      body{padding-top:64px;}
+      .nav{height:64px;}
+      .nav .logo{height:28px;}
+      .hero-logo{height:clamp(72px,22vw,104px);}
+      .crea-grid,.com-grid{grid-template-columns:1fr;}
+      .og-img{min-height:40vh;}
+      .f-nav{gap:4px 12px;}
+      .f-nav button{font-size:10px;padding:10px 2px;}
+      .sec{padding:64px 20px;}
     }
 
-    /* ===== ÉLÉMENTS COMMUNS ===== */
-    .breathing-dot{position:fixed;bottom:24px;right:24px;z-index:9996;width:8px;height:8px;border-radius:50%;background:var(--burgundy);opacity:0.35;animation:breathe 4s ease-in-out infinite;}
-    @keyframes breathe{0%,100%{transform:scale(1);opacity:0.2;}50%{transform:scale(1.8);opacity:0.45;}}
-    .reveal{opacity:0;transform:translateY(36px);transition:opacity 0.9s ease,transform 0.9s ease;}
-    .reveal.visible{opacity:1;transform:translateY(0);}
-    .reveal-delay-1{transition-delay:0.15s;}.reveal-delay-2{transition-delay:0.3s;}.reveal-delay-3{transition-delay:0.45s;}.reveal-delay-4{transition-delay:0.6s;}
-    .section-divider{width:40px;height:1px;background:var(--burgundy-soft);margin:0 auto;}
-    .ritual-tab{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;padding:12px 18px;border:1px solid transparent;background:transparent;color:var(--dark);cursor:pointer;transition:all 0.3s;}
-    .ritual-tab.active{border-color:var(--burgundy);color:var(--burgundy);background:rgba(110,11,20,0.04);}
-    .ritual-tab:hover:not(.active){color:var(--burgundy);}
-    .ritual-panel{display:none;animation:fadePanel 0.5s ease;}.ritual-panel.active{display:block;}
-    @keyframes fadePanel{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-    .waveform-bar{display:inline-block;width:3px;margin:0 1.5px;border-radius:2px;background:var(--burgundy-soft);animation:wave 1.2s ease-in-out infinite;}
-    @keyframes wave{0%,100%{height:8px;opacity:0.25}50%{height:var(--h,24px);opacity:0.8}}
-    .q-option{border:1px solid rgba(110,11,20,0.15);padding:16px 20px;cursor:pointer;transition:all 0.3s;background:transparent;text-align:left;width:100%;font-family:'Montserrat',sans-serif;font-size:13px;color:var(--dark);line-height:1.7;}
-    .q-option:hover{border-color:var(--burgundy);background:rgba(110,11,20,0.03);}
-    .q-option.selected{border-color:var(--burgundy);background:rgba(110,11,20,0.06);color:var(--burgundy);}
-    .moon{width:80px;height:80px;border-radius:50%;position:relative;background:var(--cream);box-shadow:inset -8px 0 0 0 var(--burgundy-deep),0 0 30px rgba(110,11,20,0.15);}
-    .creation-card{position:relative;overflow:hidden;cursor:pointer;}
-    .creation-card img{transition:transform 0.8s ease,filter 0.8s ease;}
-    .creation-card:hover img{transform:scale(1.05);filter:brightness(0.65);}
-    .creation-card .overlay-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity 0.5s ease;padding:20px;background:rgba(74,8,16,0.55);}
-    .creation-card:hover .overlay-text{opacity:1;}
-    .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(100px);z-index:10001;background:var(--burgundy-deep);color:var(--nude);font-family:'Montserrat',sans-serif;font-size:12px;font-weight:400;padding:14px 28px;letter-spacing:0.5px;transition:transform 0.5s cubic-bezier(.4,0,.2,1);box-shadow:0 8px 32px rgba(74,8,16,0.3);}
-    .toast.show{transform:translateX(-50%) translateY(0);}
-    .progress-bar{height:2px;background:var(--burgundy);transition:width 0.5s ease;}
-    img{opacity:0;transition:opacity 0.8s ease;}img.loaded{opacity:1;}
-    ::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--cream);}::-webkit-scrollbar-thumb{background:var(--burgundy-soft);}
-    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important;}}
-  </style>
+    /* ===== ACCESSIBILITÉ / RÉDUCTION D'ANIMATION ===== */
+    @media(prefers-reduced-motion:reduce){
+  *, *::before, *::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+  .reveal{opacity:1;transform:none;}
+}</style>
 </head>
 <body>
 
-  <div class="grain-overlay" aria-hidden="true"></div>
-  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
-  <div class="breathing-dot" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
 
-  <!-- ===== ENTRÉE IMMERSIVE ===== -->
-  <div class="entrance-overlay" id="entrance" role="dialog" aria-label="Ouverture du sanctuaire ORR">
-    <div class="entrance-halo" aria-hidden="true"></div>
-    <div class="entrance-particle" style="top:20%;left:15%;--dur:8s;--delay:0s;--drift:-25px;" aria-hidden="true"></div>
-    <div class="entrance-particle" style="top:70%;left:80%;--dur:11s;--delay:2s;--drift:-35px;" aria-hidden="true"></div>
-    <div class="entrance-particle" style="top:35%;left:75%;--dur:9s;--delay:4s;--drift:-20px;" aria-hidden="true"></div>
-    <div class="entrance-particle" style="top:80%;left:25%;--dur:13s;--delay:1s;--drift:-40px;" aria-hidden="true"></div>
-    <div class="entrance-particle" style="top:15%;left:60%;--dur:10s;--delay:3s;--drift:-28px;" aria-hidden="true"></div>
-    <div class="entrance-particle" style="top:55%;left:40%;--dur:12s;--delay:5s;--drift:-32px;" aria-hidden="true"></div>
-
-    <div class="entrance-ornament" aria-hidden="true"></div>
-    <div class="entrance-diamond" aria-hidden="true"></div>
-    <div style="position:relative;z-index:2;">
-      <span class="entrance-letter">O</span>
-      <span class="entrance-letter">R</span>
-      <span class="entrance-letter">R</span>
+  <!-- ENTRÉE IMMERSIVE -->
+  <div class="entrance" id="entrance" role="dialog" aria-label="Ouverture du sanctuaire ORR">
+    <div class="letters" aria-hidden="true">
+      <span class="l">O</span><span class="l">R</span><span class="l">R</span>
     </div>
-    <p class="entrance-tagline" style="margin-top:24px; ">Origin Rituals & Revelations</p>
-    <p class="entrance-sub">Des rituels hérités d'hier pour habiter pleinement aujourd'hui</p>
-    <div class="entrance-ornament-bottom" aria-hidden="true"></div>
+    <p class="tag">Origin Rituals &amp; Revelations</p>
+    <p class="sub">Des rituels hérités d'hier pour habiter pleinement aujourd'hui</p>
   </div>
 
-  <!-- ===== NAVBAR LUXE — FIXE EN HAUT ===== -->
-  <nav class="nav-luxe" id="navLuxe" role="navigation" aria-label="Navigation principale">
-    <div class="nav-inner">
-      <!-- LOGO -->
-      <a href="#essence" class="nav-logo">
-        <img 
-          src="https://www.image2url.com/r2/default/images/1786963418142-bf624e31-8ef5-48ec-9139-ce2e816b8794.png" 
-          alt="ORR — Origin Rituals & Revelations" 
-          class="nav-logo-img"
-          loading="lazy"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
-        >
-        <span class="nav-logo-text-fallback">ORR</span>
+  <!-- NAVBAR -->
+  <header class="nav" id="nav">
+    <div class="nav-in">
+      <a href="#essence" class="logo" aria-label="ORR — Accueil">
+        <img src="https://www.image2url.com/r2/default/images/1786963418142-bf624e31-8ef5-48ec-9139-ce2e816b8794.png" alt="ORR" loading="lazy" width="132" height="34">
       </a>
-
-      <!-- LIENS DE NAVIGATION CENTRÉS -->
-      <div class="nav-links-luxe">
-        <a href="#manifeste" class="nav-link-luxe">Manifeste</a>
-        <a href="#origine" class="nav-link-luxe">Origines</a>
-        <a href="#creations" class="nav-link-luxe">Créations</a>
-        <a href="#fondatrice" class="nav-link-luxe">Fondatrice</a>
-        <a href="#communaute" class="nav-link-luxe">Communauté</a>
-      </div>
-
-      <!-- ACTIONS : CTA + HAMBURGER -->
-      <div class="nav-actions">
-        <a href="#communaute" class="nav-cta"><span>Rejoindre</span></a>
-        <button class="nav-toggle-luxe" id="navToggle" aria-label="Menu" aria-expanded="false">
-          <span class="toggle-bar"></span>
-          <span class="toggle-bar"></span>
-          <span class="toggle-bar"></span>
-        </button>
-      </div>
+      <nav class="nav-links" aria-label="Navigation principale">
+        <a href="#manifeste">Manifeste</a>
+        <a href="#origine">Origines</a>
+        <a href="#creations">Créations</a>
+        <a href="#fondatrice">Fondatrice</a>
+        <a href="#communaute">Communauté</a>
+      </nav>
+      <a href="#communaute" class="nav-cta">Rejoindre</a>
+      <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </nav>
+  </header>
 
-  <div class="mobile-menu-luxe" id="mobileMenu" role="dialog" aria-label="Menu mobile">
-    <a href="#manifeste" onclick="closeMobile()">Manifeste</a>
-    <a href="#origine" onclick="closeMobile()">Origines</a>
-    <div class="mobile-menu-ornament" aria-hidden="true"></div>
-    <a href="#creations" onclick="closeMobile()">Créations</a>
-    <a href="#fondatrice" onclick="closeMobile()">Fondatrice</a>
-    <a href="#communaute" onclick="closeMobile()">Communauté</a>
+  <!-- MENU MOBILE -->
+  <div class="mmenu" id="mmenu" role="dialog" aria-label="Menu mobile">
+    <a href="#manifeste" class="mlink">Manifeste</a>
+    <a href="#origine" class="mlink">Origines</a>
+    <div class="orn" aria-hidden="true"></div>
+    <a href="#creations" class="mlink">Créations</a>
+    <a href="#fondatrice" class="mlink">Fondatrice</a>
+    <a href="#communaute" class="mlink">Communauté</a>
   </div>
 
   <main>
 
-    <!-- ===== HERO IMMERSIF ===== -->
-    <section class="hero-section" id="essence">
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="essence">
       <div class="hero-bg" aria-hidden="true"></div>
-      <div class="hero-overlay" aria-hidden="true"></div>
-      <div class="hero-light-ray" aria-hidden="true"></div>
-      <div class="hero-vignette" aria-hidden="true"></div>
-
-      <div class="hero-particle" style="width:2px;height:2px;top:30%;left:12%;--dur:14s;--delay:0s;--rise:-120px;--drift:20px;--peak-op:0.35;" aria-hidden="true"></div>
-      <div class="hero-particle" style="width:3px;height:3px;top:50%;left:85%;--dur:11s;--delay:3s;--rise:-90px;--drift:-15px;--peak-op:0.25;" aria-hidden="true"></div>
-      <div class="hero-particle" style="width:2px;height:2px;top:65%;left:22%;--dur:16s;--delay:1s;--rise:-140px;--drift:25px;--peak-op:0.3;" aria-hidden="true"></div>
-      <div class="hero-particle" style="width:2px;height:2px;top:40%;left:70%;--dur:13s;--delay:5s;--rise:-100px;--drift:-20px;--peak-op:0.2;" aria-hidden="true"></div>
-      <div class="hero-particle" style="width:1.5px;height:1.5px;top:75%;left:55%;--dur:18s;--delay:2s;--rise:-160px;--drift:10px;--peak-op:0.2;" aria-hidden="true"></div>
-      <div class="hero-particle" style="width:2.5px;height:2.5px;top:25%;left:45%;--dur:12s;--delay:7s;--rise:-80px;--drift:-25px;--peak-op:0.3;" aria-hidden="true"></div>
-      <div class="hero-particle" style="width:1.5px;height:1.5px;top:55%;left:35%;--dur:15s;--delay:4s;--rise:-130px;--drift:18px;--peak-op:0.25;" aria-hidden="true"></div>
-      <div class="hero-particle" style="width:2px;height:2px;top:45%;left:90%;--dur:10s;--delay:6s;--rise:-70px;--drift:-12px;--peak-op:0.15;" aria-hidden="true"></div>
-
-      <div class="hero-content">
-        <div class="hero-ornament reveal" aria-hidden="true">
-          <span class="hero-ornament-line"></span>
-          <span class="hero-ornament-diamond"></span>
-          <span class="hero-ornament-line"></span>
-        </div>
-
-        <p class="hero-tagline reveal reveal-delay-1" style="font-weight:600;">Origin Rituals & Revelations</p>
-
-        <h1 class="hero-title reveal reveal-delay-2">
-          Des rituels hérités<br>d'hier pour habiter<br>pleinement aujourd'hui
-        </h1>
-
-        <div class="hero-cta-wrap reveal reveal-delay-4">
-          <a href="#manifeste" class="hero-cta">
-            <span class="cta-shimmer" aria-hidden="true"></span>
-            <span class="cta-text">Entrer</span>
-            <span class="cta-arrow" aria-hidden="true"></span>
-          </a>
-        </div>
-      </div>
-
-      <div class="hero-scroll-line reveal reveal-delay-4" aria-hidden="true">
-        <div class="hero-scroll-line-inner"></div>
+      <div class="hero-ovl" aria-hidden="true"></div>
+      <div class="hero-core">
+        <img class="hero-logo" src="https://www.image2url.com/r2/default/images/1786963418142-bf624e31-8ef5-48ec-9139-ce2e816b8794.png"
+             alt="ORR" width="200" height="150" fetchpriority="high"><br>
+        <p class="hero-label">Origin Rituals &amp; Revelations</p>
+        <h1 class="hero-title">Des rituels hérités d'hier<br>pour habiter pleinement aujourd'hui</h1>
+        <div class="hero-line" aria-hidden="true"></div>
+        <p class="hero-desc">Une maison de rituels premium — sels, plantes, encens et cérémonies nées des savoirs ancestraux marocains.</p>
+        <a href="#manifeste" class="hero-cta" id="heroCta">
+          <span class="t">Entrer</span><span class="a" aria-hidden="true"></span>
+        </a>
       </div>
     </section>
 
-    <!-- ===== LE MANIFESTE — VERSION ALLÉGÉE ===== -->
-<section class="py-24 md:py-36 px-6" id="manifeste" style="background:var(--nude-light);">
-  <div class="max-w-5xl mx-auto">
-    <div class="text-center mb-20">
-      <p class="font-montserrat text-xs tracking-[4px] uppercase text-orr-burgundy-soft mb-4 reveal" style="font-weight:600;">Le Manifeste</p>
-      <h2 class="font-playfair text-3xl md:text-4xl font-bold text-orr-dark reveal reveal-delay-1">
-        Habiter le bas du corps,<br>
-        <em class="font-normal not-italic" style="color:var(--burgundy);">là où vibre la vie</em>
-      </h2>
-      <div class="section-divider mt-8 reveal reveal-delay-2"></div>
-    </div>
+    <!-- ===== MANIFESTE (éditorial luxe + image) ===== -->
+    <section class="sec mf-sec" id="manifeste" style="background:var(--nude-light);">
+      <div class="manifeste-grid">
 
-    <div class="grid md:grid-cols-2 gap-16 items-start">
-      <div class="space-y-8 text-lg leading-relaxed reveal reveal-delay-1" style="color:var(--dark); font-family:'Playfair Display', serif; font-style: italic;">
-        <p>Tu as appris à chercher les réponses partout.</p>
-        <p>Et si les réponses les plus précieuses se trouvaient déjà là où tout commence ?</p>
-        <div style="width:40px;height:1px;background:var(--burgundy-soft);margin:8px 0;"></div>
-        <p class="text-base" style="color:var(--burgundy);">Ton corps porte une mémoire plus ancienne que les mots.</p>
-        <p class="text-base" style="color:var(--burgundy);">Il connaît le rythme, les saisons, les gestes et les silences.</p>
-      </div>
-
-      <div class="font-montserrat font-light text-sm space-y-6 leading-[2] reveal reveal-delay-2" style="color:var(--dark); opacity:0.75;">
-        <p><span style="font-weight:600;color:var(--burgundy);">ORR est née pour t'aider à retrouver ce langage oublié.</span></p>
-        <p>Nous croyons que les rituels ne sont pas des traditions du passé. Ce sont des chemins vers toi.</p>
-        <div style="width:40px;height:1px;background:var(--burgundy-soft);margin:12px 0;"></div>
-        <p>Chaque geste est une invitation à revenir vers toi.</p>
-      </div>
-    </div>
-
-    <div class="mt-20 text-center reveal reveal-delay-3">
-      <div class="inline-block p-10 md:p-14 border" style="border-color:rgba(110,11,20,0.15); background:rgba(110,11,20,0.02);">
-        <p class="font-playfair text-xl md:text-2xl font-bold mb-4" style="color:var(--burgundy);">ORR t'invite à te souvenir.</p>
-        <p class="font-montserrat text-xs tracking-[3px] uppercase mb-6" style="color:var(--burgundy-soft);">À te reconnecter à ton corps. À honorer ton histoire.</p>
-        <p class="font-playfair italic text-2xl md:text-3xl" style="color:var(--dark);">À retrouver la femme que tu as toujours été.</p>
-        <div style="width:40px;height:1px;background:var(--burgundy-soft);margin:20px auto;"></div>
-        <p class="font-playfair text-lg md:text-xl" style="color:var(--burgundy);">
-          <em>"Habiter le bas du corps,<br>là où vibre la vie."</em>
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-    <!-- ===== LES ORIGINES — VERSION ALLÉGÉE ===== -->
-<section class="relative py-24 md:py-36 overflow-hidden" id="origine" style="background:var(--burgundy);">
-  <div class="absolute inset-0" aria-hidden="true" style="background:url('https://i.pinimg.com/736x/f4/5e/61/f45e617f0262260daf24766ee5c479bd.jpg') center/cover no-repeat;opacity:0.1;filter:saturate(0.3) sepia(0.2);"></div>
-  <div class="relative z-10 max-w-6xl mx-auto px-6">
-    <div class="text-center mb-20">
-      <p class="font-montserrat text-xs tracking-[4px] uppercase mb-4 reveal" style="color:var(--gold); font-weight:600;">Les Origines</p>
-      <h2 class="font-playfair text-3xl md:text-5xl font-bold leading-tight reveal reveal-delay-1" style="color:var(--nude);">Revenir à l'essentiel,<br><em class="font-normal not-italic" style="color:var(--gold);">là où tout commence</em></h2>
-      <div class="section-divider mt-8 reveal reveal-delay-2" style="background:var(--gold);"></div>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-16 items-start">
-      <div class="space-y-6 reveal reveal-delay-1">
-        <p class="font-montserrat font-light text-sm leading-[2]" style="color:rgba(237,224,212,0.8);">Il fut un temps où prendre soin de toi faisait partie de la vie.</p>
-        <p class="font-montserrat font-light text-sm leading-[2]" style="color:rgba(237,224,212,0.7);">Les femmes se transmettaient des gestes, des recettes et des rituels. Elles savaient que le corps avait besoin de temps, de repos et d'attention.</p>
-        <div class="w-10 h-px my-8" style="background:var(--gold);"></div>
-        <p class="font-playfair italic text-lg" style="color:var(--gold);">Puis le monde a accéléré.</p>
-      </div>
-
-      <div class="space-y-6 reveal reveal-delay-2">
-        <p class="font-montserrat font-light text-sm leading-[2]" style="color:rgba(237,224,212,0.7);">Tu as oublié de ralentir. D'écouter. De te choisir.</p>
-        <div class="w-10 h-px my-8" style="background:var(--gold);"></div>
-        <p class="font-playfair text-lg font-bold" style="color:var(--nude);">ORR est née de ce constat.<br><span style="color:var(--gold);">Pour te ramener vers l'essentiel.</span></p>
-      </div>
-    </div>
-
-    <div class="mt-20 max-w-3xl mx-auto text-center reveal reveal-delay-3">
-      <div class="p-10 md:p-14 border" style="border-color:rgba(212,175,127,0.2); background:rgba(0,0,0,0.1); backdrop-filter: blur(4px);">
-        <p class="font-montserrat font-light text-sm leading-[2] mb-6" style="color:rgba(237,224,212,0.75);">Nous croyons que ton corps possède une mémoire et un rythme qui méritent d'être écoutés.</p>
-        <p class="font-montserrat font-light text-sm leading-[2]" style="color:rgba(237,224,212,0.75);">C'est pourquoi ORR s'inspire des savoirs ancestraux pour créer des rituels contemporains.</p>
-      </div>
-    </div>
-
-    <div class="mt-16 text-center reveal reveal-delay-4">
-      <p class="font-playfair italic text-xl md:text-2xl leading-relaxed" style="color:var(--nude);">Parce qu'il arrive qu'en revenant à l'origine,<br>tu retrouves une part de toi que tu croyais perdue.</p>
-      <div class="w-10 h-px mx-auto mt-8 mb-6" style="background:var(--gold);"></div>
-      <p class="font-playfair text-2xl md:text-3xl font-bold" style="color:var(--gold);">Et que tout commence à nouveau.</p>
-    </div>
-  </div>
-</section>
-
-    <!-- ===== CRÉATIONS — VERSION SANS LES 3 CATÉGORIES ===== -->
-<section class="py-24 md:py-36 px-6" id="creations" style="background:var(--nude);">
-  <div class="max-w-6xl mx-auto">
-
-    <!-- ===== TITRE ===== -->
-    <div class="text-center mb-20">
-      <p class="font-montserrat text-xs tracking-[4px] uppercase mb-4 reveal" style="color:var(--burgundy-soft); font-weight:600">Les Créations ORR</p>
-      <h2 class="font-playfair text-3xl md:text-4xl font-bold text-orr-dark reveal reveal-delay-1">Une exposition de nos trésors sacrés,<br><em class="font-normal not-italic" style="color:var(--burgundy);">pour un soin rituel authentique</em></h2>
-      <div class="section-divider mt-8 reveal reveal-delay-2"></div>
-    </div>
-
-    <!-- ===== NOS COLLECTIONS — PARTIE PRINCIPALE ===== -->
-    <div class="mb-24">
-      <p class="font-montserrat text-xs tracking-[3px] uppercase text-center mb-12 reveal" style="color:var(--burgundy-soft);">Nos Collections</p>
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- Collection Lunaire -->
-        <div class="text-center border p-8" style="border-color:rgba(110,11,20,0.10);background:var(--cream);">
-          <div class="w-20 h-20 mx-auto mb-5 rounded-full overflow-hidden border-2" style="border-color:var(--gold);">
-            <img src="https://www.image2url.com/r2/default/images/1786459457358-1dbb6d45-c10b-4fad-9430-d0d0b8828760.jpg" alt="Collection Lunaire" class="w-full h-full object-cover" onload="this.classList.add('loaded')" loading="lazy">
-          </div>
-          <h4 class="font-playfair text-xl font-bold mb-2" style="color:var(--burgundy);">Collection Lunaire</h4>
-          <p class="font-montserrat text-xs font-light leading-relaxed mb-5" style="opacity:0.6;">Sels, plantes et encens pour chaque phase de la lune.</p>
-          <button onclick="showToast('Collection Lunaire — disponible sur demande.')" class="font-montserrat text-[10px] tracking-[2px] uppercase px-6 py-2 border transition-colors duration-300" style="border-color:var(--burgundy);color:var(--burgundy);background:transparent;cursor:pointer;">Découvrir</button>
+        <!-- Image terrain / matière -->
+        <div class="reveal mf-img">
+          <img src="https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/WhatsApp%20Image%202026-08-15%20at%2019.13.40.jpeg"
+               alt="Mains sur terre, gestes ancestraux" loading="lazy" width="900" height="1100">
         </div>
 
-        <!-- Collection Sacrée -->
-        <div class="text-center border p-8" style="border-color:rgba(110,11,20,0.10);background:var(--cream);">
-          <div class="w-20 h-20 mx-auto mb-5 rounded-full overflow-hidden border-2" style="border-color:var(--gold);">
-            <img src="https://www.image2url.com/r2/default/images/1786460751758-5dbd4967-7cad-4b06-be7c-3572389021a0.jpg" alt="Collection Sacrée" class="w-full h-full object-cover" onload="this.classList.add('loaded')" loading="lazy">
-          </div>
-          <h4 class="font-playfair text-xl font-bold mb-2" style="color:var(--burgundy);">Collection Sacrée</h4>
-          <p class="font-montserrat text-xs font-light leading-relaxed mb-5" style="opacity:0.6;">Pour les rituels profonds, les cérémonies et les passages.</p>
-          <button onclick="showToast('Collection Sacrée — disponible sur demande.')" class="font-montserrat text-[10px] tracking-[2px] uppercase px-6 py-2 border transition-colors duration-300" style="border-color:var(--burgundy);color:var(--burgundy);background:transparent;cursor:pointer;">Découvrir</button>
-        </div>
+        <!-- Éditorial luxe -->
+        <div class="reveal r2 mf-editorial">
 
-        <!-- Collection Sauvage -->
-        <div class="text-center border p-8" style="border-color:rgba(110,11,20,0.10);background:var(--cream);">
-          <div class="w-20 h-20 mx-auto mb-5 rounded-full overflow-hidden border-2" style="border-color:var(--gold);">
-            <img src="https://www.image2url.com/r2/default/images/1786461053402-99eb9be0-f080-4a9d-8d57-9aebc04f24f8.jpg" alt="Collection Sauvage" class="w-full h-full object-cover" onload="this.classList.add('loaded')" loading="lazy">
+          <div class="mf-head">
+            <span class="mf-word">Le Manifeste</span>
+            <span class="mf-num">N° I</span>
           </div>
-          <h4 class="font-playfair text-xl font-bold mb-2" style="color:var(--burgundy);">Collection Sauvage</h4>
-          <p class="font-montserrat text-xs font-light leading-relaxed mb-5" style="opacity:0.6;">Plantes et encens cueillis dans la nature, pour une connexion brute.</p>
-          <button onclick="showToast('Collection Sauvage — disponible sur demande.')" class="font-montserrat text-[10px] tracking-[2px] uppercase px-6 py-2 border transition-colors duration-300" style="border-color:var(--burgundy);color:var(--burgundy);background:transparent;cursor:pointer;">Découvrir</button>
-        </div>
-      </div>
-    </div>
 
-    <!-- ===== LES BOX RITUELLES — PARTIE SECONDAIRE ===== -->
-    <div class="mb-20">
-      <p class="font-montserrat text-xs tracking-[3px] uppercase text-center mb-10 reveal" style="color:var(--burgundy-soft);">Les Box Rituelles ORR</p>
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- Box Nuit Sacrée -->
-        <div class="text-center border p-8" style="border-color:rgba(110,11,20,0.10);background:var(--cream);">
-          <div class="w-14 h-14 mx-auto mb-4 flex items-center justify-center rounded-full" style="background:rgba(212,175,127,0.12);">
-            <i class="fa-regular fa-moon text-xl" style="color:var(--gold);"></i>
-          </div>
-          <h4 class="font-playfair text-lg font-bold mb-2" style="color:var(--burgundy);">Box Nuit Sacrée</h4>
-          <p class="font-montserrat text-xs font-light leading-relaxed mb-4" style="opacity:0.6;">Sel de l'Atlas, fleurs de camomille, encens de myrrhe.</p>
-          <span class="inline-block text-[9px] tracking-wider uppercase px-4 py-1.5" style="background:var(--burgundy);color:var(--nude);">Rituel du Soir</span>
-        </div>
+          <h2 class="hd mf-title">Habiter le bas du corps,<br><em>là où vibre la vie.</em></h2>
 
-        <!-- Box Éveil Vital -->
-        <div class="text-center border p-8" style="border-color:rgba(110,11,20,0.10);background:var(--cream);">
-          <div class="w-14 h-14 mx-auto mb-4 flex items-center justify-center rounded-full" style="background:rgba(212,175,127,0.12);">
-            <i class="fa-regular fa-sun text-xl" style="color:var(--gold);"></i>
+          <div class="mf-ornament" aria-hidden="true">
+            <span class="line"></span>
+            <span class="dot"></span>
+            <span class="line"></span>
           </div>
-          <h4 class="font-playfair text-lg font-bold mb-2" style="color:var(--burgundy);">Box Éveil Vital</h4>
-          <p class="font-montserrat text-xs font-light leading-relaxed mb-4" style="opacity:0.6;">Sel de mer, romarin, encens d'oliban.</p>
-          <span class="inline-block text-[9px] tracking-wider uppercase px-4 py-1.5" style="background:var(--burgundy);color:var(--nude);">Rituel Matinal</span>
-        </div>
 
-        <!-- Box Ancrage Lunaire -->
-        <div class="text-center border p-8" style="border-color:rgba(110,11,20,0.10);background:var(--cream);">
-          <div class="w-14 h-14 mx-auto mb-4 flex items-center justify-center rounded-full" style="background:rgba(212,175,127,0.12);">
-            <i class="fa-regular fa-star text-xl" style="color:var(--gold);"></i>
+          <p class="mf-drop">
+            <span class="dropcap">T</span>u as appris à chercher les réponses partout.
+            <span class="mf-accent">Et si les réponses les plus précieuses se trouvaient déjà là où tout commence ?</span>
+          </p>
+
+          <div class="mf-lines">
+            <p class="mf-line">Ton corps porte une mémoire plus ancienne que les mots.</p>
+            <p class="mf-line">Il connaît le rythme, les saisons, les gestes et les silences.</p>
           </div>
-          <h4 class="font-playfair text-lg font-bold mb-2" style="color:var(--burgundy);">Box Ancrage Lunaire</h4>
-          <p class="font-montserrat text-xs font-light leading-relaxed mb-4" style="opacity:0.6;">Sel du bassin, sauge blanche, encens de copal.</p>
-          <span class="inline-block text-[9px] tracking-wider uppercase px-4 py-1.5" style="background:var(--burgundy);color:var(--nude);">Rituel Complet</span>
+
+          <p class="mf-claim"><strong>ORR</strong> — Retrouver le langage oublié.</p>
+
+          <div class="mf-sig">
+            <span class="mf-symbol" aria-hidden="true">✦</span>
+            <span class="mf-role">Origin Rituals &amp; Revelations</span>
+            <span class="mf-symbol" aria-hidden="true">✦</span>
+          </div>
+
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- ===== COMMANDER — CTA FINAL ===== -->
-    <div class="text-center reveal">
-      <p class="font-montserrat text-xs font-light mb-6" >Disponibles sur demande, lors des retraites ou en main propre.</p>
-      <button onclick="showToast('Demande de création enregistrée. Nous vous contacterons.')" class="inline-block border font-montserrat text-xs tracking-[2px] uppercase px-10 py-4 hover:bg-orr-dark hover:text-orr-nude transition-all duration-500 bg-transparent cursor-pointer" style="border-color:var(--dark);">Commander</button>
-    </div>
+    <!-- ===== ORIGINES (alternating 50/50) ===== -->
+    <section class="sec" id="origine" style="padding-top:0;padding-bottom:0;">
+      <!-- 01 Racines : texte | image -->
+      <div class="og-row">
+        <div class="og-txt reveal">
+          <p class="og-num">01 — Les racines</p>
+          <h3>Nos racines</h3>
+          <div class="rule"></div>
+          <p>Avant les tendances, avant les formulations modernes, il y avait les gestes. Simples, liés à la terre, aux saisons, à la vie quotidienne. Transmis naturellement, de mère en fille, de génération en génération.</p>
+          <p class="og-ital">ORR s’inscrit dans cette continuité.</p>
+        </div>
+        <div class="og-img reveal r2" aria-hidden="true">
+          <img src="https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/WhatsApp%20Image%202026-08-15%20at%2019.13.40.jpeg" alt="Mains sur terre, gestes ancestraux" loading="lazy">
+        </div>
+      </div>
 
-  </div>
-</section>
+      <!-- 02 Transmission : image | texte -->
+      <div class="og-row">
+        <div class="og-img reveal" aria-hidden="true">
+          <img src="https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/2193d7a59ab5df27e03c5f3414de1ea3.jpg" alt="Transmission entre femmes" loading="lazy">
+        </div>
+        <div class="og-txt r reveal r2">
+          <p class="og-num">02 — La transmission</p>
+          <h3>Ce qui se transmet ne disparaît jamais</h3>
+          <div class="rule"></div>
+          <p>Les savoirs ancestraux vivent dans les gestes que l’on répète, dans les matières que l’on reconnaît, dans les histoires que l’on raconte.</p>
+          <p>Retrouver ce qui a été oublié, comprendre ce qui nous a précédés, redonner du sens à des pratiques simples.</p>
+          <p class="og-ital">La transmission devient un lien entre hier et aujourd’hui.</p>
+        </div>
+      </div>
+
+      <!-- 03 Savoirs : texte | image -->
+      <div class="og-row">
+        <div class="og-txt reveal">
+          <p class="og-num">03 — Savoirs ancestraux</p>
+          <h3>Des savoirs nés de l’observation</h3>
+          <div class="rule"></div>
+          <p>Pendant des générations, les femmes ont appris à observer leur environnement, à connaître les propriétés des matières qui les entouraient et à les intégrer naturellement dans leur quotidien.</p>
+          <p>ORR les explore avec respect, sans les figer, pour comprendre ce qu’elles peuvent encore nous apprendre aujourd’hui.</p>
+        </div>
+        <div class="og-img reveal r2" aria-hidden="true">
+          <img src="https://i.pinimg.com/736x/29/91/04/29910439f0071a8d942b0385e6698699.jpg" alt="Plantes et matières naturelles" loading="lazy">
+        </div>
+      </div>
+
+      <!-- 04 Matière : image | texte -->
+      <div class="og-row">
+        <div class="og-img reveal" aria-hidden="true">
+          <img src="https://i.pinimg.com/736x/7a/8b/9c/7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d.jpg" alt="Textures naturelles, terre et matière" loading="lazy">
+        </div>
+        <div class="og-txt r reveal r2">
+          <p class="og-num">04 — Rapport à la matière</p>
+          <h3>Revenir à la matière</h3>
+          <div class="rule"></div>
+          <p><span class="serif og-ital">La terre. Le végétal. Le minéral. L’eau. Le feu.</span></p>
+          <p>Des matières simples, brutes, imparfaites. ORR considère la matière comme une expérience : sa texture, son parfum, son origine, son poids, son histoire.</p>
+          <p class="og-ital">Cette relation sensible est au cœur de l’univers ORR.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CRÉATIONS ===== -->
+    <section class="sec" id="creations" style="background:var(--nude);">
+      <div class="wrap center">
+        <p class="eyebrow reveal">Les Créations ORR</p>
+        <h2 class="hd reveal r1">Nos collections<br><em>et box rituelles</em></h2>
+        <div class="rule reveal r2"></div>
+        <p class="reveal r2" style="font-weight:300;font-size:14px;color:var(--dark);opacity:.6;max-width:520px;margin:0 auto;">Des sels, plantes et encens pensés pour chaque rituel — du réveil à la nuit sacrée.</p>
+      </div>
+
+      <div class="wrap">
+        <div class="crea-grid">
+          <article class="crea photo reveal r1">
+            <div class="ico"><img src="https://www.image2url.com/r2/default/images/1786459457358-1dbb6d45-c10b-4fad-9430-d0d0b8828760.jpg" alt="Collection Lunaire" loading="lazy"></div>
+            <h4>Collection Lunaire</h4>
+            <p>Sels, plantes et encens accordés à chaque phase de la lune.</p>
+            <span class="tag">Cérémonial</span>
+            <button class="lnk" onclick="toast('Collection Lunaire — disponible sur demande.')">Découvrir</button>
+          </article>
+          <article class="crea photo reveal r2">
+            <div class="ico"><img src="https://www.image2url.com/r2/default/images/1786460751758-5dbd4967-7cad-4b06-be7c-3572389021a0.jpg" alt="Collection Sacrée" loading="lazy"></div>
+            <h4>Collection Sacrée</h4>
+            <p>Pour les rituels profonds, les cérémonies et les passages.</p>
+            <span class="tag">Cérémonial</span>
+            <button class="lnk" onclick="toast('Collection Sacrée — disponible sur demande.')">Découvrir</button>
+          </article>
+          <article class="crea photo reveal r3">
+            <div class="ico"><img src="https://www.image2url.com/r2/default/images/1786461053402-99eb9be0-f080-4a9d-8d57-9aebc04f24f8.jpg" alt="Collection Sauvage" loading="lazy"></div>
+            <h4>Collection Sauvage</h4>
+            <p>Plantes et encens cueillis dans la nature, pour une connexion brute.</p>
+            <span class="tag">Sauvage</span>
+            <button class="lnk" onclick="toast('Collection Sauvage — disponible sur demande.')">Découvrir</button>
+          </article>
+        </div>
+
+        <p class="eyebrow reveal r1" style="text-align:center;margin:64px 0 -20px;">Les Box Rituelles</p>
+        <div class="crea-grid">
+          <article class="crea reveal r1">
+            <div class="ico"><i class="fa-regular fa-moon" aria-hidden="true"></i></div>
+            <h4>Box Nuit Sacrée</h4>
+            <p>Sel de l'Atlas, fleurs de camomille, encens de myrrhe.</p>
+            <span class="tag">Rituel du soir</span>
+            <button class="lnk" onclick="toast('Box Nuit Sacrée — disponible sur demande.')">Découvrir</button>
+          </article>
+          <article class="crea reveal r2">
+            <div class="ico"><i class="fa-regular fa-sun" aria-hidden="true"></i></div>
+            <h4>Box Éveil Vital</h4>
+            <p>Sel de mer, romarin, encens d'oliban.</p>
+            <span class="tag">Rituel matinal</span>
+            <button class="lnk" onclick="toast('Box Éveil Vital — disponible sur demande.')">Découvrir</button>
+          </article>
+          <article class="crea reveal r3">
+            <div class="ico"><i class="fa-regular fa-star" aria-hidden="true"></i></div>
+            <h4>Box Ancrage Lunaire</h4>
+            <p>Sel du bassin, sauge blanche, encens de copal.</p>
+            <span class="tag">Rituel complet</span>
+            <button class="lnk" onclick="toast('Box Ancrage Lunaire — disponible sur demande.')">Découvrir</button>
+          </article>
+        </div>
+
+        <p class="reveal r2" style="text-align:center;margin-top:42px;font-weight:300;font-size:13px;color:var(--dark);opacity:.55;">Disponibles sur demande, lors des retraites ou en main propre.</p>
+        <button class="crea-cta reveal r3" onclick="toast('Demande de création enregistrée. Nous vous contacterons.')">Commander</button>
+      </div>
+    </section>
 
     <!-- ===== FONDATRICE ===== -->
-    <section class="relative py-24 md:py-36 px-6 overflow-hidden" id="fondatrice" style="background:linear-gradient(135deg, #4A0810 0%, #6E0B14 50%, #8B2030 100%);">
-      <div class="absolute inset-0" aria-hidden="true" style="background:url('https://i.pinimg.com/736x/6b/3e/90/6b3e90ee9b044ba33ccfbf11cb8328a6.jpg') center/cover no-repeat;opacity:0.06;filter:saturate(0.3) sepia(0.2);"></div>
-      <div class="absolute top-10 left-10 w-32 h-32 border" style="border-color:rgba(212,175,127,0.06);" aria-hidden="true"></div>
-      <div class="absolute bottom-10 right-10 w-32 h-32 border" style="border-color:rgba(212,175,127,0.06);" aria-hidden="true"></div>
+    <section class="sec" id="fondatrice">
+      <div class="wrap center">
+        <p class="eyebrow reveal">La Fondatrice</p>
+        <h2 class="hd reveal r1">Asmaa Belh</h2>
+        <div class="rule reveal r2" style="background:var(--gold);opacity:.5;margin-left:auto;margin-right:auto;"></div>
+      </div>
 
-      <div class="relative z-10 max-w-5xl mx-auto">
-        <div class="text-center mb-16">
-          <p class="font-montserrat text-xs tracking-[4px] uppercase mb-4 reveal" style="color:var(--gold); font-weight:600">La Fondatrice</p>
-          <h2 class="font-playfair text-3xl md:text-5xl font-bold reveal reveal-delay-1" style="color:var(--nude);">Asmaa Belh</h2>
-          <div class="section-divider mt-8 reveal reveal-delay-2" style="background:var(--gold);"></div>
-          
-        </div>
-
-        <!-- ===== NAVIGATION FONDATRICE - VERSION AMÉLIORÉE POUR MOBILE ===== -->
-        <nav class="sticky top-0 z-20 py-4 mb-12" style="background:rgba(74,8,16,0.85); backdrop-filter:blur(16px); border-bottom:1px solid rgba(212,175,127,0.1);" id="founderNav">
-          <!-- Version Desktop (affichée sur > 768px) -->
-          <div class="hidden md:flex flex-wrap justify-center items-center gap-2 md:gap-6">
-            <button class="founder-nav-btn active px-4 py-2 text-xs md:text-sm font-montserrat tracking-[2px] uppercase transition-all duration-300 border-b-2" data-target="qui" style="border-color:var(--gold); color:var(--gold); background:rgba(212,175,127,0.05);">
-              Qui est Asmaa ?
-            </button>
-            <button class="founder-nav-btn px-4 py-2 text-xs md:text-sm font-montserrat tracking-[2px] uppercase transition-all duration-300 border-b-2" data-target="chemin" style="border-color:transparent; color:rgba(237,224,212,0.4);">
-              Son chemin
-            </button>
-            <button class="founder-nav-btn px-4 py-2 text-xs md:text-sm font-montserrat tracking-[2px] uppercase transition-all duration-300 border-b-2" data-target="pourquoi" style="border-color:transparent; color:rgba(237,224,212,0.4);">
-              Pourquoi ORR ?
-            </button>
-            <button class="founder-nav-btn px-4 py-2 text-xs md:text-sm font-montserrat tracking-[2px] uppercase transition-all duration-300 border-b-2" data-target="vision" style="border-color:transparent; color:rgba(237,224,212,0.4);">
-              Sa vision
-            </button>
-          </div>
-
-          <!-- Version Mobile (affichée sur < 768px) - NOUVELLE VERSION AMÉLIORÉE -->
-          <div class="md:hidden grid grid-cols-2 gap-2 px-2">
-            <button class="founder-nav-btn-mobile active px-3 py-3 text-xs font-montserrat font-semibold tracking-[2px] uppercase transition-all duration-300 rounded-sm" data-target="qui" style="border:1px solid rgba(212,175,127,0.3); color:var(--gold); background:rgba(212,175,127,0.08);">
-              Qui est Asmaa ?
-            </button>
-            <button class="founder-nav-btn-mobile px-3 py-3 text-xs font-montserrat font-semibold tracking-[2px] uppercase transition-all duration-300 rounded-sm" data-target="chemin" style="border:1px solid rgba(212,175,127,0.12); color:rgba(237,224,212,0.5); background:rgba(74,8,16,0.3);">
-              Son chemin
-            </button>
-            <button class="founder-nav-btn-mobile px-3 py-3 text-xs font-montserrat font-semibold tracking-[2px] uppercase transition-all duration-300 rounded-sm" data-target="pourquoi" style="border:1px solid rgba(212,175,127,0.12); color:rgba(237,224,212,0.5); background:rgba(74,8,16,0.3);">
-              Pourquoi ORR ?
-            </button>
-            <button class="founder-nav-btn-mobile px-3 py-3 text-xs font-montserrat font-semibold tracking-[2px] uppercase transition-all duration-300 rounded-sm" data-target="vision" style="border:1px solid rgba(212,175,127,0.12); color:rgba(237,224,212,0.5); background:rgba(74,8,16,0.3);">
-              Sa vision
-            </button>
-          </div>
+      <div class="wrap-n">
+        <nav class="f-nav reveal r2" id="fNav" aria-label="Sections fondatrice">
+          <button class="active" data-t="qui">Qui est Asmaa ?</button>
+          <button data-t="chemin">Son chemin</button>
+          <button data-t="pourquoi">Pourquoi ORR ?</button>
+          <button data-t="vision">Sa vision</button>
         </nav>
 
-        <div class="founder-sections-container">
-          <div class="founder-section active" id="section-qui">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-              <div class="reveal reveal-delay-1">
-                <div class="aspect-[4/5] overflow-hidden max-w-md mx-auto md:mx-0" style="border:1px solid rgba(212,175,127,0.12); box-shadow:0 0 60px rgba(212,175,127,0.04);">
-                  <img src="https://www.image2url.com/r2/default/images/1786627476346-877b5b5d-befc-4cd0-b9c0-5556e685e46f.jpeg" alt="Asmaa Belh, fondatrice d'ORR" class="w-full h-full object-cover" onload="this.classList.add('loaded')" loading="lazy">
-                </div>
-              </div>
-              <div class="space-y-6 reveal reveal-delay-2">
-                <p class="font-montserrat text-xs tracking-[3px] uppercase" style="color:var(--gold);">Son histoire</p>
-                <h3 class="font-playfair text-2xl md:text-3xl font-bold" style="color:var(--nude);">Qui est Asmaa Belh ?</h3>
-                <div class="space-y-4 font-light text-sm leading-[1.9]" style="color:rgba(237,224,212,0.6);">
-                  <p>Asmaa Belh est la fondatrice d'ORR. Son cheminement personnel, ses rencontres et ses questionnements l'ont naturellement conduite à créer cet espace dédié aux rituels et à la reconnexion.</p>
-                  <p>Passionnée par les savoirs traditionnels et la transmission, elle a souhaité offrir à d'autres femmes un cadre pour ralentir, s'écouter et renouer avec des gestes porteurs de sens.</p>
-                  <div class="founder-more-content hidden space-y-4">
-                    <p>Asmaa puise son inspiration dans les traditions marocaines et les savoirs ancestraux qu'elle a découverts au fil de ses voyages et de ses rencontres. Elle croit que chaque geste, chaque plante, chaque mot porte une mémoire qu'il est essentiel de préserver et de transmettre.</p>
-                    <p>Son parcours est marqué par une quête constante de sens, une volonté de comprendre comment les pratiques d'hier peuvent éclairer et enrichir nos vies d'aujourd'hui.</p>
-                  </div>
-                </div>
-                <button class="founder-read-more font-montserrat text-xs tracking-[2px] uppercase px-6 py-3 border transition-all duration-300 mt-2" style="border-color:var(--gold); color:var(--gold); background:transparent;">
-                  Lire la suite
-                </button>
-              </div>
+        <!-- QUI -->
+        <div class="f-sec active" id="s-qui">
+          <div class="f-grid">
+            <div class="f-portrait reveal r1">
+              <img src="https://www.image2url.com/r2/default/images/1786627476346-877b5b5d-befc-4cd0-b9c0-5556e685e46f.jpeg" alt="Asmaa Belh" loading="lazy">
             </div>
-          </div>
-
-          <div class="founder-section hidden" id="section-chemin">
-            <div class="max-w-3xl mx-auto text-center reveal reveal-delay-1">
-              <p class="font-montserrat text-xs tracking-[3px] uppercase mb-4" style="color:var(--gold);">Son cheminement</p>
-              <h3 class="font-playfair text-2xl md:text-3xl font-bold mb-6" style="color:var(--nude);">Le chemin vers les rituels</h3>
-              <div class="founder-text-wrapper space-y-4 font-light text-sm leading-[1.9] text-left" style="color:rgba(237,224,212,0.6);">
-                <p>Les rituels ne sont pas pour Asmaa une simple mode ou un concept, mais une réponse à une nécessité intérieure. C'est un langage du corps et de l'âme qui s'est imposé à elle comme une évidence.</p>
-                <p>Son parcours l'a amenée à explorer différentes pratiques et à se questionner sur la manière dont les gestes ancestraux peuvent encore avoir du sens dans nos vies contemporaines.</p>
-                <div class="founder-more-content hidden space-y-4">
-                  <p>Asmaa a longtemps cherché des réponses dans les livres, les rencontres et les voyages. C'est en revenant à l'essentiel, en écoutant son corps et en observant la nature qu'elle a trouvé un chemin qui résonnait profondément avec elle.</p>
-                  <p>Aujourd'hui, à travers ORR, elle souhaite partager cette approche et offrir des outils pour que chacune puisse se réapproprier ces pratiques, à son rythme et selon ses propres besoins.</p>
-                  <div class="p-6 mt-6" style="border-left:2px solid var(--gold); background:rgba(212,175,127,0.04);">
-                    <p class="font-playfair italic text-base" style="color:var(--gold-light);">"J'ai compris que les rituels ne sont pas des souvenirs du passé, mais des chemins vers soi."</p>
-                  </div>
-                </div>
+            <div class="f-body reveal r2">
+              <p class="sub">Son histoire</p>
+              <h3>Qui est Asmaa Belh ?</h3>
+              <p>Asmaa Belh est la fondatrice d'ORR. Son cheminement personnel, ses rencontres et ses questionnements l'ont naturellement conduite à créer cet espace dédié aux rituels et à la reconnexion.</p>
+              <p>Passionnée par les savoirs traditionnels et la transmission, elle offre à d'autres femmes un cadre pour ralentir, s'écouter et renouer avec des gestes porteurs de sens.</p>
+              <div class="f-more" id="m-qui">
+                <p>Asmaa puise son inspiration dans les traditions marocaines et les savoirs ancestraux découverts au fil de ses voyages et de ses rencontres.</p>
+                <p>Son parcours est marqué par une quête de sens : comprendre comment les pratiques d'hier peuvent éclairer nos vies d'aujourd'hui.</p>
               </div>
-              <button class="founder-read-more font-montserrat text-xs tracking-[2px] uppercase px-6 py-3 border transition-all duration-300 mt-6" style="border-color:var(--gold); color:var(--gold); background:transparent;">
-                Lire la suite
-              </button>
-            </div>
-          </div>
-
-          <div class="founder-section hidden" id="section-pourquoi">
-            <div class="grid md:grid-cols-2 gap-12 items-start">
-              <div class="reveal reveal-delay-1">
-                <p class="font-montserrat text-xs tracking-[3px] uppercase mb-4" style="color:var(--gold);">La naissance d'ORR</p>
-                <h3 class="font-playfair text-2xl md:text-3xl font-bold mb-6" style="color:var(--nude);">Pourquoi créer ORR ?</h3>
-                <div class="founder-text-wrapper space-y-4 font-light text-sm leading-[1.9]" style="color:rgba(237,224,212,0.6);">
-                  <p>ORR est né d'une volonté de transmettre et de rassembler. Asmaa a voulu créer un espace où les rituels, les savoirs ancestraux et la mémoire du corps peuvent être honorés et réinterprétés pour le monde d'aujourd'hui.</p>
-                  <p>Ce n'est pas une simple marque de produits, mais une proposition de chemin, une invitation à renouer avec une forme de sagesse oubliée.</p>
-                  <div class="founder-more-content hidden space-y-4">
-                    <p>ORR, ce sont des gestes, des paroles et des objets qui agissent comme des portes vers l'intime, vers une présence plus pleine à soi-même et au monde.</p>
-                    <p>Asmaa croit que la transmission est un acte de résistance face à l'oubli. En créant ORR, elle souhaite offrir un héritage vivant, accessible et contemporain.</p>
-                  </div>
-                </div>
-                <button class="founder-read-more font-montserrat text-xs tracking-[2px] uppercase px-6 py-3 border transition-all duration-300 mt-2" style="border-color:var(--gold); color:var(--gold); background:transparent;">
-                  Lire la suite
-                </button>
-              </div>
-              <div class="p-8 md:p-12 reveal reveal-delay-2" style="background:rgba(74,8,16,0.3); border:1px solid rgba(212,175,127,0.12); backdrop-filter:blur(10px);">
-                <blockquote class="font-playfair italic text-lg md:text-xl leading-relaxed" style="color:var(--gold-light);">
-                  "Chaque geste, chaque ingrédient, chaque création ORR porte une intention. Celle d'un retour à l'essentiel et d'une réconciliation avec ce qui nous habite profondément."
-                </blockquote>
-                <div class="mt-4 font-montserrat text-xs tracking-[2px] uppercase" style="color:rgba(212,175,127,0.35);">— Asmaa Belh, fondatrice d'ORR</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="founder-section hidden" id="section-vision">
-            <div class="max-w-3xl mx-auto text-center reveal reveal-delay-1">
-              <p class="font-montserrat text-xs tracking-[3px] uppercase mb-4" style="color:var(--gold);">Sa vision</p>
-              <h3 class="font-playfair text-2xl md:text-3xl font-bold mb-6" style="color:var(--nude);">Ce qu'elle défend à travers ORR</h3>
-              <div class="founder-text-wrapper space-y-4 font-light text-sm leading-[1.9] text-left" style="color:rgba(237,224,212,0.6);">
-                <p>La vision d'Asmaa pour ORR va au-delà des produits. Il s'agit de défendre une certaine idée de la lenteur, de la présence et de la transmission.</p>
-                <p>Elle croit en l'importance de renouer avec un héritage oublié, de redonner sa place au corps et au sensible dans un monde qui va trop vite.</p>
-                <div class="founder-more-content hidden space-y-4">
-                  <p>ORR est son moyen de contribuer à cette renaissance, en offrant des espaces de reconnexion, des gestes porteurs de sens et une communauté de femmes qui partagent cette quête d'authenticité.</p>
-                  <p>Asmaa souhaite que chaque personne qui croise le chemin d'ORR puisse y trouver une résonance personnelle, un espace pour se poser et se redécouvrir.</p>
-                  <div class="w-10 h-px mx-auto my-8" style="background:var(--gold);"></div>
-                  <div class="font-playfair italic text-xl md:text-2xl" style="color:var(--gold);">
-                    "Redonner au corps sa place sacrée et au geste sa profondeur."
-                  </div>
-                </div>
-              </div>
-              <button class="founder-read-more font-montserrat text-xs tracking-[2px] uppercase px-6 py-3 border transition-all duration-300 mt-6" style="border-color:var(--gold); color:var(--gold); background:transparent;">
-                Lire la suite
-              </button>
+              <button class="f-btn" data-open="m-qui">Lire la suite</button>
             </div>
           </div>
         </div>
 
-        <div class="text-center pt-16 mt-12 border-t" style="border-color:rgba(212,175,127,0.06);">
-          <div class="font-playfair text-2xl md:text-4xl font-bold leading-tight" style="color:var(--gold);">
-            "Habiter le bas du corps, <br>là où vibre la vie."
+        <!-- CHEMIN -->
+        <div class="f-sec" id="s-chemin">
+          <div class="f-body f-grid" style="grid-template-columns:1fr;gap:16px;">
+            <p class="sub" style="text-align:center;">Son cheminement</p>
+            <h3 style="text-align:center;">Le chemin vers les rituels</h3>
+            <p style="text-align:center;max-width:640px;margin:0 auto;">Les rituels ne sont pour Asmaa ni une mode ni un concept, mais une réponse à une nécessité intérieure.</p>
+            <div class="f-more" id="m-chemin" style="max-width:640px;margin:0 auto;">
+              <p>Son parcours l'a amenée à explorer différentes pratiques, à se questionner sur la manière dont les gestes ancestraux gardent du sens dans nos vies contemporaines.</p>
+              <p>Tout en revenant à l'essentiel, elle a trouvé un chemin qui résonnait profondément en elle.</p>
+              <div class="f-blockquote">« J'ai compris que les rituels ne sont pas des souvenirs du passé, mais des chemins vers soi. »</div>
+            </div>
+            <button class="f-btn" data-open="m-chemin" style="align-self:center;">Lire la suite</button>
           </div>
-          <div class="w-10 h-px mx-auto my-6" style="background:var(--gold);"></div>
-          <p class="font-montserrat text-xs tracking-[3px] uppercase" style="color:rgba(237,224,212,0.2);"> </p>
+        </div>
+
+        <!-- POURQUOI -->
+        <div class="f-sec" id="s-pourquoi">
+          <div class="f-grid">
+            <div class="f-body reveal r1">
+              <p class="sub">La naissance d'ORR</p>
+              <h3>Pourquoi créer ORR ?</h3>
+              <p>ORR est né d'une volonté de transmettre et de rassembler. Un espace où les rituels, les savoirs ancestraux et la mémoire du corps peuvent être honorés et réinterprétés pour le monde d'aujourd'hui.</p>
+              <p>Ce n'est pas une simple marque de produits : c'est une invitation à renouer avec une forme de sagesse oubliée.</p>
+              <div class="f-more" id="m-pourquoi">
+                <p>Ce sont des gestes, des paroles et des objets qui agissent comme des portes vers l'intime, vers une présence plus pleine à soi-même et au monde.</p>
+                <p>La transmission est un acte de résistance face à l'oubli. ORR se veut un héritage vivant, accessible et contemporain.</p>
+              </div>
+              <button class="f-btn" data-open="m-pourquoi">Lire la suite</button>
+            </div>
+            <div class="f-body reveal r2">
+              <div class="f-blockquote">« Chaque geste, chaque ingrédient, chaque création ORR porte une intention. Celle d'un retour à l'essentiel et d'une réconciliation avec ce qui nous habite profondément. »</div>
+              <p class="sub" style="margin-top:0;">— Asmaa Belh</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- VISION -->
+        <div class="f-sec" id="s-vision">
+          <div class="f-body" style="align-items:center;text-align:center;gap:16px;">
+            <p class="sub" style="text-align:center;">Sa vision</p>
+            <h3 style="text-align:center;">Ce qu'elle défend à travers ORR</h3>
+            <p style="text-align:center;max-width:620px;margin:0 auto;">La vision d'Asmaa va au-delà des produits : défendre une certaine idée de la lenteur, de la présence et de la transmission.</p>
+            <div class="f-more" id="m-vision" style="max-width:620px;margin:0 auto;text-align:center;">
+              <p>ORR est son moyen de contribuer à cette renaissance, en offrant des espaces de reconnexion, des gestes porteurs de sens et une communauté de femmes partageant cette quête d'authenticité.</p>
+              <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:20px;color:var(--gold);margin-top:18px;">« Redonner au corps sa place sacrée et au geste sa profondeur. »</p>
+            </div>
+            <button class="f-btn" data-open="m-vision" style="align-self:center;">Lire la suite</button>
+          </div>
+        </div>
+
+        <div class="f-signature">
+          <div class="big">« Habiter le bas du corps,<br>là où vibre la vie. »</div>
+          <div class="line"></div>
         </div>
       </div>
     </section>
 
-    <style>
-      /* ===== STYLES POUR LES BOUTONS MOBILE ===== */
-      .founder-nav-btn-mobile {
-        cursor: pointer;
-        -webkit-tap-highlight-color: transparent;
-        user-select: none;
-        text-align: center;
-        min-height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        line-height: 1.2;
-        transition: all 0.3s cubic-bezier(.4,0,.2,1);
-        font-size: 11px !important;
-        letter-spacing: 1.5px !important;
-        padding: 12px 8px !important;
-        border-radius: 4px;
-      }
+    <!-- ===== COMMUNAUTÉ ===== -->
+    <section class="sec" id="communaute" style="background:var(--nude-light);">
+      <div class="wrap center">
+        <p class="eyebrow reveal">Communauté</p>
+        <h2 class="hd reveal r1">Vous n'êtes pas seule</h2>
+        <p class="reveal r2" style="font-weight:300;font-size:14px;color:var(--dark);opacity:.55;max-width:520px;margin:12px auto 0;">Un cercle de femmes qui choisissent de guérir ensemble.</p>
+        <div class="rule reveal r2" style="margin-left:auto;margin-right:auto;"></div>
+      </div>
 
-      /* État actif pour mobile */
-      .founder-nav-btn-mobile.active {
-        border-color: rgba(212, 175, 127, 0.4) !important;
-        color: var(--gold) !important;
-        background: rgba(212, 175, 127, 0.08) !important;
-        box-shadow: 0 0 20px rgba(212, 175, 127, 0.04);
-      }
-
-      /* Effet au survol/tap pour mobile */
-      .founder-nav-btn-mobile:active {
-        transform: scale(0.97);
-        border-color: rgba(212, 175, 127, 0.3) !important;
-        background: rgba(212, 175, 127, 0.05) !important;
-      }
-
-      /* Ajustements pour très petits écrans */
-      @media (max-width: 400px) {
-        .founder-nav-btn-mobile {
-          font-size: 10px !important;
-          padding: 10px 6px !important;
-          letter-spacing: 1px !important;
-          min-height: 42px;
-        }
-      }
-
-      /* Espacement entre les boutons */
-      @media (max-width: 768px) {
-        #founderNav {
-          padding: 12px 0 !important;
-          margin-bottom: 24px !important;
-          background: rgba(74, 8, 16, 0.92) !important;
-        }
-        #founderNav .grid {
-          gap: 6px !important;
-          padding: 0 4px !important;
-        }
-      }
-
-      /* ===== STYLES EXISTANTS POUR LA NAV ===== */
-      .founder-nav-btn {
-        transition: all 0.4s cubic-bezier(.4,0,.2,1);
-        cursor: pointer;
-        background: transparent;
-        border: none;
-        padding-bottom: 8px;
-      }
-      .founder-nav-btn:hover {
-        color: var(--gold);
-      }
-      .founder-nav-btn.active {
-        color: var(--gold);
-        border-bottom-color: var(--gold);
-        background: rgba(212,175,127,0.04);
-      }
-
-      /* ===== STYLES POUR LES SECTIONS ===== */
-      .founder-section {
-        animation: fadeSection 0.6s cubic-bezier(.4,0,.2,1) forwards;
-      }
-      @keyframes fadeSection {
-        from { opacity: 0; transform: translateY(16px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      .founder-section.hidden { display: none; }
-      .founder-section.active { display: block; }
-
-      .founder-read-more {
-        cursor: pointer;
-        transition: all 0.4s cubic-bezier(.4,0,.2,1);
-        display: inline-block;
-      }
-      .founder-read-more:hover {
-        background: var(--gold);
-        color: var(--burgundy-deep) !important;
-        border-color: var(--gold) !important;
-      }
-    </style>
-
-    <script>
-      // ===== FONCTIONNALITÉ POUR LA NAVIGATION FONDATRICE =====
-      document.addEventListener('DOMContentLoaded', function() {
-        // Sélectionner tous les boutons (desktop et mobile)
-        const navButtons = document.querySelectorAll('.founder-nav-btn, .founder-nav-btn-mobile');
-        const sections = {
-          qui: document.getElementById('section-qui'),
-          chemin: document.getElementById('section-chemin'),
-          pourquoi: document.getElementById('section-pourquoi'),
-          vision: document.getElementById('section-vision')
-        };
-
-        function switchSection(targetId) {
-          // Mettre à jour les boutons desktop
-          document.querySelectorAll('.founder-nav-btn').forEach(btn => {
-            btn.classList.remove('active');
-            btn.style.borderBottomColor = 'transparent';
-            btn.style.color = 'rgba(237,224,212,0.4)';
-            btn.style.background = 'transparent';
-          });
-          const activeDesktopBtn = document.querySelector(`.founder-nav-btn[data-target="${targetId}"]`);
-          if (activeDesktopBtn) {
-            activeDesktopBtn.classList.add('active');
-            activeDesktopBtn.style.borderBottomColor = 'var(--gold)';
-            activeDesktopBtn.style.color = 'var(--gold)';
-            activeDesktopBtn.style.background = 'rgba(212,175,127,0.04)';
-          }
-
-          // Mettre à jour les boutons mobile
-          document.querySelectorAll('.founder-nav-btn-mobile').forEach(btn => {
-            btn.classList.remove('active');
-            btn.style.borderColor = 'rgba(212,175,127,0.12)';
-            btn.style.color = 'rgba(237,224,212,0.5)';
-            btn.style.background = 'rgba(74,8,16,0.3)';
-          });
-          const activeMobileBtn = document.querySelector(`.founder-nav-btn-mobile[data-target="${targetId}"]`);
-          if (activeMobileBtn) {
-            activeMobileBtn.classList.add('active');
-            activeMobileBtn.style.borderColor = 'rgba(212,175,127,0.4)';
-            activeMobileBtn.style.color = 'var(--gold)';
-            activeMobileBtn.style.background = 'rgba(212,175,127,0.08)';
-          }
-
-          // Afficher la section correspondante
-          Object.values(sections).forEach(section => {
-            if (section) {
-              section.classList.remove('active');
-              section.classList.add('hidden');
-            }
-          });
-          const targetSection = sections[targetId];
-          if (targetSection) {
-            targetSection.classList.remove('hidden');
-            targetSection.classList.add('active');
-          }
-
-          // Réinitialiser les "Lire la suite"
-          document.querySelectorAll('.founder-more-content').forEach(content => {
-            content.classList.add('hidden');
-          });
-          document.querySelectorAll('.founder-read-more').forEach(btn => {
-            btn.textContent = 'Lire la suite';
-          });
-
-          // Mettre à jour l'URL
-          history.pushState(null, null, `#fondatrice-${targetId}`);
-        }
-
-        // Ajouter les événements à tous les boutons
-        navButtons.forEach(btn => {
-          btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = this.dataset.target;
-            if (target && sections[target]) {
-              switchSection(target);
-            }
-          });
-        });
-
-        // Gérer le hash dans l'URL
-        if (window.location.hash.includes('fondatrice-')) {
-          const target = window.location.hash.replace('#fondatrice-', '');
-          if (sections[target]) {
-            setTimeout(() => switchSection(target), 100);
-          }
-        }
-
-        // ===== FONCTIONNALITÉ "LIRE LA SUITE" =====
-        document.querySelectorAll('.founder-read-more').forEach(btn => {
-          btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            let parent = this.closest('.founder-section');
-            if (!parent) {
-              parent = this.closest('.max-w-3xl');
-            }
-            if (!parent) {
-              parent = this.closest('.grid');
-            }
-            const moreContent = parent ? parent.querySelector('.founder-more-content') : null;
-            if (moreContent) {
-              if (moreContent.classList.contains('hidden')) {
-                moreContent.classList.remove('hidden');
-                this.textContent = 'Voir moins';
-                setTimeout(() => {
-                  moreContent.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }, 100);
-              } else {
-                moreContent.classList.add('hidden');
-                this.textContent = 'Lire la suite';
-              }
-            } else {
-              const allMoreContents = document.querySelectorAll('.founder-more-content');
-              let targetContent = null;
-              allMoreContents.forEach(content => {
-                if (this.closest('.founder-section') && this.closest('.founder-section').contains(content)) {
-                  targetContent = content;
-                }
-              });
-              if (targetContent) {
-                if (targetContent.classList.contains('hidden')) {
-                  targetContent.classList.remove('hidden');
-                  this.textContent = 'Voir moins';
-                  setTimeout(() => {
-                    targetContent.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                  }, 100);
-                } else {
-                  targetContent.classList.add('hidden');
-                  this.textContent = 'Lire la suite';
-                }
-              }
-            }
-          });
-        });
-      });
-    </script>
-
-    <!-- ===== COMMUNAUTE ===== -->
-    <section class="py-24 md:py-36 px-6" id="communaute" style="background:var(--nude-light); font-weight:600">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-20"><p class="font-montserrat text-xs tracking-[4px] uppercase mb-4 reveal" style="color:var(--burgundy-soft);">Communaute</p><h2 class="font-playfair text-3xl md:text-4xl font-bold reveal reveal-delay-1">Vous n'etes pas seule</h2><p class="font-montserrat font-light text-sm mt-4 max-w-lg mx-auto reveal reveal-delay-2" style="opacity:0.55;">Un cercle de femmes qui choisissent de guérir ensemble.</p><div class="section-divider mt-8 reveal reveal-delay-2"></div></div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div class="p-8 border hover:border-orr-burgundy-soft transition-all duration-500 reveal reveal-delay-1" style="border-color:rgba(110,11,20,0.08);background:var(--cream);"><div class="w-10 h-10 border flex items-center justify-center mb-6" style="border-color:var(--burgundy-soft);"><i class="fa-regular fa-circle text-sm" style="color:var(--burgundy);"></i></div><h3 class="font-playfair text-lg font-bold mb-3">Le Cercle ORR</h3><p class="font-montserrat text-xs font-light leading-relaxed mb-6" style="opacity:0.55;">Espace intime de partage mensuel.</p><button onclick="showToast('Demande au Cercle ORR enregistree.')" class="font-montserrat text-xs tracking-[2px] uppercase bg-transparent border-none cursor-pointer p-0" style="color:var(--burgundy);">Rejoindre</button></div>
-          <div class="p-8 border hover:border-orr-burgundy-soft transition-all duration-500 reveal reveal-delay-2" style="border-color:rgba(110,11,20,0.08);background:var(--cream);"><div class="w-10 h-10 border flex items-center justify-center mb-6" style="border-color:var(--burgundy-soft);"><i class="fa-regular fa-play-circle text-sm" style="color:var(--burgundy);"></i></div><h3 class="font-playfair text-lg font-bold mb-3">Masterclasses</h3><p class="font-montserrat text-xs font-light leading-relaxed mb-6" style="opacity:0.55;">Sessions profondes accessibles de chez vous.</p><button onclick="showToast('Prochaines masterclasses bientot.')" class="font-montserrat text-xs tracking-[2px] uppercase bg-transparent border-none cursor-pointer p-0" style="color:var(--burgundy);">Voir le programme</button></div>
-          <div class="p-8 border hover:border-orr-burgundy-soft transition-all duration-500 reveal reveal-delay-3" style="border-color:rgba(110,11,20,0.08);background:var(--cream);"><div class="w-10 h-10 border flex items-center justify-center mb-6" style="border-color:var(--burgundy-soft);"><i class="fa-regular fa-compass text-sm" style="color:var(--burgundy);"></i></div><h3 class="font-playfair text-lg font-bold mb-3">Retraites au Maroc</h3><p class="font-montserrat text-xs font-light leading-relaxed mb-6" style="opacity:0.55;">Immersion totale, 3 à 7 jours.</p><button onclick="showToast('Dates bientot communiquees.')" class="font-montserrat text-xs tracking-[2px] uppercase bg-transparent border-none cursor-pointer p-0" style="color:var(--burgundy);">En savoir plus</button></div>
-          <div class="p-8 border hover:border-orr-burgundy-soft transition-all duration-500 reveal reveal-delay-1" style="border-color:rgba(110,11,20,0.08);background:var(--cream);"><div class="w-10 h-10 border flex items-center justify-center mb-6" style="border-color:var(--burgundy-soft);"><i class="fa-regular fa-calendar text-sm" style="color:var(--burgundy);"></i></div><h3 class="font-playfair text-lg font-bold mb-3">Evenements</h3><p class="font-montserrat text-xs font-light leading-relaxed mb-6" style="opacity:0.55;">Soirées rituelles, cercles de pleine lune.</p><button onclick="showToast('Agenda bientot disponible.')" class="font-montserrat text-xs tracking-[2px] uppercase bg-transparent border-none cursor-pointer p-0" style="color:var(--burgundy);">Voir l'agenda</button></div>
-          <div class="p-8 border hover:border-orr-burgundy-soft transition-all duration-500 reveal reveal-delay-2" style="border-color:rgba(110,11,20,0.08);background:var(--cream);"><div class="w-10 h-10 border flex items-center justify-center mb-6" style="border-color:var(--burgundy-soft);"><i class="fa-regular fa-envelope text-sm" style="color:var(--burgundy);"></i></div><h3 class="font-playfair text-lg font-bold mb-3">Lettre ORR</h3><p class="font-montserrat text-xs font-light leading-relaxed mb-6" style="opacity:0.55;">Des mots, des rituels dans votre boîte mail.</p><form onsubmit="handleNewsletter(event)" class="flex gap-2"><input type="email" placeholder="votre@email.com" required class="flex-1 bg-transparent border px-4 py-2.5 font-montserrat text-xs outline-none focus:border-orr-burgundy transition-colors" style="border-color:rgba(110,11,20,0.12);min-width:0;"><button type="submit" class="text-orr-nude font-montserrat text-xs tracking-[1px] uppercase px-5 py-2.5 hover:opacity-90 transition-colors border-none cursor-pointer whitespace-nowrap" style="background:var(--burgundy);">S'inscrire</button></form></div>
-          <div class="p-8 border hover:border-orr-burgundy-soft transition-all duration-500 reveal reveal-delay-3" style="border-color:rgba(110,11,20,0.08);background:var(--cream);"><div class="w-10 h-10 border flex items-center justify-center mb-6" style="border-color:var(--burgundy-soft);"><i class="fa-regular fa-gem text-sm" style="color:var(--burgundy);"></i></div><h3 class="font-playfair text-lg font-bold mb-3">Contenu Exclusif</h3><p class="font-montserrat text-xs font-light leading-relaxed mb-6" style="opacity:0.55;">Méditations inédites, rituels secrets.</p><button onclick="showToast('Acces en preparation.')" class="font-montserrat text-xs tracking-[2px] uppercase bg-transparent border-none cursor-pointer p-0" style="color:var(--burgundy);">Demander l'acces</button></div>
+      <div class="wrap">
+        <div class="com-grid">
+          <article class="com reveal r1">
+            <div class="ico"><i class="fa-regular fa-circle" aria-hidden="true"></i></div>
+            <h4>Le Cercle ORR</h4>
+            <p>Espace intime de partage mensuel.</p>
+            <button class="act" onclick="toast('Demande au Cercle ORR enregistrée.')">Rejoindre</button>
+          </article>
+          <article class="com reveal r2">
+            <div class="ico"><i class="fa-regular fa-play-circle" aria-hidden="true"></i></div>
+            <h4>Masterclasses</h4>
+            <p>Sessions profondes, accessibles de chez vous.</p>
+            <button class="act" onclick="toast('Prochaines masterclasses bientôt.')">Voir le programme</button>
+          </article>
+          <article class="com reveal r3">
+            <div class="ico"><i class="fa-regular fa-compass" aria-hidden="true"></i></div>
+            <h4>Retraites au Maroc</h4>
+            <p>Immersion totale, de 3 à 7 jours.</p>
+            <button class="act" onclick="toast('Dates bientôt communiquées.')">En savoir plus</button>
+          </article>
+          <article class="com reveal r1">
+            <div class="ico"><i class="fa-regular fa-calendar" aria-hidden="true"></i></div>
+            <h4>Événements</h4>
+            <p>Soirées rituelles, cercles de pleine lune.</p>
+            <button class="act" onclick="toast('Agenda bientôt disponible.')">Voir l'agenda</button>
+          </article>
+          <article class="com reveal r2">
+            <div class="ico"><i class="fa-regular fa-envelope" aria-hidden="true"></i></div>
+            <h4>Lettre ORR</h4>
+            <p>Des mots et des rituels dans votre boîte mail.</p>
+            <form class="nl" onsubmit="return newsletter(event)">
+              <input type="email" required placeholder="votre@email.com" aria-label="Votre email">
+              <button type="submit" class="go">S'inscrire</button>
+            </form>
+          </article>
+          <article class="com reveal r3">
+            <div class="ico"><i class="fa-regular fa-gem" aria-hidden="true"></i></div>
+            <h4>Contenu Exclusif</h4>
+            <p>Méditations inédites, rituels secrets.</p>
+            <button class="act" onclick="toast('Accès en préparation.')">Demander l'accès</button>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="py-12 px-6" style="background:var(--burgundy-deep);">
-      <div class="max-w-5xl mx-auto">
-        <div class="text-center mb-8">
-          <p class="font-playfair text-3xl md:text-5xl font-bold tracking-wider" style="color:var(--gold);">ORR</p>
-          <p class="font-montserrat text-[10px] tracking-[4px] uppercase mt-2" style="color:rgba(237,224,212,0.35);">Origin Rituals & Revelations</p>
-        </div>
+  </main>
 
-        <div class="text-center mb-8">
-          <p class="font-montserrat text-[10px] tracking-[2px] uppercase mb-3" style="color:var(--gold);">Suivre</p>
-          <div class="flex justify-center gap-6 mb-3">
-            <a href="#" style="color:rgba(237,224,212,0.5);" aria-label="Instagram" onclick="event.preventDefault();showToast('Suivez ORR sur Instagram @orr.universe');" class="hover:text-orr-gold transition-colors">
-              <i class="fa-brands fa-instagram text-xl"></i>
-            </a>
-            <a href="#" style="color:rgba(237,224,212,0.5);" aria-label="YouTube" onclick="event.preventDefault();showToast('YouTube bientot disponible');" class="hover:text-orr-gold transition-colors">
-              <i class="fa-brands fa-youtube text-xl"></i>
-            </a>
-            <a href="#" style="color:rgba(237,224,212,0.5);" aria-label="Spotify" onclick="event.preventDefault();showToast('Spotify bientot disponible');" class="hover:text-orr-gold transition-colors">
-              <i class="fa-brands fa-spotify text-xl"></i>
-            </a>
-          </div>
-          <a href="mailto:contact@orr-universe.com" class="font-montserrat text-[11px] font-light hover:text-orr-gold transition-colors" style="color:rgba(237,224,212,0.4); text-decoration:none;">
-            contact@orr-universe.com
-          </a>
-        </div>
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="foot-logo">ORR</div>
+    <p class="foot-tag">Origin Rituals &amp; Revelations</p>
+    <div class="foot-social">
+      <a href="#" aria-label="Instagram" onclick="event.preventDefault();toast('Suivez ORR sur Instagram @orr.universe')"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="YouTube" onclick="event.preventDefault();toast('YouTube bientôt disponible')"><i class="fa-brands fa-youtube"></i></a>
+      <a href="#" aria-label="Spotify" onclick="event.preventDefault();toast('Spotify bientôt disponible')"><i class="fa-brands fa-spotify"></i></a>
+    </div>
+    <a class="foot-mail" href="mailto:contact@orr-universe.com">contact@orr-universe.com</a>
+    <div class="foot-bottom">
+      <span>© 2026 ORR. Tous droits réservés.</span>
+      <span class="serif">« Habiter le bas du corps, là où vibre la vie. »</span>
+    </div>
+  </footer>
 
-        <div class="border-t pt-6 text-center" style="border-color:rgba(212,175,127,0.06);">
-          <p class="font-montserrat text-[10px] font-light" style="color:rgba(237,224,212,0.2);">© 2026 ORR. Tous droits réservés.</p>
-          <p class="font-playfair italic text-[10px] mt-2" style="color:rgba(212,175,127,0.2);">"Habiter le bas du corps, là où vibre la vie."</p>
-        </div>
-      </div>
-    </footer>
+  <div class="toast" id="toast"></div>
 
-    <div class="toast" id="toast"></div>
+  <!-- FONT AWESOME (non-bloquant) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
 
-    <script>
-      /* ===== ENTRÉE ===== */
-      window.addEventListener('load',()=>{
-        setTimeout(()=>{
-          document.getElementById('entrance').classList.add('hidden');
-          document.body.style.overflow='auto';
-        },5000);
+  <!-- ===== JS ALLÉGÉ ===== -->
+  <script>
+  (function(){
+    'use strict';
+    var entrance = document.getElementById('entrance');
+    function closeEntrance(){ entrance.classList.add('done'); }
+    window.addEventListener('load', function(){ setTimeout(closeEntrance, 3200); });
+    entrance.addEventListener('click', closeEntrance);
+
+    // Navbar scroll
+    var nav = document.getElementById('nav');
+    window.addEventListener('scroll', function(){
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive:true });
+
+    // Menu mobile
+    var burger = document.getElementById('burger'), mmenu = document.getElementById('mmenu'), open = false;
+    function toggleMenu(force){
+      open = typeof force === 'boolean' ? force : !open;
+      burger.classList.toggle('open', open);
+      mmenu.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    burger.addEventListener('click', function(){ toggleMenu(); });
+    document.querySelectorAll('.mlink').forEach(function(a){ a.addEventListener('click', function(){ toggleMenu(false); }); });
+
+    // Reveal
+    var robs = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); robs.unobserve(e.target); } });
+    }, { threshold:.12, rootMargin:'0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el){ robs.observe(el); });
+
+    // Toast
+    window.toast = function(m){
+      var t = document.getElementById('toast');
+      t.textContent = m; t.classList.add('show');
+      clearTimeout(t._t); t._t = setTimeout(function(){ t.classList.remove('show'); }, 3000);
+    };
+
+    // Newsletter
+    window.newsletter = function(e){
+      e.preventDefault();
+      var in_ = e.target.querySelector('input');
+      if(in_ && in_.value){ toast('Bienvenue dans la Lettre ORR.'); in_.value=''; }
+      return false;
+    };
+
+    // Fondatrice : onglets
+    var map = { qui:'s-qui', chemin:'s-chemin', pourquoi:'s-pourquoi', vision:'s-vision' };
+    document.querySelectorAll('.f-nav button').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        document.querySelectorAll('.f-nav button').forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        var t = btn.dataset.t;
+        document.querySelectorAll('.f-sec').forEach(function(s){ s.classList.remove('active'); });
+        var sec = document.getElementById(map[t]); if(sec) sec.classList.add('active');
+        document.querySelectorAll('.f-more').forEach(function(m){ m.classList.remove('open'); });
+        document.querySelectorAll('.f-btn').forEach(function(b){ b.textContent = 'Lire la suite'; });
       });
-      document.getElementById('entrance').addEventListener('click',()=>{
-        document.getElementById('entrance').classList.add('hidden');
-        document.body.style.overflow='auto';
+    });
+
+    // Lire la suite
+    document.querySelectorAll('.f-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var box = document.getElementById(btn.dataset.open);
+        if(!box) return;
+        var isOpen = box.classList.contains('open');
+        box.classList.toggle('open', !isOpen);
+        btn.textContent = isOpen ? 'Lire la suite' : 'Voir moins';
       });
+    });
 
-      /* ===== CURSOR ===== */
-      const glow=document.getElementById('cursorGlow');
-      let gX=0,gY=0,cX=0,cY=0;
-      document.addEventListener('mousemove',e=>{gX=e.clientX;gY=e.clientY;});
-      (function aG(){
-        cX+=(gX-cX)*0.08;
-        cY+=(gY-cY)*0.08;
-        glow.style.left=cX+'px';
-        glow.style.top=cY+'px';
-        requestAnimationFrame(aG);
-      })();
-
-      /* ===== NAV ===== */
-      const navLuxe=document.getElementById('navLuxe');
-      window.addEventListener('scroll', function() {
-        if (window.scrollY > 60) {
-          navLuxe.classList.add('scrolled');
-        } else {
-          navLuxe.classList.remove('scrolled');
-        }
+    // Scroll
+    function scrollTo(s){ var el=document.querySelector(s); if(el) el.scrollIntoView({behavior:'smooth'}); }
+    document.getElementById('heroCta').addEventListener('click', function(e){ e.preventDefault(); scrollTo('#manifeste'); });
+    var sbtn = document.querySelector('.hero-scroll');
+    if(sbtn) sbtn.addEventListener('click', function(){ scrollTo(sbtn.dataset.scroll); });
+    document.querySelectorAll('.nav-links a, .nav-cta, .mlink').forEach(function(a){
+      a.addEventListener('click', function(e){
+        var h = a.getAttribute('href'); if(h && h.charAt(0)==='#'){ e.preventDefault(); scrollTo(h); }
       });
-      
-      const navToggle=document.getElementById('navToggle'),mobileMenu=document.getElementById('mobileMenu');
-      let menuOpen=false;
-      navToggle.addEventListener('click',()=>{
-        menuOpen=!menuOpen;
-        navToggle.classList.toggle('active',menuOpen);
-        navToggle.setAttribute('aria-expanded',menuOpen);
-        mobileMenu.classList.toggle('open',menuOpen);
-        document.body.style.overflow=menuOpen?'hidden':'auto';
-      });
-      function closeMobile(){
-        menuOpen=false;
-        navToggle.classList.remove('active');
-        navToggle.setAttribute('aria-expanded','false');
-        mobileMenu.classList.remove('open');
-        document.body.style.overflow='auto';
-      }
-
-      /* ===== REVEAL ===== */
-      const rO=new IntersectionObserver(e=>{
-        e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});
-      },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
-      document.querySelectorAll('.reveal').forEach(el=>rO.observe(el));
-
-      /* ===== TOAST ===== */
-      function showToast(m){
-        const t=document.getElementById('toast');
-        t.textContent=m;
-        t.classList.add('show');
-        setTimeout(()=>t.classList.remove('show'),3500);
-      }
-
-      /* ===== NEWSLETTER ===== */
-      function handleNewsletter(e){
-        e.preventDefault();
-        const i=e.target.querySelector('input');
-        if(i.value){
-          showToast('Bienvenue dans la Lettre ORR.');
-          i.value='';
-        }
-      }
-
-      /* ===== IMAGES ===== */
-      document.querySelectorAll('img').forEach(i=>{
-        if(i.complete){
-          i.classList.add('loaded');
-        } else {
-          i.addEventListener('load',()=>i.classList.add('loaded'));
-        }
-      });
-
-      /* ===== SMOOTH SCROLL ===== */
-      document.querySelectorAll('a[href^="#"]').forEach(l=>{
-        l.addEventListener('click',e=>{
-          const t=document.querySelector(l.getAttribute('href'));
-          if(t){
-            e.preventDefault();
-            t.scrollIntoView({behavior:'smooth',block:'start'});
-          }
-        });
-      });
-    </script>
-  </body>
+    });
+  })();
+  </script>
+</body>
 </html>
