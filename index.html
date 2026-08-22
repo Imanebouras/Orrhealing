@@ -1,818 +1,2214 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ORR — Origin Rituals & Revelations. Maison de rituels premium inspirée des savoirs ancestraux marocains. Sels, plantes, encens et cérémonies pour habiter pleinement aujourd'hui.">
-  <meta name="theme-color" content="#4A0810">
-  <title>ORR — Origin Rituals & Revelations</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ORR — Origin Rituals & Revelations. Maison de rituels premium inspirée des savoirs ancestraux marocains." />
+    <meta name="theme-color" content="#4A0810" />
+    <title>ORR — Origin Rituals & Revelations</title>
 
-  <!-- === POLICES : PRELOAD + FALLBACK SANS BLOCKING === -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" /></noscript>
 
-  <style>
-    /* ===== DESIGN TOKENS ===== */
-    :root{
-      --burgundy:#6E0B14;--burgundy-deep:#4A0810;--burgundy-soft:#8B2030;
-      --gold:#D4AF7F;--gold-light:#E5CC9E;--nude:#EDE0D4;--nude-light:#F5EDE4;
-      --cream:#FAF9F6;--dark:#3D2B2B;--sage:#929471;
-      --ease: cubic-bezier(.4,0,.2,1);
-    }
-    *{margin:0;padding:0;box-sizing:border-box;}
-    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
-    body{
-      font-family:'Montserrat',system-ui,sans-serif;
-      background:var(--cream);color:var(--dark);
-      padding-top:72px;line-height:1.6;
-      -webkit-font-smoothing:antialiased;
-    }
-    img{max-width:100%;display:block;}
-    a{text-decoration:none;color:inherit;}
-    button{font-family:inherit;cursor:pointer;}
-    .serif{font-family:'Playfair Display',Georgia,serif;}
-    .hidden{display:none !important;}
+    <style>
+        /* ===== DESIGN TOKENS ===== */
+        :root {
+            --burgundy: #6E0B14;
+            --burgundy-deep: #4A0810;
+            --burgundy-soft: #8B2030;
+            --gold: #D4AF7F;
+            --gold-light: #E5CC9E;
+            --nude: #EDE0D4;
+            --nude-light: #F5EDE4;
+            --cream: #FAF9F6;
+            --dark: #3D2B2B;
+            --sage: #929471;
+            --ease: cubic-bezier(.4, 0, .2, 1);
+        }
 
-    /* ===== GRAIN LÉGER ===== */
-    .grain{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.016;
-      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* ===== ENTRÉE IMMERSIVE ===== */
-    .entrance{position:fixed;inset:0;z-index:10000;background:var(--burgundy-deep);
-      display:flex;align-items:center;justify-content:center;
-      transition:opacity .7s var(--ease),visibility .7s;flex-direction:column;text-align:center;padding:24px;}
-    .entrance.done{opacity:0;visibility:hidden;pointer-events:none;}
-    .entrance .letters{display:flex;justify-content:center;gap:6px;}
-    .entrance .l{font-family:'Playfair Display',serif;font-weight:700;color:var(--gold);
-      font-size:clamp(54px,12vw,110px);opacity:0;transform:translateY(16px);animation:lReveal 1s var(--ease) forwards;}
-    .entrance .l:nth-child(1){animation-delay:.15s}.entrance .l:nth-child(2){animation-delay:.5s}.entrance .l:nth-child(3){animation-delay:.85s}
-    @keyframes lReveal{to{opacity:1;transform:none;}}
-    .entrance .tag{font-family:'Playfair Display',serif;font-style:italic;color:var(--nude);
-      letter-spacing:.45em;text-transform:uppercase;margin-top:20px;font-size:clamp(10px,1.6vw,13px);
-      opacity:0;animation:fUp .8s var(--ease) 1.6s forwards;}
-    .entrance .sub{font-weight:400;color:rgba(237,224,212,.5);margin-top:10px;
-      font-size:clamp(10px,1.2vw,14px);opacity:0;animation:fUp .8s var(--ease) 2s forwards;}
-    @keyframes fUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none;}}
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
 
-    /* ===== NAVBAR (minimaliste) ===== */
-    .nav{position:fixed;top:0;left:0;right:0;z-index:9990;height:72px;
-      display:flex;align-items:center;transition:background .4s var(--ease),box-shadow .4s;}
-    .nav.scrolled{background:rgba(250,249,246,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 1px 0 rgba(110,11,20,.06);}
-    .nav-in{width:100%;max-width:1320px;margin:0 auto;padding:0 28px;
-      display:flex;align-items:center;justify-content:space-between;}
-    .nav .logo{height:34px;width:auto;}
-    .nav .logo img{height:100%;width:auto;filter:brightness(0) invert(1);opacity:.95;transition:filter .3s var(--ease),opacity .3s;}
-    .nav.scrolled .logo img{filter:none;opacity:.85;}
-    .nav-links{display:flex;gap:34px;}
-    .nav-links a{font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;
-      color:rgba(237,224,212,.85);transition:color .3s;position:relative;white-space:nowrap;}
-    .nav-links a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--gold);transition:width .35s var(--ease);}
-    .nav-links a:hover::after{width:100%;}
-    .nav-links a:hover{color:var(--gold);}
-    .nav.scrolled .nav-links a{color:var(--dark);}
-    .nav.scrolled .nav-links a:hover{color:var(--burgundy);}
-    .nav-cta{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
-      color:var(--gold);border:1px solid rgba(212,175,127,.4);padding:10px 20px;transition:all .3s;white-space:nowrap;}
-    .nav-cta:hover{background:var(--gold);color:var(--burgundy-deep);}
-    .nav.scrolled .nav-cta{color:var(--burgundy);border-color:rgba(110,11,20,.25);}
-    .nav.scrolled .nav-cta:hover{background:var(--burgundy);color:var(--nude);}
-    .nav-burger{display:none;flex-direction:column;gap:5px;width:42px;height:42px;
-      border:1px solid rgba(212,175,127,.3);background:transparent;align-items:center;justify-content:center;}
-    .nav-burger span{width:18px;height:1px;background:var(--gold);transition:all .3s var(--ease);}
-    .nav-burger span:nth-child(2){width:12px;margin-left:6px;}
-    .nav.scrolled .nav-burger span{background:var(--dark);}
-    .nav-burger.open span:nth-child(1){transform:rotate(45deg) translate(3px,3px);}
-    .nav-burger.open span:nth-child(2){opacity:0;transform:translateX(-6px);}
-    .nav-burger.open span:nth-child(3){transform:rotate(-45deg) translate(3px,-3px);width:18px;margin-left:0;}
+        body {
+            font-family: 'Montserrat', system-ui, sans-serif;
+            background: var(--cream);
+            color: var(--dark);
+            padding-top: 72px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
 
-    /* Menu mobile */
-    .mmenu{position:fixed;inset:0;z-index:9989;background:rgba(250,249,246,.97);backdrop-filter:blur(28px);
-      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
-      opacity:0;visibility:hidden;transition:opacity .4s var(--ease),visibility .4s;}
-    .mmenu.open{opacity:1;visibility:visible;}
-    .mmenu a{font-family:'Playfair Display',serif;font-size:26px;color:var(--dark);padding:12px 0;transition:color .3s,letter-spacing .3s;}
-    .mmenu a:hover{color:var(--burgundy);letter-spacing:.05em;}
-    .mmenu .orn{width:1px;height:26px;background:linear-gradient(to bottom,transparent,var(--burgundy-soft),transparent);margin:6px 0;}
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        button {
+            font-family: inherit;
+            cursor: pointer;
+        }
+        .serif {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+        .hidden {
+            display: none !important;
+        }
 
-    /* ===== HERO ===== */
-    .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;
-      overflow:hidden;margin-top:-72px;text-align:center;}
-    .hero-bg{position:absolute;inset:-60px 0 0 0;background:url('https://raw.githubusercontent.com/Imanebouras/Orrhealing/main/images/ChatGPT%20Image%2018%20ao%C3%BBt%202026%2C%2011_29_19.png') center/cover no-repeat;
-      filter:brightness(.32) saturate(.7) sepia(.15);transform:scale(1.04);will-change:transform;}
-    .hero-ovl{position:absolute;inset:0;
-      background:linear-gradient(180deg,rgba(74,8,16,.8) 0%,rgba(110,11,20,.45) 30%,rgba(139,32,48,.15) 55%,rgba(250,249,246,0) 100%);}
-    .hero-core{position:relative;z-index:2;padding:0 24px;max-width:780px;display:flex;flex-direction:column;align-items:center;gap:26px;}
-    .hero-logo{height:clamp(84px,16vw,150px);width:auto;opacity:.96;
-      animation:heroIn 1.2s var(--ease) .2s both;}
-    .hero-label{font-size:10px;font-weight:500;letter-spacing:.5em;text-transform:uppercase;color:rgba(212,175,127,.75);
-      animation:heroIn 1.2s var(--ease) .5s both;}
-    .hero-title{font-family:'Playfair Display',serif;font-weight:400;font-style:italic;
-      color:var(--nude);line-height:1.25;font-size:clamp(24px,4.6vw,44px);max-width:640px;
-      animation:heroIn 1.2s var(--ease) .7s both;}
-    .hero-line{width:40px;height:1px;background:var(--gold);opacity:.6;animation:heroIn 1.2s var(--ease) .9s both;}
-    .hero-desc{font-weight:300;font-size:13px;line-height:1.9;color:rgba(237,224,212,.65);
-      max-width:460px;margin:0 auto;animation:heroIn 1.2s var(--ease) 1.1s both;}
-    .hero-cta{display:inline-flex;align-items:center;gap:14px;padding:17px 42px;
-      border:1px solid rgba(212,175,127,.45);color:var(--gold);transition:all .4s;animation:heroIn 1.2s var(--ease) 1.3s both;}
-    .hero-cta .t{font-size:10px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;}
-    .hero-cta .a{width:18px;height:1px;background:currentColor;position:relative;transition:width .4s;}
-    .hero-cta .a::after{content:'';position:absolute;right:0;top:50%;width:5px;height:5px;
-      transform:translateY(-50%) rotate(-45deg);border-right:1px solid currentColor;border-top:1px solid currentColor;}
-    .hero-cta:hover{border-color:var(--gold);background:rgba(212,175,127,.06);}
-    .hero-cta:hover .a{width:30px;}
-    .hero-scroll{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:2;
-      font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(237,224,212,.4);
-      animation:fUp 1.5s var(--ease) 1.8s both;cursor:pointer;}
-    @keyframes heroIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none;}}
+        /* ===== GRAIN ===== */
+        .grain {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            pointer-events: none;
+            opacity: .016;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
 
-    /* ===== REVEAL ===== */
-    .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
-    .reveal.in{opacity:1;transform:none;}
-    .r1{transition-delay:.08s}.r2{transition-delay:.16s}.r3{transition-delay:.24s}.r4{transition-delay:.32s}
+        /* ===== ENTRÉE ===== */
+        .entrance {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: var(--burgundy-deep);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity .7s var(--ease), visibility .7s;
+            flex-direction: column;
+            text-align: center;
+            padding: 24px;
+        }
+        .entrance.done {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .entrance .letters {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+        }
+        .entrance .l {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--gold);
+            font-size: clamp(54px, 12vw, 110px);
+            opacity: 0;
+            transform: translateY(16px);
+            animation: lReveal 1s var(--ease) forwards;
+        }
+        .entrance .l:nth-child(1) { animation-delay: .15s; }
+        .entrance .l:nth-child(2) { animation-delay: .5s; }
+        .entrance .l:nth-child(3) { animation-delay: .85s; }
+        @keyframes lReveal {
+            to { opacity: 1; transform: none; }
+        }
+        .entrance .tag {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--nude);
+            letter-spacing: .45em;
+            text-transform: uppercase;
+            margin-top: 20px;
+            font-size: clamp(10px, 1.6vw, 13px);
+            opacity: 0;
+            animation: fUp .8s var(--ease) 1.6s forwards;
+        }
+        .entrance .sub {
+            font-weight: 400;
+            color: rgba(237, 224, 212, .5);
+            margin-top: 10px;
+            font-size: clamp(10px, 1.2vw, 14px);
+            opacity: 0;
+            animation: fUp .8s var(--ease) 2s forwards;
+        }
+        @keyframes fUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: none; }
+        }
 
-    /* ===== SECTIONS COMMUNES ===== */
-    .sec{padding:clamp(72px,12vw,130px) 28px;}
-    .wrap{max-width:1200px;margin:0 auto;}
-    .wrap-n{max-width:900px;margin:0 auto;}
-    .eyebrow{font-size:11px;font-weight:600;letter-spacing:.4em;text-transform:uppercase;color:var(--burgundy-soft);margin-bottom:18px;}
-    .hd{font-family:'Playfair Display',serif;font-weight:400;color:var(--dark);line-height:1.2;
-      font-size:clamp(26px,4.4vw,44px);}
-    .hd em{font-style:italic;color:var(--burgundy);}
-    .rule{width:38px;height:1px;background:var(--burgundy-soft);opacity:.3;margin:22px 0;}
-    .center{text-align:center;}
-    .center .rule{margin-left:auto;margin-right:auto;}
+        /* ===== NAVBAR ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9990;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            transition: background .4s var(--ease), box-shadow .4s;
+        }
+        .nav.scrolled {
+            background: rgba(250, 249, 246, .92);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            box-shadow: 0 1px 0 rgba(110, 11, 20, .06);
+        }
+        .nav-in {
+            width: 100%;
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav .logo {
+            height: 34px;
+            width: auto;
+        }
+        .nav .logo img {
+            height: 100%;
+            width: auto;
+            filter: brightness(0) invert(1);
+            opacity: .95;
+            transition: filter .3s var(--ease), opacity .3s;
+        }
+        .nav.scrolled .logo img {
+            filter: none;
+            opacity: .85;
+        }
+        .nav-links {
+            display: flex;
+            gap: 34px;
+        }
+        .nav-links a {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: .24em;
+            text-transform: uppercase;
+            color: rgba(237, 224, 212, .85);
+            transition: color .3s;
+            position: relative;
+            white-space: nowrap;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width .35s var(--ease);
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav.scrolled .nav-links a { color: var(--dark); }
+        .nav.scrolled .nav-links a:hover { color: var(--burgundy); }
+        .nav-cta {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            border: 1px solid rgba(212, 175, 127, .4);
+            padding: 10px 20px;
+            transition: all .3s;
+            white-space: nowrap;
+        }
+        .nav-cta:hover {
+            background: var(--gold);
+            color: var(--burgundy-deep);
+        }
+        .nav.scrolled .nav-cta {
+            color: var(--burgundy);
+            border-color: rgba(110, 11, 20, .25);
+        }
+        .nav.scrolled .nav-cta:hover {
+            background: var(--burgundy);
+            color: var(--nude);
+        }
+        .nav-burger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            width: 42px;
+            height: 42px;
+            border: 1px solid rgba(212, 175, 127, .3);
+            background: transparent;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-burger span {
+            width: 18px;
+            height: 1px;
+            background: var(--gold);
+            transition: all .3s var(--ease);
+        }
+        .nav-burger span:nth-child(2) {
+            width: 12px;
+            margin-left: 6px;
+        }
+        .nav.scrolled .nav-burger span { background: var(--dark); }
+        .nav-burger.open span:nth-child(1) {
+            transform: rotate(45deg) translate(3px, 3px);
+        }
+        .nav-burger.open span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-6px);
+        }
+        .nav-burger.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(3px, -3px);
+            width: 18px;
+            margin-left: 0;
+        }
 
-    /* ===== MANIFESTE — ÉDITORIAL LUXE ===== */
-    #manifeste{background:var(--nude-light);}
-    .manifeste-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(40px,6vw,90px);align-items:center;}
-    .mf-img{position:relative;overflow:hidden;aspect-ratio:4/5;}
-    .mf-img img{width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.02);
-      transition:transform 1.2s var(--ease);}
-    .mf-img:hover img{transform:scale(1.03);}
-    .mf-img::after{content:'';position:absolute;inset:0;
-      background:linear-gradient(180deg,rgba(74,8,16,0) 30%,rgba(74,8,16,.18) 100%);}
-    .mf-editorial{display:flex;flex-direction:column;}
-    .mf-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
-    .mf-word{font-size:11px;font-weight:600;letter-spacing:.45em;text-transform:uppercase;color:var(--burgundy-soft);}
-    .mf-num{font-family:'Playfair Display',serif;font-style:italic;font-size:12px;letter-spacing:.1em;color:var(--gold);opacity:.8;}
-    .mf-title{font-size:clamp(27px,3.6vw,42px);line-height:1.18;margin-bottom:26px;}
-    .mf-title em{font-style:italic;color:var(--burgundy);}
-    .mf-ornament{display:flex;align-items:center;gap:10px;margin-bottom:26px;}
-    .mf-ornament .line{width:32px;height:1px;background:var(--burgundy-soft);opacity:.35;}
-    .mf-ornament .dot{width:4px;height:4px;border-radius:50%;background:var(--gold);}
-    .mf-drop{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(17px,1.9vw,21px);
-      line-height:1.75;color:var(--dark);margin-bottom:28px;}
-    .mf-drop .dropcap{font-size:3.2em;line-height:.85;font-weight:700;color:var(--burgundy);
-      float:left;margin:2px 12px 0 0;}
-    .mf-accent{font-style:italic;color:var(--burgundy);}
-    .mf-lines{display:flex;flex-direction:column;gap:12px;margin-bottom:28px;
-      padding-left:22px;border-left:1px solid rgba(110,11,20,.18);}
-    .mf-line{font-weight:300;font-size:14px;line-height:1.9;color:var(--dark);opacity:.75;}
-    .mf-claim{font-weight:300;font-size:14px;letter-spacing:.02em;color:var(--dark);opacity:.75;}
-    .mf-claim strong{font-family:'Playfair Display',serif;font-weight:600;font-size:15px;color:var(--burgundy);letter-spacing:.25em;text-transform:uppercase;}
-    .mf-sig{display:flex;align-items:center;gap:14px;margin-top:32px;
-      border-top:1px solid rgba(110,11,20,.1);padding-top:20px;}
-    .mf-symbol{color:var(--gold);font-size:10px;}
-    .mf-role{font-size:10px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--dark);opacity:.55;}
+        .mmenu {
+            position: fixed;
+            inset: 0;
+            z-index: 9989;
+            background: rgba(250, 249, 246, .97);
+            backdrop-filter: blur(28px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .4s var(--ease), visibility .4s;
+        }
+        .mmenu.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .mmenu a {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            color: var(--dark);
+            padding: 12px 0;
+            transition: color .3s, letter-spacing .3s;
+        }
+        .mmenu a:hover {
+            color: var(--burgundy);
+            letter-spacing: .05em;
+        }
+        .mmenu .orn {
+            width: 1px;
+            height: 26px;
+            background: linear-gradient(to bottom, transparent, var(--burgundy-soft), transparent);
+            margin: 6px 0;
+        }
 
-    /* ===== ORIGINES (alternating 50/50) ===== */
-    #origine{background:var(--cream);}
-    .og-row{display:grid;grid-template-columns:1fr 1fr;min-height:min(72vh,640px);align-items:stretch;}
-    .og-img{overflow:hidden;position:relative;}
-    .og-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease);}
-    .og-img:hover img{transform:scale(1.03);}
-    .og-txt{display:flex;flex-direction:column;justify-content:center;padding:60px clamp(32px,5vw,80px);}
-    .og-txt.r{order:2;}
-    .og-num{font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--burgundy-soft);opacity:.8;margin-bottom:12px;}
-    .og-txt h3{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(24px,3vw,36px);color:var(--dark);margin-bottom:8px;line-height:1.25;}
-    .og-txt .rule{margin-bottom:20px;}
-    .og-txt p{font-weight:300;font-size:14px;line-height:1.95;color:var(--dark);opacity:.68;max-width:440px;}
-    .og-txt p + p{margin-top:14px;}
-    .og-ital{font-family:'Playfair Display',serif;font-style:italic;font-size:17px;color:var(--burgundy);opacity:.92;margin-top:14px;}
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-top: -72px;
+            text-align: center;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: -60px 0 0 0;
+            background: url('https://raw.githubusercontent.com/Imanebouras/Orrhealing/main/images/ChatGPT%20Image%2018%20ao%C3%BBt%202026%2C%2011_29_19.png') center/cover no-repeat;
+            filter: brightness(.32) saturate(.7) sepia(.15);
+            transform: scale(1.04);
+            will-change: transform;
+        }
+        .hero-ovl {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(74, 8, 16, .8) 0%, rgba(110, 11, 20, .45) 30%, rgba(139, 32, 48, .15) 55%, rgba(74, 8, 16, .8) 100%);
+        }
+        .hero-core {
+            position: relative;
+            z-index: 2;
+            padding: 0 24px;
+            max-width: 780px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 26px;
+        }
+        .hero-logo {
+            height: clamp(84px, 16vw, 120px);
+            width: auto;
+            opacity: .96;
+            animation: heroIn 1.2s var(--ease) .2s both;
+        }
+        .hero-label {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: .5em;
+            text-transform: uppercase;
+            color: rgba(212, 175, 127, .75);
+            animation: heroIn 1.2s var(--ease) .5s both;
+        }
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--nude);
+            line-height: 1.25;
+            font-size: clamp(24px, 4.6vw, 44px);
+            max-width: 640px;
+            animation: heroIn 1.2s var(--ease) .7s both;
+        }
+        .hero-line {
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            opacity: .6;
+            animation: heroIn 1.2s var(--ease) .9s both;
+        }
+        .hero-desc {
+            font-weight: 300;
+            font-size: 13px;
+            line-height: 1.9;
+            color: rgba(237, 224, 212, .65);
+            max-width: 460px;
+            margin: 0 auto;
+            animation: heroIn 1.2s var(--ease) 1.1s both;
+        }
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            padding: 17px 42px;
+            border: 1px solid rgba(212, 175, 127, .45);
+            color: var(--gold);
+            transition: all .4s;
+            animation: heroIn 1.2s var(--ease) 1.3s both;
+        }
+        .hero-cta .t {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: .32em;
+            text-transform: uppercase;
+        }
+        .hero-cta .a {
+            width: 18px;
+            height: 1px;
+            background: currentColor;
+            position: relative;
+            transition: width .4s;
+        }
+        .hero-cta .a::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            width: 5px;
+            height: 5px;
+            transform: translateY(-50%) rotate(-45deg);
+            border-right: 1px solid currentColor;
+            border-top: 1px solid currentColor;
+        }
+        .hero-cta:hover {
+            border-color: var(--gold);
+            background: rgba(212, 175, 127, .06);
+        }
+        .hero-cta:hover .a { width: 30px; }
+        .hero-scroll {
+            position: absolute;
+            bottom: 34px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            font-size: 9px;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: rgba(237, 224, 212, .4);
+            animation: fUp 1.5s var(--ease) 1.8s both;
+            cursor: pointer;
+        }
+        @keyframes heroIn {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: none; }
+        }
 
-    /* ===== CRÉATIONS ===== */
-    #creations{background:var(--nude);}
-    .crea-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px;}
-    .crea{background:var(--cream);border:1px solid rgba(110,11,20,.08);padding:clamp(26px,3vw,40px);display:flex;flex-direction:column;gap:14px;transition:transform .5s var(--ease),box-shadow .5s;}
-    .crea:hover{transform:translateY(-6px);box-shadow:0 18px 40px -24px rgba(74,8,16,.18);}
-    .crea .ico{width:46px;height:46px;border-radius:50%;background:rgba(212,175,127,.14);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:17px;margin-bottom:6px;}
-    .crea.photo .ico{border:1px solid var(--gold);background:transparent;overflow:hidden;padding:0;}
-    .crea.photo .ico img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
-    .crea h4{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--burgundy);}
-    .crea p{font-weight:300;font-size:13px;line-height:1.8;color:var(--dark);opacity:.6;flex:1;}
-    .crea .tag{display:inline-block;width:max-content;font-size:9px;letter-spacing:.14em;text-transform:uppercase;
-      background:var(--burgundy);color:var(--nude);padding:6px 12px;}
-    .crea .lnk{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--burgundy);cursor:pointer;background:none;border:none;padding:0;text-align:left;transition:opacity .3s;width:max-content;}
-    .crea .lnk:hover{opacity:.6;}
-    .crea-cta{display:block;margin:52px auto 0;text-align:center;font-size:11px;font-weight:500;letter-spacing:.24em;
-      text-transform:uppercase;color:var(--burgundy);border:1px solid var(--burgundy);padding:15px 42px;transition:all .35s;background:transparent;width:max-content;}
-    .crea-cta:hover{background:var(--burgundy);color:var(--nude);}
+        /* ===== REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(26px);
+            transition: opacity .7s var(--ease), transform .7s var(--ease);
+        }
+        .reveal.in {
+            opacity: 1;
+            transform: none;
+        }
+        .r1 { transition-delay: .08s; }
+        .r2 { transition-delay: .16s; }
+        .r3 { transition-delay: .24s; }
+        .r4 { transition-delay: .32s; }
 
-    /* ===== FONDATRICE ===== */
-    #fondatrice{position:relative;overflow:hidden;background:linear-gradient(140deg,#4A0810,#6E0B14 55%,#8B2030);}
-    #fondatrice::before{content:'';position:absolute;inset:0;
-      background:url('https://i.pinimg.com/736x/6b/3e/90/6b3e90ee9b044ba33ccfbf11cb8328a6.jpg') center/cover;opacity:.05;filter:saturate(.3) sepia(.2);}
-    #fondatrice .wrap{position:relative;z-index:2;max-width:980px;}
-    #fondatrice .eyebrow{color:var(--gold);}
-    #fondatrice .hd{color:var(--nude);}
-    .f-nav{display:flex;justify-content:center;gap:clamp(8px,3vw,28px);margin:44px auto 52px;border-bottom:1px solid rgba(212,175,127,.12);padding-bottom:2px;flex-wrap:wrap;}
-    .f-nav button{background:none;border:none;padding:12px 6px;font-size:11px;font-weight:500;letter-spacing:.2em;
-      text-transform:uppercase;color:rgba(237,224,212,.45);border-bottom:2px solid transparent;transition:all .3s;white-space:nowrap;}
-    .f-nav button:hover{color:var(--gold);}
-    .f-nav button.active{color:var(--gold);border-bottom-color:var(--gold);}
-    .f-sec{display:none;}
-    .f-sec.active{display:block;animation:fSec .5s var(--ease);}
-    @keyframes fSec{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none;}}
-    .f-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center;}
-    .f-portrait{aspect-ratio:4/5;overflow:hidden;border:1px solid rgba(212,175,127,.14);}
-    .f-portrait img{width:100%;height:100%;object-fit:cover;}
-    .f-body{display:flex;flex-direction:column;gap:18px;}
-    .f-body p{font-weight:300;font-size:14px;line-height:2;color:rgba(237,224,212,.68);}
-    .f-body .sub{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);}
-    .f-body h3{font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(22px,2.6vw,30px);color:var(--nude);line-height:1.3;}
-    .f-more{display:none;flex-direction:column;gap:16px;}
-    .f-more.open{display:flex;}
-    .f-more p{font-weight:300;font-size:14px;line-height:2;color:rgba(237,224,212,.68);}
-    .f-blockquote{border-left:2px solid var(--gold);background:rgba(212,175,127,.05);padding:22px 26px;margin-top:6px;
-      font-family:'Playfair Display',serif;font-style:italic;font-size:16px;color:var(--gold-light);line-height:1.7;}
-    .f-btn{align-self:flex-start;background:none;border:1px solid var(--gold);color:var(--gold);
-      font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;padding:12px 26px;transition:all .3s;margin-top:6px;}
-    .f-btn:hover{background:var(--gold);color:var(--burgundy-deep);}
-    .f-signature{text-align:center;padding-top:70px;margin-top:50px;border-top:1px solid rgba(212,175,127,.08);}
-    .f-signature .big{font-family:'Playfair Display',serif;font-size:clamp(24px,4vw,38px);color:var(--gold);line-height:1.3;}
-    .f-signature .line{width:40px;height:1px;background:var(--gold);opacity:.5;margin:20px auto;}
+        /* ===== SECTIONS COMMUNES ===== */
+        .sec {
+            padding: clamp(72px, 12vw, 130px) 28px;
+        }
+        .wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .wrap-n {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .4em;
+            text-transform: uppercase;
+            color: var(--burgundy-soft);
+            margin-bottom: 18px;
+        }
+        .hd {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            color: var(--dark);
+            line-height: 1.2;
+            font-size: clamp(26px, 4.4vw, 44px);
+        }
+        .hd em {
+            font-style: italic;
+            color: var(--burgundy);
+        }
+        .rule {
+            width: 38px;
+            height: 1px;
+            background: var(--burgundy-soft);
+            opacity: .3;
+            margin: 22px 0;
+        }
+        .center {
+            text-align: center;
+        }
+        .center .rule {
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-    /* ===== COMMUNAUTÉ ===== */
-    #communaute{background:var(--nude-light);}
-    .com-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:56px;}
-    .com{background:var(--cream);padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:14px;border:1px solid rgba(110,11,20,.07);transition:border-color .3s;}
-    .com:hover{border-color:var(--burgundy-soft);}
-    .com .ico{width:40px;height:40px;border:1px solid var(--burgundy-soft);display:flex;align-items:center;justify-content:center;color:var(--burgundy);font-size:15px;}
-    .com h4{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--dark);}
-    .com p{font-weight:300;font-size:13px;line-height:1.8;color:var(--dark);opacity:.55;flex:1;}
-    .com .act{background:none;border:none;padding:0;font-size:10px;font-weight:500;letter-spacing:.18em;
-      text-transform:uppercase;color:var(--burgundy);text-align:left;transition:opacity .3s;width:max-content;}
-    .com .act:hover{opacity:.6;}
-    .nl{display:flex;gap:10px;flex-wrap:wrap;}
-    .nl input{flex:1;min-width:150px;background:transparent;border:1px solid rgba(110,11,20,.15);padding:13px 14px;
-      font-size:12px;outline:none;color:var(--dark);transition:border-color .3s;}
-    .nl input:focus{border-color:var(--burgundy);}
-    .nl .go{background:var(--burgundy);color:#faf9f6;border:none;font-size:11px;letter-spacing:.1em;
-      text-transform:uppercase;padding:0 22px;transition:opacity .3s;}
-    .nl .go:hover{opacity:.88;}
+        /* ===== MANIFESTE ===== */
+        .hero-manifeste {
+            background: linear-gradient(to bottom, #400a0e 0%, #ecdbc8 100%);
+            display: flex;
+            align-items: center;
+            min-height: 70vh;
+            padding: 40px 28px;
+        }
+        .manifeste-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1320px;
+            margin: 0 auto;
+            width: 100%;
+            gap: 40px;
+        }
+        .manifeste-text {
+            flex: 1;
+            max-width: 520px;
+            padding: 20px 0;
+        }
+        .manifeste-label {
+            display: block;
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.45em;
+            text-transform: uppercase;
+            color: rgba(212, 175, 127, .75);
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: mFadeUp 1s cubic-bezier(.4, 0, .2, 1) 0.1s forwards;
+        }
+        .manifeste-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 400;
+            font-size: clamp(28px, 4.4vw, 48px);
+            line-height: 1.15;
+            color: #ede0d4;
+            margin-bottom: 4px;
+            opacity: 0;
+            animation: mFadeUp 1s cubic-bezier(.4, 0, .2, 1) 0.2s forwards;
+        }
+        .manifeste-title em {
+            font-style: italic;
+            color: #ede0d4;
+            font-weight: 400;
+        }
+        .manifeste-ornament {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: #C9A66B;
+            letter-spacing: 0.1em;
+            margin: 10px 0 18px 0;
+            opacity: 0;
+            animation: mFadeUp 1s cubic-bezier(.4, 0, .2, 1) 0.35s forwards;
+        }
+        .manifeste-drop {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: clamp(15px, 1.3vw, 18px);
+            font-weight: 300;
+            line-height: 1.8;
+            color: #ede0d4;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: mFadeUp 1s cubic-bezier(.4, 0, .2, 1) 0.5s forwards;
+        }
+        .manifeste-drop .dropcap {
+            float: left;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 4em;
+            line-height: 0.85;
+            font-weight: 700;
+            color: rgba(212, 175, 127, .75);
+            margin: 4px 10px 0 0;
+        }
+        .manifeste-drop em {
+            font-style: italic;
+            color: rgba(212, 175, 127, .75);
+        }
+        .manifeste-body {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: clamp(14px, 1.1vw, 16px);
+            font-weight: 300;
+            line-height: 1.9;
+            color: #2a1713;
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: mFadeUp 1s cubic-bezier(.4, 0, .2, 1) 0.65s forwards;
+        }
+        .manifeste-claim {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: clamp(14px, 1.1vw, 16px);
+            font-weight: 300;
+            color: #2A1713;
+            margin-bottom: 28px;
+            opacity: 0;
+            animation: mFadeUp 1s cubic-bezier(.4, 0, .2, 1) 0.8s forwards;
+        }
+        .manifeste-claim strong {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            font-size: 1.1em;
+            color: #7B2424;
+            letter-spacing: 0.2em;
+        }
+        .manifeste-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: #2A1713;
+            border-bottom: 1px solid rgba(42, 23, 19, 0.2);
+            padding-bottom: 6px;
+            transition: border-color 0.4s, letter-spacing 0.4s;
+            opacity: 0;
+            animation: mFadeUp 1s cubic-bezier(.4, 0, .2, 1) 1s forwards;
+            text-decoration: none;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-radius: 0;
+        }
+        .manifeste-cta:hover {
+            border-color: #7B2424;
+            letter-spacing: 0.45em;
+        }
+        .manifeste-cta span {
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+        .manifeste-cta:hover span {
+            transform: translateX(4px);
+        }
+        @keyframes mFadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: none; }
+        }
+        .manifeste-image {
+            flex: 1;
+            max-width: 50%;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .manifeste-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-    /* ===== FOOTER ===== */
-    footer{background:var(--burgundy-deep);padding:64px 28px 36px;text-align:center;}
-    .foot-logo{font-family:'Playfair Display',serif;font-weight:700;letter-spacing:.06em;color:var(--gold);font-size:clamp(38px,6vw,56px);}
-    .foot-tag{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:rgba(237,224,212,.35);margin-top:8px;}
-    .foot-social{display:flex;justify-content:center;gap:26px;margin:36px 0 20px;}
-    .foot-social a{color:rgba(237,224,212,.5);font-size:19px;transition:color .3s,transform .3s;}
-    .foot-social a:hover{color:var(--gold);transform:translateY(-2px);}
-    .foot-mail{color:rgba(237,224,212,.45);font-size:12px;font-weight:300;transition:color .3s;}
-    .foot-mail:hover{color:var(--gold);}
-    .foot-bottom{border-top:1px solid rgba(212,175,127,.07);margin-top:38px;padding-top:24px;
-      display:flex;flex-direction:column;gap:8px;font-size:10px;color:rgba(237,224,212,.25);}
-    .foot-bottom .serif{color:rgba(212,175,127,.3);font-style:italic;font-size:11px;}
+        /* ===== ORIGINES ===== */
+        #origine {
+            background: var(--cream);
+        }
+        .og-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: min(72vh, 640px);
+            align-items: stretch;
+        }
+        .og-img {
+            overflow: hidden;
+            position: relative;
+        }
+        .og-img img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s var(--ease);
+        }
+        .og-img:hover img {
+            transform: scale(1.03);
+        }
+        .og-txt {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px clamp(32px, 5vw, 80px);
+        }
+        .og-txt.r {
+            order: 2;
+        }
+        .og-num {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--burgundy-soft);
+            opacity: .8;
+            margin-bottom: 12px;
+        }
+        .og-txt h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: clamp(24px, 3vw, 36px);
+            color: var(--dark);
+            margin-bottom: 8px;
+            line-height: 1.25;
+        }
+        .og-txt .rule {
+            margin-bottom: 20px;
+        }
+        .og-txt p {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 1.95;
+            color: var(--dark);
+            opacity: .68;
+            max-width: 440px;
+        }
+        .og-txt p+p {
+            margin-top: 14px;
+        }
+        .og-ital {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 17px;
+            color: var(--burgundy);
+            opacity: .92;
+            margin-top: 14px;
+        }
 
-    /* ===== TOAST ===== */
-    .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(90px);z-index:10001;
-      background:var(--burgundy-deep);color:var(--nude);font-size:12px;padding:14px 30px;letter-spacing:.02em;
-      transition:transform .4s var(--ease);box-shadow:0 10px 34px rgba(74,8,16,.35);pointer-events:none;max-width:90vw;text-align:center;}
-    .toast.show{transform:translateX(-50%) translateY(0);}
+        /* ===== CRÉATIONS ===== */
+        #creations {
+            background: var(--nude);
+        }
+        .crea-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-top: 56px;
+        }
+        .crea {
+            background: var(--cream);
+            border: 1px solid rgba(110, 11, 20, .08);
+            padding: clamp(26px, 3vw, 40px);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: transform .5s var(--ease), box-shadow .5s;
+        }
+        .crea:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px -24px rgba(74, 8, 16, .18);
+        }
+        .crea .ico {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: rgba(212, 175, 127, .14);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 17px;
+            margin-bottom: 6px;
+        }
+        .crea.photo .ico {
+            border: 1px solid var(--gold);
+            background: transparent;
+            overflow: hidden;
+            padding: 0;
+        }
+        .crea.photo .ico img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .crea h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--burgundy);
+        }
+        .crea p {
+            font-weight: 300;
+            font-size: 13px;
+            line-height: 1.8;
+            color: var(--dark);
+            opacity: .6;
+            flex: 1;
+        }
+        .crea .tag {
+            display: inline-block;
+            width: max-content;
+            font-size: 9px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            background: var(--burgundy);
+            color: var(--nude);
+            padding: 6px 12px;
+        }
+        .crea .lnk {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--burgundy);
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            text-align: left;
+            transition: opacity .3s;
+            width: max-content;
+        }
+        .crea .lnk:hover {
+            opacity: .6;
+        }
+        .crea-cta {
+            display: block;
+            margin: 52px auto 0;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: .24em;
+            text-transform: uppercase;
+            color: var(--burgundy);
+            border: 1px solid var(--burgundy);
+            padding: 15px 42px;
+            transition: all .35s;
+            background: transparent;
+            width: max-content;
+        }
+        .crea-cta:hover {
+            background: var(--burgundy);
+            color: var(--nude);
+        }
 
-    /* ===== SCROLLBAR ===== */
-    ::-webkit-scrollbar{width:4px;}
-    ::-webkit-scrollbar-track{background:var(--cream);}
-    ::-webkit-scrollbar-thumb{background:var(--burgundy-soft);}
+        /* ============================================================
+           FONDATRICE — VERSION CSS PUR CORRIGÉE
+           ============================================================ */
+        #fondatrice {
+            position: relative;
+            overflow: hidden;
+            padding: 96px 24px;
+            background: linear-gradient(135deg, #4A0810 0%, #6E0B14 50%, #8B2030 100%);
+        }
 
-    /* ===== RESPONSIVE ===== */
-    @media(max-width:940px){
-      .nav-links,.nav-cta{display:none;}
-      .nav-burger{display:flex;}
-      .nav-in{padding:0 18px;}
-      .manifeste-grid,.og-row,.f-grid{grid-template-columns:1fr;}
-      .mf-img{aspect-ratio:4/3;max-height:52vh;}
-      .og-img{min-height:48vh;}
-      .og-txt{padding:52px 26px;}
-      .og-img.r{order:0;}
-      .og-txt.r{order:0;}
-      .crea-grid,.com-grid{grid-template-columns:1fr 1fr;}
-    }
-    @media(max-width:600px){
-      body{padding-top:64px;}
-      .nav{height:64px;}
-      .nav .logo{height:28px;}
-      .hero-logo{height:clamp(72px,22vw,104px);}
-      .crea-grid,.com-grid{grid-template-columns:1fr;}
-      .og-img{min-height:40vh;}
-      .f-nav{gap:4px 12px;}
-      .f-nav button{font-size:10px;padding:10px 2px;}
-      .sec{padding:64px 20px;}
-    }
+        #fondatrice .fondatrice-bg-decor {
+            position: absolute;
+            inset: 0;
+            background: url('https://i.pinimg.com/736x/6b/3e/90/6b3e90ee9b044ba33ccfbf11cb8328a6.jpg') center/cover no-repeat;
+            opacity: 0.06;
+            filter: saturate(0.3) sepia(0.2);
+            pointer-events: none;
+        }
 
-    /* ===== ACCESSIBILITÉ / RÉDUCTION D'ANIMATION ===== */
-    @media(prefers-reduced-motion:reduce){
-  *, *::before, *::after{
-    animation-duration:.01ms !important;
-    animation-iteration-count:1 !important;
-    transition-duration:.01ms !important;
-    scroll-behavior:auto !important;
-  }
-  .reveal{opacity:1;transform:none;}
-}</style>
+        #fondatrice .fondatrice-border {
+            position: absolute;
+            width: 128px;
+            height: 128px;
+            border: 1px solid rgba(212, 175, 127, 0.06);
+            pointer-events: none;
+        }
+
+        #fondatrice .fondatrice-border.top-left {
+            top: 40px;
+            left: 40px;
+        }
+
+        #fondatrice .fondatrice-border.bottom-right {
+            bottom: 40px;
+            right: 40px;
+        }
+
+        #fondatrice .fondatrice-container {
+            position: relative;
+            z-index: 10;
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+
+        #fondatrice .fondatrice-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        #fondatrice .fondatrice-eyebrow {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        #fondatrice .fondatrice-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            color: var(--nude);
+        }
+
+        #fondatrice .fondatrice-divider {
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            margin: 24px auto 0;
+        }
+
+        #fondatrice .fondatrice-nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            padding: 16px 0;
+            margin-bottom: 48px;
+            background: rgba(74, 8, 16, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(212, 175, 127, 0.1);
+        }
+
+        #fondatrice .fondatrice-nav-desktop {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        #fondatrice .fondatrice-nav-mobile {
+            display: none;
+        }
+
+        .founder-nav-btn {
+            background: none;
+            border: none;
+            padding: 8px 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(237, 224, 212, 0.4);
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .founder-nav-btn:hover {
+            color: var(--gold);
+        }
+
+        .founder-nav-btn.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+            background: rgba(212, 175, 127, 0.04);
+        }
+
+        .founder-nav-btn-mobile {
+            background: rgba(74, 8, 16, 0.3);
+            border: 1px solid rgba(212, 175, 127, 0.12);
+            border-radius: 4px;
+            padding: 12px 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(237, 224, 212, 0.5);
+            cursor: pointer;
+            text-align: center;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(.4, 0, .2, 1);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .founder-nav-btn-mobile.active {
+            border-color: rgba(212, 175, 127, 0.4);
+            color: var(--gold);
+            background: rgba(212, 175, 127, 0.08);
+            box-shadow: 0 0 20px rgba(212, 175, 127, 0.04);
+        }
+
+        .founder-nav-btn-mobile:active {
+            transform: scale(0.97);
+        }
+
+        .founder-section {
+            animation: fadeSection 0.6s cubic-bezier(.4, 0, .2, 1) forwards;
+        }
+
+        .founder-section.hidden {
+            display: none;
+        }
+
+        .founder-section.active {
+            display: block;
+        }
+
+        @keyframes fadeSection {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #fondatrice .founder-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        #fondatrice .founder-portrait {
+            aspect-ratio: 4 / 5;
+            overflow: hidden;
+            box-shadow: 0 0 60px rgba(212, 175, 127, 0.04);
+        }
+
+        #fondatrice .founder-portrait img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #fondatrice .founder-content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        #fondatrice .founder-single {
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        #fondatrice .founder-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        #fondatrice .founder-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(22px, 2.6vw, 30px);
+            font-weight: 400;
+            color: var(--nude);
+            line-height: 1.3;
+        }
+
+        #fondatrice .founder-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 2;
+            color: rgba(237, 224, 212, 0.68);
+        }
+
+        #fondatrice .founder-text p+p {
+            margin-top: 12px;
+        }
+
+        /* ===== CORRECTION ICI : plus de classe hidden sur founder-more-content ===== */
+        #fondatrice .founder-text .founder-more-content {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        #fondatrice .founder-text .founder-more-content.open {
+            display: flex;
+        }
+
+        #fondatrice .founder-blockquote {
+            border-left: 2px solid var(--gold);
+            background: rgba(212, 175, 127, 0.05);
+            padding: 22px 26px;
+            margin-top: 6px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 16px;
+            color: var(--gold-light);
+            line-height: 1.7;
+        }
+
+        #fondatrice .founder-quote {
+            padding: 32px 48px;
+            background: rgba(74, 8, 16, 0.3);
+            border: 1px solid rgba(212, 175, 127, 0.12);
+            backdrop-filter: blur(10px);
+        }
+
+        #fondatrice .founder-quote blockquote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(16px, 1.4vw, 20px);
+            line-height: 1.6;
+            color: var(--gold-light);
+        }
+
+        #fondatrice .founder-quote-author {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(212, 175, 127, 0.35);
+            margin-top: 12px;
+        }
+
+        .founder-read-more {
+            background: none;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            padding: 12px 26px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(.4, 0, .2, 1);
+            display: inline-block;
+            align-self: flex-start;
+        }
+
+        .founder-read-more:hover {
+            background: var(--gold);
+            color: var(--burgundy-deep);
+        }
+
+        #fondatrice .founder-single .founder-read-more {
+            align-self: center;
+        }
+
+        #fondatrice .founder-vision-line {
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            margin: 32px auto;
+        }
+
+        #fondatrice .founder-vision-quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(20px, 2.2vw, 26px);
+            color: var(--gold);
+        }
+
+        #fondatrice .fondatrice-signature {
+            text-align: center;
+            padding-top: 64px;
+            margin-top: 48px;
+            border-top: 1px solid rgba(212, 175, 127, 0.08);
+        }
+
+        #fondatrice .fondatrice-signature-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(24px, 4vw, 38px);
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1.3;
+        }
+
+        #fondatrice .fondatrice-signature-line {
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            opacity: 0.5;
+            margin: 20px auto;
+        }
+
+        /* ===== COMMUNAUTÉ ===== */
+        #communaute {
+            background: var(--nude-light);
+        }
+        .com-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 26px;
+            margin-top: 56px;
+        }
+        .com {
+            background: var(--cream);
+            padding: clamp(24px, 3vw, 36px);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            border: 1px solid rgba(110, 11, 20, .07);
+            transition: border-color .3s;
+        }
+        .com:hover {
+            border-color: var(--burgundy-soft);
+        }
+        .com .ico {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--burgundy-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--burgundy);
+            font-size: 15px;
+        }
+        .com h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        .com p {
+            font-weight: 300;
+            font-size: 13px;
+            line-height: 1.8;
+            color: var(--dark);
+            opacity: .55;
+            flex: 1;
+        }
+        .com .act {
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--burgundy);
+            text-align: left;
+            transition: opacity .3s;
+            width: max-content;
+        }
+        .com .act:hover {
+            opacity: .6;
+        }
+        .nl {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .nl input {
+            flex: 1;
+            min-width: 150px;
+            background: transparent;
+            border: 1px solid rgba(110, 11, 20, .15);
+            padding: 13px 14px;
+            font-size: 12px;
+            outline: none;
+            color: var(--dark);
+            transition: border-color .3s;
+        }
+        .nl input:focus {
+            border-color: var(--burgundy);
+        }
+        .nl .go {
+            background: var(--burgundy);
+            color: #faf9f6;
+            border: none;
+            font-size: 11px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: 0 22px;
+            transition: opacity .3s;
+        }
+        .nl .go:hover {
+            opacity: .88;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--burgundy-deep);
+            padding: 64px 28px 36px;
+            text-align: center;
+        }
+        .foot-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: .06em;
+            color: var(--gold);
+            font-size: clamp(38px, 6vw, 56px);
+        }
+        .foot-tag {
+            font-size: 10px;
+            letter-spacing: .4em;
+            text-transform: uppercase;
+            color: rgba(237, 224, 212, .35);
+            margin-top: 8px;
+        }
+        .foot-social {
+            display: flex;
+            justify-content: center;
+            gap: 26px;
+            margin: 36px 0 20px;
+        }
+        .foot-social a {
+            color: rgba(237, 224, 212, .5);
+            font-size: 19px;
+            transition: color .3s, transform .3s;
+        }
+        .foot-social a:hover {
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+        .foot-mail {
+            color: rgba(237, 224, 212, .45);
+            font-size: 12px;
+            font-weight: 300;
+            transition: color .3s;
+        }
+        .foot-mail:hover {
+            color: var(--gold);
+        }
+        .foot-bottom {
+            border-top: 1px solid rgba(212, 175, 127, .07);
+            margin-top: 38px;
+            padding-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 10px;
+            color: rgba(237, 224, 212, .25);
+        }
+        .foot-bottom .serif {
+            color: rgba(212, 175, 127, .3);
+            font-style: italic;
+            font-size: 11px;
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(90px);
+            z-index: 10001;
+            background: var(--burgundy-deep);
+            color: var(--nude);
+            font-size: 12px;
+            padding: 14px 30px;
+            letter-spacing: .02em;
+            transition: transform .4s var(--ease);
+            box-shadow: 0 10px 34px rgba(74, 8, 16, .35);
+            pointer-events: none;
+            max-width: 90vw;
+            text-align: center;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--cream);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--burgundy-soft);
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media(max-width:940px) {
+            .nav-links,
+            .nav-cta {
+                display: none;
+            }
+            .nav-burger {
+                display: flex;
+            }
+            .nav-in {
+                padding: 0 18px;
+            }
+            .og-row {
+                display: flex;
+                flex-direction: column;
+            }
+            .og-img {
+                order: 2;
+                min-height: 48vh;
+            }
+            .og-txt {
+                order: 1;
+                padding: 52px 26px;
+            }
+            .manifeste-content {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+            .manifeste-text {
+                max-width: 100%;
+                padding: 0;
+            }
+            .manifeste-image {
+                max-width: 100%;
+                justify-content: center;
+            }
+            .manifeste-image img {
+                max-width: 80%;
+            }
+            #fondatrice {
+                padding: 80px 20px;
+            }
+            #fondatrice .founder-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            #fondatrice #section-qui .founder-grid .founder-portrait {
+                order: 2;
+            }
+            #fondatrice #section-qui .founder-grid .founder-content {
+                order: 1;
+            }
+        }
+
+        @media(max-width:768px) {
+            #fondatrice {
+                padding: 64px 16px;
+            }
+            #fondatrice .fondatrice-header {
+                margin-bottom: 40px;
+            }
+            #fondatrice .fondatrice-nav {
+                padding: 12px 0;
+                margin-bottom: 24px;
+            }
+            #fondatrice .fondatrice-nav-desktop {
+                display: none;
+            }
+            #fondatrice .fondatrice-nav-mobile {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 6px;
+                padding: 0 4px;
+            }
+            .founder-nav-btn-mobile {
+                font-size: 10px !important;
+                letter-spacing: 1px !important;
+                padding: 10px 6px !important;
+                min-height: 42px;
+            }
+            #fondatrice .founder-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            #fondatrice .founder-quote {
+                padding: 24px 20px;
+            }
+            #fondatrice .fondatrice-signature {
+                padding-top: 40px;
+                margin-top: 32px;
+            }
+            .founder-read-more {
+                padding: 10px 20px;
+                font-size: 9px;
+            }
+            .crea-grid,
+            .com-grid {
+                grid-template-columns: 1fr;
+            }
+            .og-img {
+                min-height: 40vh;
+            }
+            .sec {
+                padding: 64px 20px;
+            }
+            .hero-manifeste {
+                padding: 24px 12px;
+                min-height: auto;
+            }
+            .manifeste-content {
+                gap: 20px;
+            }
+            .manifeste-image img {
+                max-width: 100%;
+            }
+            .manifeste-text {
+                padding: 0;
+            }
+            .manifeste-label {
+                font-size: 9px;
+                margin-bottom: 10px;
+            }
+            .manifeste-title {
+                font-size: 22px;
+            }
+            .manifeste-drop .dropcap {
+                font-size: 3em;
+                margin-right: 4px;
+            }
+            .manifeste-drop {
+                font-size: 14px;
+                margin-bottom: 14px;
+            }
+            .manifeste-body {
+                font-size: 13px;
+                margin-bottom: 12px;
+            }
+            .manifeste-claim {
+                font-size: 13px;
+                margin-bottom: 20px;
+            }
+            .manifeste-ornament {
+                margin: 6px 0 14px 0;
+                font-size: 10px;
+            }
+        }
+
+        @media(max-width:600px) {
+            body {
+                padding-top: 64px;
+            }
+            .nav {
+                height: 64px;
+            }
+            .nav .logo {
+                height: 28px;
+            }
+            .hero-logo {
+                height: clamp(72px, 22vw, 104px);
+            }
+        }
+
+        @media(max-width:400px) {
+            #fondatrice .fondatrice-nav-mobile {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 4px;
+            }
+            .founder-nav-btn-mobile {
+                font-size: 9px !important;
+                letter-spacing: 0.5px !important;
+                padding: 8px 4px !important;
+                min-height: 36px;
+            }
+        }
+
+        /* ===== ACCESSIBILITÉ ===== */
+        @media(prefers-reduced-motion:reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
+            .manifeste-label,
+            .manifeste-title,
+            .manifeste-ornament,
+            .manifeste-drop,
+            .manifeste-body,
+            .manifeste-claim,
+            .manifeste-cta {
+                opacity: 1;
+                animation: none;
+                transform: none;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="grain" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
 
-  <!-- ENTRÉE IMMERSIVE -->
-  <div class="entrance" id="entrance" role="dialog" aria-label="Ouverture du sanctuaire ORR">
-    <div class="letters" aria-hidden="true">
-      <span class="l">O</span><span class="l">R</span><span class="l">R</span>
+    <!-- ENTRÉE -->
+    <div class="entrance" id="entrance" role="dialog" aria-label="Ouverture du sanctuaire ORR">
+        <div class="letters" aria-hidden="true">
+            <span class="l">O</span><span class="l">R</span><span class="l">R</span>
+        </div>
+        <p class="tag">Origin Rituals &amp; Revelations</p>
+        <p class="sub">Des rituels hérités d'hier pour habiter pleinement aujourd'hui</p>
     </div>
-    <p class="tag">Origin Rituals &amp; Revelations</p>
-    <p class="sub">Des rituels hérités d'hier pour habiter pleinement aujourd'hui</p>
-  </div>
 
-  <!-- NAVBAR -->
-  <header class="nav" id="nav">
-    <div class="nav-in">
-      <a href="#essence" class="logo" aria-label="ORR — Accueil">
-        <img src="https://www.image2url.com/r2/default/images/1786963418142-bf624e31-8ef5-48ec-9139-ce2e816b8794.png" alt="ORR" loading="lazy" width="132" height="34">
-      </a>
-      <nav class="nav-links" aria-label="Navigation principale">
-        <a href="#manifeste">Manifeste</a>
-        <a href="#origine">Origines</a>
-        <a href="#creations">Créations</a>
-        <a href="#fondatrice">Fondatrice</a>
-        <a href="#communaute">Communauté</a>
-      </nav>
-      <a href="#communaute" class="nav-cta">Rejoindre</a>
-      <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+    <!-- NAVBAR -->
+    <header class="nav" id="nav">
+        <div class="nav-in">
+            <a href="#essence" class="logo" aria-label="ORR — Accueil">
+                <img src="https://www.image2url.com/r2/default/images/1786963418142-bf624e31-8ef5-48ec-9139-ce2e816b8794.png" alt="ORR" loading="lazy" width="132" height="34" />
+            </a>
+            <nav class="nav-links" aria-label="Navigation principale">
+                <a href="#manifeste">Manifeste</a>
+                <a href="#origine">Origines</a>
+                <a href="#creations">Créations</a>
+                <a href="#fondatrice">Fondatrice</a>
+                <a href="#communaute">Communauté</a>
+            </nav>
+            <a href="#communaute" class="nav-cta">Rejoindre</a>
+            <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MENU MOBILE -->
+    <div class="mmenu" id="mmenu" role="dialog" aria-label="Menu mobile">
+        <a href="#manifeste" class="mlink">Manifeste</a>
+        <a href="#origine" class="mlink">Origines</a>
+        <div class="orn" aria-hidden="true"></div>
+        <a href="#creations" class="mlink">Créations</a>
+        <a href="#fondatrice" class="mlink">Fondatrice</a>
+        <a href="#communaute" class="mlink">Communauté</a>
     </div>
-  </header>
 
-  <!-- MENU MOBILE -->
-  <div class="mmenu" id="mmenu" role="dialog" aria-label="Menu mobile">
-    <a href="#manifeste" class="mlink">Manifeste</a>
-    <a href="#origine" class="mlink">Origines</a>
-    <div class="orn" aria-hidden="true"></div>
-    <a href="#creations" class="mlink">Créations</a>
-    <a href="#fondatrice" class="mlink">Fondatrice</a>
-    <a href="#communaute" class="mlink">Communauté</a>
-  </div>
+    <main>
 
-  <main>
-
-    <!-- ===== HERO ===== -->
-    <section class="hero" id="essence">
-      <div class="hero-bg" aria-hidden="true"></div>
-      <div class="hero-ovl" aria-hidden="true"></div>
-      <div class="hero-core">
-        <img class="hero-logo" src="https://www.image2url.com/r2/default/images/1786963418142-bf624e31-8ef5-48ec-9139-ce2e816b8794.png"
-             alt="ORR" width="200" height="150" fetchpriority="high"><br>
-        <p class="hero-label">Origin Rituals &amp; Revelations</p>
-        <h1 class="hero-title">Des rituels hérités d'hier<br>pour habiter pleinement aujourd'hui</h1>
-        <div class="hero-line" aria-hidden="true"></div>
-        <p class="hero-desc">Une maison de rituels premium — sels, plantes, encens et cérémonies nées des savoirs ancestraux marocains.</p>
-        <a href="#manifeste" class="hero-cta" id="heroCta">
-          <span class="t">Entrer</span><span class="a" aria-hidden="true"></span>
-        </a>
-      </div>
-    </section>
-
-    <!-- ===== MANIFESTE (éditorial luxe + image) ===== -->
-    <section class="sec mf-sec" id="manifeste" style="background:var(--nude-light);">
-      <div class="manifeste-grid">
-
-        <!-- Image terrain / matière -->
-        <div class="reveal mf-img">
-          <img src="https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/WhatsApp%20Image%202026-08-15%20at%2019.13.40.jpeg"
-               alt="Mains sur terre, gestes ancestraux" loading="lazy" width="900" height="1100">
-        </div>
-
-        <!-- Éditorial luxe -->
-        <div class="reveal r2 mf-editorial">
-
-          <div class="mf-head">
-            <span class="mf-word">Le Manifeste</span>
-            <span class="mf-num">N° I</span>
-          </div>
-
-          <h2 class="hd mf-title">Habiter le bas du corps,<br><em>là où vibre la vie.</em></h2>
-
-          <div class="mf-ornament" aria-hidden="true">
-            <span class="line"></span>
-            <span class="dot"></span>
-            <span class="line"></span>
-          </div>
-
-          <p class="mf-drop">
-            <span class="dropcap">T</span>u as appris à chercher les réponses partout.
-            <span class="mf-accent">Et si les réponses les plus précieuses se trouvaient déjà là où tout commence ?</span>
-          </p>
-
-          <div class="mf-lines">
-            <p class="mf-line">Ton corps porte une mémoire plus ancienne que les mots.</p>
-            <p class="mf-line">Il connaît le rythme, les saisons, les gestes et les silences.</p>
-          </div>
-
-          <p class="mf-claim"><strong>ORR</strong> — Retrouver le langage oublié.</p>
-
-          <div class="mf-sig">
-            <span class="mf-symbol" aria-hidden="true">✦</span>
-            <span class="mf-role">Origin Rituals &amp; Revelations</span>
-            <span class="mf-symbol" aria-hidden="true">✦</span>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== ORIGINES (alternating 50/50) ===== -->
-    <section class="sec" id="origine" style="padding-top:0;padding-bottom:0;">
-      <!-- 01 Racines : texte | image -->
-      <div class="og-row">
-        <div class="og-txt reveal">
-          <p class="og-num">01 — Les racines</p>
-          <h3>Nos racines</h3>
-          <div class="rule"></div>
-          <p>Avant les tendances, avant les formulations modernes, il y avait les gestes. Simples, liés à la terre, aux saisons, à la vie quotidienne. Transmis naturellement, de mère en fille, de génération en génération.</p>
-          <p class="og-ital">ORR s’inscrit dans cette continuité.</p>
-        </div>
-        <div class="og-img reveal r2" aria-hidden="true">
-          <img src="https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/WhatsApp%20Image%202026-08-15%20at%2019.13.40.jpeg" alt="Mains sur terre, gestes ancestraux" loading="lazy">
-        </div>
-      </div>
-
-      <!-- 02 Transmission : image | texte -->
-      <div class="og-row">
-        <div class="og-img reveal" aria-hidden="true">
-          <img src="https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/2193d7a59ab5df27e03c5f3414de1ea3.jpg" alt="Transmission entre femmes" loading="lazy">
-        </div>
-        <div class="og-txt r reveal r2">
-          <p class="og-num">02 — La transmission</p>
-          <h3>Ce qui se transmet ne disparaît jamais</h3>
-          <div class="rule"></div>
-          <p>Les savoirs ancestraux vivent dans les gestes que l’on répète, dans les matières que l’on reconnaît, dans les histoires que l’on raconte.</p>
-          <p>Retrouver ce qui a été oublié, comprendre ce qui nous a précédés, redonner du sens à des pratiques simples.</p>
-          <p class="og-ital">La transmission devient un lien entre hier et aujourd’hui.</p>
-        </div>
-      </div>
-
-      <!-- 03 Savoirs : texte | image -->
-      <div class="og-row">
-        <div class="og-txt reveal">
-          <p class="og-num">03 — Savoirs ancestraux</p>
-          <h3>Des savoirs nés de l’observation</h3>
-          <div class="rule"></div>
-          <p>Pendant des générations, les femmes ont appris à observer leur environnement, à connaître les propriétés des matières qui les entouraient et à les intégrer naturellement dans leur quotidien.</p>
-          <p>ORR les explore avec respect, sans les figer, pour comprendre ce qu’elles peuvent encore nous apprendre aujourd’hui.</p>
-        </div>
-        <div class="og-img reveal r2" aria-hidden="true">
-          <img src="https://i.pinimg.com/736x/29/91/04/29910439f0071a8d942b0385e6698699.jpg" alt="Plantes et matières naturelles" loading="lazy">
-        </div>
-      </div>
-
-      <!-- 04 Matière : image | texte -->
-      <div class="og-row">
-        <div class="og-img reveal" aria-hidden="true">
-          <img src="https://i.pinimg.com/736x/7a/8b/9c/7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d.jpg" alt="Textures naturelles, terre et matière" loading="lazy">
-        </div>
-        <div class="og-txt r reveal r2">
-          <p class="og-num">04 — Rapport à la matière</p>
-          <h3>Revenir à la matière</h3>
-          <div class="rule"></div>
-          <p><span class="serif og-ital">La terre. Le végétal. Le minéral. L’eau. Le feu.</span></p>
-          <p>Des matières simples, brutes, imparfaites. ORR considère la matière comme une expérience : sa texture, son parfum, son origine, son poids, son histoire.</p>
-          <p class="og-ital">Cette relation sensible est au cœur de l’univers ORR.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== CRÉATIONS ===== -->
-    <section class="sec" id="creations" style="background:var(--nude);">
-      <div class="wrap center">
-        <p class="eyebrow reveal">Les Créations ORR</p>
-        <h2 class="hd reveal r1">Nos collections<br><em>et box rituelles</em></h2>
-        <div class="rule reveal r2"></div>
-        <p class="reveal r2" style="font-weight:300;font-size:14px;color:var(--dark);opacity:.6;max-width:520px;margin:0 auto;">Des sels, plantes et encens pensés pour chaque rituel — du réveil à la nuit sacrée.</p>
-      </div>
-
-      <div class="wrap">
-        <div class="crea-grid">
-          <article class="crea photo reveal r1">
-            <div class="ico"><img src="https://www.image2url.com/r2/default/images/1786459457358-1dbb6d45-c10b-4fad-9430-d0d0b8828760.jpg" alt="Collection Lunaire" loading="lazy"></div>
-            <h4>Collection Lunaire</h4>
-            <p>Sels, plantes et encens accordés à chaque phase de la lune.</p>
-            <span class="tag">Cérémonial</span>
-            <button class="lnk" onclick="toast('Collection Lunaire — disponible sur demande.')">Découvrir</button>
-          </article>
-          <article class="crea photo reveal r2">
-            <div class="ico"><img src="https://www.image2url.com/r2/default/images/1786460751758-5dbd4967-7cad-4b06-be7c-3572389021a0.jpg" alt="Collection Sacrée" loading="lazy"></div>
-            <h4>Collection Sacrée</h4>
-            <p>Pour les rituels profonds, les cérémonies et les passages.</p>
-            <span class="tag">Cérémonial</span>
-            <button class="lnk" onclick="toast('Collection Sacrée — disponible sur demande.')">Découvrir</button>
-          </article>
-          <article class="crea photo reveal r3">
-            <div class="ico"><img src="https://www.image2url.com/r2/default/images/1786461053402-99eb9be0-f080-4a9d-8d57-9aebc04f24f8.jpg" alt="Collection Sauvage" loading="lazy"></div>
-            <h4>Collection Sauvage</h4>
-            <p>Plantes et encens cueillis dans la nature, pour une connexion brute.</p>
-            <span class="tag">Sauvage</span>
-            <button class="lnk" onclick="toast('Collection Sauvage — disponible sur demande.')">Découvrir</button>
-          </article>
-        </div>
-
-        <p class="eyebrow reveal r1" style="text-align:center;margin:64px 0 -20px;">Les Box Rituelles</p>
-        <div class="crea-grid">
-          <article class="crea reveal r1">
-            <div class="ico"><i class="fa-regular fa-moon" aria-hidden="true"></i></div>
-            <h4>Box Nuit Sacrée</h4>
-            <p>Sel de l'Atlas, fleurs de camomille, encens de myrrhe.</p>
-            <span class="tag">Rituel du soir</span>
-            <button class="lnk" onclick="toast('Box Nuit Sacrée — disponible sur demande.')">Découvrir</button>
-          </article>
-          <article class="crea reveal r2">
-            <div class="ico"><i class="fa-regular fa-sun" aria-hidden="true"></i></div>
-            <h4>Box Éveil Vital</h4>
-            <p>Sel de mer, romarin, encens d'oliban.</p>
-            <span class="tag">Rituel matinal</span>
-            <button class="lnk" onclick="toast('Box Éveil Vital — disponible sur demande.')">Découvrir</button>
-          </article>
-          <article class="crea reveal r3">
-            <div class="ico"><i class="fa-regular fa-star" aria-hidden="true"></i></div>
-            <h4>Box Ancrage Lunaire</h4>
-            <p>Sel du bassin, sauge blanche, encens de copal.</p>
-            <span class="tag">Rituel complet</span>
-            <button class="lnk" onclick="toast('Box Ancrage Lunaire — disponible sur demande.')">Découvrir</button>
-          </article>
-        </div>
-
-        <p class="reveal r2" style="text-align:center;margin-top:42px;font-weight:300;font-size:13px;color:var(--dark);opacity:.55;">Disponibles sur demande, lors des retraites ou en main propre.</p>
-        <button class="crea-cta reveal r3" onclick="toast('Demande de création enregistrée. Nous vous contacterons.')">Commander</button>
-      </div>
-    </section>
-
-    <!-- ===== FONDATRICE ===== -->
-    <section class="sec" id="fondatrice">
-      <div class="wrap center">
-        <p class="eyebrow reveal">La Fondatrice</p>
-        <h2 class="hd reveal r1">Asmaa Belh</h2>
-        <div class="rule reveal r2" style="background:var(--gold);opacity:.5;margin-left:auto;margin-right:auto;"></div>
-      </div>
-
-      <div class="wrap-n">
-        <nav class="f-nav reveal r2" id="fNav" aria-label="Sections fondatrice">
-          <button class="active" data-t="qui">Qui est Asmaa ?</button>
-          <button data-t="chemin">Son chemin</button>
-          <button data-t="pourquoi">Pourquoi ORR ?</button>
-          <button data-t="vision">Sa vision</button>
-        </nav>
-
-        <!-- QUI -->
-        <div class="f-sec active" id="s-qui">
-          <div class="f-grid">
-            <div class="f-portrait reveal r1">
-              <img src="https://www.image2url.com/r2/default/images/1786627476346-877b5b5d-befc-4cd0-b9c0-5556e685e46f.jpeg" alt="Asmaa Belh" loading="lazy">
+        <!-- ===== HERO ===== -->
+        <section class="hero" id="essence">
+            <div class="hero-bg" aria-hidden="true"></div>
+            <div class="hero-ovl" aria-hidden="true"></div>
+            <div class="hero-core">
+                <img class="hero-logo" src="https://www.image2url.com/r2/default/images/1786963418142-bf624e31-8ef5-48ec-9139-ce2e816b8794.png" alt="ORR" width="200" height="120" fetchpriority="high" />
+                <p class="hero-label">Origin Rituals &amp; Revelations</p>
+                <h1 class="hero-title">Des rituels hérités d'hier<br />pour habiter pleinement aujourd'hui</h1>
+                <div class="hero-line" aria-hidden="true"></div>
+                <p class="hero-desc">Une maison de rituels premium — sels, plantes, encens et cérémonies nées des savoirs ancestraux marocains.</p>
+                <a href="#manifeste" class="hero-cta" id="heroCta">
+                    <span class="t">Entrer</span><span class="a" aria-hidden="true"></span>
+                </a>
             </div>
-            <div class="f-body reveal r2">
-              <p class="sub">Son histoire</p>
-              <h3>Qui est Asmaa Belh ?</h3>
-              <p>Asmaa Belh est la fondatrice d'ORR. Son cheminement personnel, ses rencontres et ses questionnements l'ont naturellement conduite à créer cet espace dédié aux rituels et à la reconnexion.</p>
-              <p>Passionnée par les savoirs traditionnels et la transmission, elle offre à d'autres femmes un cadre pour ralentir, s'écouter et renouer avec des gestes porteurs de sens.</p>
-              <div class="f-more" id="m-qui">
-                <p>Asmaa puise son inspiration dans les traditions marocaines et les savoirs ancestraux découverts au fil de ses voyages et de ses rencontres.</p>
-                <p>Son parcours est marqué par une quête de sens : comprendre comment les pratiques d'hier peuvent éclairer nos vies d'aujourd'hui.</p>
-              </div>
-              <button class="f-btn" data-open="m-qui">Lire la suite</button>
+        </section>
+
+        <!-- ===== MANIFESTE ===== -->
+        <section class="hero-manifeste" id="manifeste">
+            <div class="manifeste-content">
+                <div class="manifeste-text">
+                    <span class="manifeste-label">01 — LE MANIFESTE</span><br />
+                    <h2 class="manifeste-title">
+                        Habiter le bas du corps,<br />
+                        <em>là où vibre la vie.</em>
+                    </h2>
+                    <br />
+                    <div class="manifeste-ornament" aria-hidden="true">
+                        <span>—</span>
+                        <span>✦</span>
+                        <span>—</span>
+                    </div>
+                    <p class="manifeste-drop">
+                        <span class="dropcap">T</span>u as appris à chercher les réponses partout.<br />
+                        <em>Et si les réponses les plus précieuses se trouvaient déjà là où tout commence ?</em>
+                    </p>
+                    <br /><br />
+                    <p class="manifeste-body">
+                        Ton corps porte une mémoire plus ancienne que les mots.<br />
+                        Il connaît le rythme, les saisons, les gestes et les silences.
+                    </p>
+                    <p class="manifeste-claim">
+                        <strong>ORR</strong> — Retrouver le langage oublié.
+                    </p>
+                    <a href="#creations" class="manifeste-cta">
+                        DÉCOUVRIR NOS ORIGINES <span aria-hidden="true">→</span>
+                    </a>
+                </div>
+                <div class="manifeste-image">
+                    <img src="https://github.com/Imanebouras/Orrhealing/blob/main/images/Sans%20titre%20(983%20x%20793%20px)%20(5).png?raw=true" alt="Illustration ORR" loading="lazy" />
+                </div>
             </div>
-          </div>
-        </div>
+        </section>
 
-        <!-- CHEMIN -->
-        <div class="f-sec" id="s-chemin">
-          <div class="f-body f-grid" style="grid-template-columns:1fr;gap:16px;">
-            <p class="sub" style="text-align:center;">Son cheminement</p>
-            <h3 style="text-align:center;">Le chemin vers les rituels</h3>
-            <p style="text-align:center;max-width:640px;margin:0 auto;">Les rituels ne sont pour Asmaa ni une mode ni un concept, mais une réponse à une nécessité intérieure.</p>
-            <div class="f-more" id="m-chemin" style="max-width:640px;margin:0 auto;">
-              <p>Son parcours l'a amenée à explorer différentes pratiques, à se questionner sur la manière dont les gestes ancestraux gardent du sens dans nos vies contemporaines.</p>
-              <p>Tout en revenant à l'essentiel, elle a trouvé un chemin qui résonnait profondément en elle.</p>
-              <div class="f-blockquote">« J'ai compris que les rituels ne sont pas des souvenirs du passé, mais des chemins vers soi. »</div>
+        <!-- ===== ORIGINES ===== -->
+        <section class="sec" id="origine" style="padding-top:0;padding-bottom:0;background-color: #ecdbc8;">
+            <div class="og-row">
+                <div class="og-txt reveal">
+                    <p class="og-num">01 — Les racines</p>
+                    <h3>Nos racines</h3>
+                    <div class="rule"></div>
+                    <p>Avant les tendances, avant les formulations modernes, il y avait les gestes. Simples, liés à la terre, aux saisons, à la vie quotidienne. Transmis naturellement, de mère en fille, de génération en génération.</p>
+                    <p class="og-ital">ORR s'inscrit dans cette continuité.</p>
+                </div>
+                <div class="og-img reveal r2" aria-hidden="true">
+                    <img src="https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/Sans%20titre%20(983%20x%20793%20px).png" alt="Mains sur terre" loading="lazy" />
+                </div>
             </div>
-            <button class="f-btn" data-open="m-chemin" style="align-self:center;">Lire la suite</button>
-          </div>
-        </div>
-
-        <!-- POURQUOI -->
-        <div class="f-sec" id="s-pourquoi">
-          <div class="f-grid">
-            <div class="f-body reveal r1">
-              <p class="sub">La naissance d'ORR</p>
-              <h3>Pourquoi créer ORR ?</h3>
-              <p>ORR est né d'une volonté de transmettre et de rassembler. Un espace où les rituels, les savoirs ancestraux et la mémoire du corps peuvent être honorés et réinterprétés pour le monde d'aujourd'hui.</p>
-              <p>Ce n'est pas une simple marque de produits : c'est une invitation à renouer avec une forme de sagesse oubliée.</p>
-              <div class="f-more" id="m-pourquoi">
-                <p>Ce sont des gestes, des paroles et des objets qui agissent comme des portes vers l'intime, vers une présence plus pleine à soi-même et au monde.</p>
-                <p>La transmission est un acte de résistance face à l'oubli. ORR se veut un héritage vivant, accessible et contemporain.</p>
-              </div>
-              <button class="f-btn" data-open="m-pourquoi">Lire la suite</button>
+            <div class="og-row">
+                <div class="og-img reveal" aria-hidden="true">
+                    <img src="https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/Sans%20titre%20(983%20x%20793%20px)%20(1).png" alt="Transmission" loading="lazy" />
+                </div>
+                <div class="og-txt r reveal r2">
+                    <p class="og-num">02 — La transmission</p>
+                    <h3>Ce qui se transmet ne disparaît jamais</h3>
+                    <div class="rule"></div>
+                    <p>Les savoirs ancestraux vivent dans les gestes que l'on répète, dans les matières que l'on reconnaît, dans les histoires que l'on raconte.</p>
+                    <p>Retrouver ce qui a été oublié, comprendre ce qui nous a précédés, redonner du sens à des pratiques simples.</p>
+                    <p class="og-ital">La transmission devient un lien entre hier et aujourd'hui.</p>
+                </div>
             </div>
-            <div class="f-body reveal r2">
-              <div class="f-blockquote">« Chaque geste, chaque ingrédient, chaque création ORR porte une intention. Celle d'un retour à l'essentiel et d'une réconciliation avec ce qui nous habite profondément. »</div>
-              <p class="sub" style="margin-top:0;">— Asmaa Belh</p>
+            <div class="og-row">
+                <div class="og-txt reveal">
+                    <p class="og-num">03 — Savoirs ancestraux</p>
+                    <h3>Des savoirs nés de l'observation</h3>
+                    <div class="rule"></div>
+                    <p>Pendant des générations, les femmes ont appris à observer leur environnement, à connaître les propriétés des matières qui les entouraient et à les intégrer naturellement dans leur quotidien.</p>
+                    <p>ORR les explore avec respect, sans les figer, pour comprendre ce qu'elles peuvent encore nous apprendre aujourd'hui.</p>
+                </div>
+                <div class="og-img reveal r2" aria-hidden="true">
+                    <img src="https://github.com/Imanebouras/Orrhealing/blob/main/images/Sans%20titre%20(983%20x%20793%20px)%20(2).png?raw=true" alt="Plantes" loading="lazy" />
+                </div>
             </div>
-          </div>
-        </div>
-
-        <!-- VISION -->
-        <div class="f-sec" id="s-vision">
-          <div class="f-body" style="align-items:center;text-align:center;gap:16px;">
-            <p class="sub" style="text-align:center;">Sa vision</p>
-            <h3 style="text-align:center;">Ce qu'elle défend à travers ORR</h3>
-            <p style="text-align:center;max-width:620px;margin:0 auto;">La vision d'Asmaa va au-delà des produits : défendre une certaine idée de la lenteur, de la présence et de la transmission.</p>
-            <div class="f-more" id="m-vision" style="max-width:620px;margin:0 auto;text-align:center;">
-              <p>ORR est son moyen de contribuer à cette renaissance, en offrant des espaces de reconnexion, des gestes porteurs de sens et une communauté de femmes partageant cette quête d'authenticité.</p>
-              <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:20px;color:var(--gold);margin-top:18px;">« Redonner au corps sa place sacrée et au geste sa profondeur. »</p>
+            <div class="og-row">
+                <div class="og-img reveal" aria-hidden="true">
+                    <img src="https://github.com/Imanebouras/Orrhealing/blob/main/images/Sans%20titre%20(983%20x%20793%20px)%20(3).png?raw=true" alt="Matière" loading="lazy" />
+                </div>
+                <div class="og-txt r reveal r2">
+                    <p class="og-num">04 — Rapport à la matière</p>
+                    <h3>Revenir à la matière</h3>
+                    <div class="rule"></div>
+                    <p><span class="serif og-ital">La terre. Le végétal. Le minéral. L'eau. Le feu.</span></p>
+                    <p>Des matières simples, brutes, imparfaites. ORR considère la matière comme une expérience : sa texture, son parfum, son origine, son poids, son histoire.</p>
+                    <p class="og-ital">Cette relation sensible est au cœur de l'univers ORR.</p>
+                </div>
             </div>
-            <button class="f-btn" data-open="m-vision" style="align-self:center;">Lire la suite</button>
-          </div>
+        </section>
+
+        <!-- ===== CRÉATIONS ===== -->
+        <section class="sec" id="creations" style="background:var(--nude);">
+            <div class="wrap center">
+                <p class="eyebrow reveal">Les Créations ORR</p>
+                <h2 class="hd reveal r1">Nos collections<br /><em>et box rituelles</em></h2>
+                <div class="rule reveal r2"></div>
+                <p class="reveal r2" style="font-weight:300;font-size:14px;color:var(--dark);opacity:.6;max-width:520px;margin:0 auto;">Des sels, plantes et encens pensés pour chaque rituel — du réveil à la nuit sacrée.</p>
+            </div>
+            <div class="wrap">
+                <div class="crea-grid">
+                    <article class="crea photo reveal r1">
+                        <div class="ico"><img src="https://www.image2url.com/r2/default/images/1786459457358-1dbb6d45-c10b-4fad-9430-d0d0b8828760.jpg" alt="Collection Lunaire" loading="lazy" /></div>
+                        <h4>Collection Lunaire</h4>
+                        <p>Sels, plantes et encens accordés à chaque phase de la lune.</p>
+                        <span class="tag">Cérémonial</span>
+                        <button class="lnk" onclick="toast('Collection Lunaire — disponible sur demande.')">Découvrir</button>
+                    </article>
+                    <article class="crea photo reveal r2">
+                        <div class="ico"><img src="https://www.image2url.com/r2/default/images/1786460751758-5dbd4967-7cad-4b06-be7c-3572389021a0.jpg" alt="Collection Sacrée" loading="lazy" /></div>
+                        <h4>Collection Sacrée</h4>
+                        <p>Pour les rituels profonds, les cérémonies et les passages.</p>
+                        <span class="tag">Cérémonial</span>
+                        <button class="lnk" onclick="toast('Collection Sacrée — disponible sur demande.')">Découvrir</button>
+                    </article>
+                    <article class="crea photo reveal r3">
+                        <div class="ico"><img src="https://www.image2url.com/r2/default/images/1786461053402-99eb9be0-f080-4a9d-8d57-9aebc04f24f8.jpg" alt="Collection Sauvage" loading="lazy" /></div>
+                        <h4>Collection Sauvage</h4>
+                        <p>Plantes et encens cueillis dans la nature, pour une connexion brute.</p>
+                        <span class="tag">Sauvage</span>
+                        <button class="lnk" onclick="toast('Collection Sauvage — disponible sur demande.')">Découvrir</button>
+                    </article>
+                </div>
+                <p class="eyebrow reveal r1" style="text-align:center;margin:64px 0 -20px;">Les Box Rituelles</p>
+                <div class="crea-grid">
+                    <article class="crea reveal r1">
+                        <div class="ico"><i class="fa-regular fa-moon" aria-hidden="true"></i></div>
+                        <h4>Box Nuit Sacrée</h4>
+                        <p>Sel de l'Atlas, fleurs de camomille, encens de myrrhe.</p>
+                        <span class="tag">Rituel du soir</span>
+                        <button class="lnk" onclick="toast('Box Nuit Sacrée — disponible sur demande.')">Découvrir</button>
+                    </article>
+                    <article class="crea reveal r2">
+                        <div class="ico"><i class="fa-regular fa-sun" aria-hidden="true"></i></div>
+                        <h4>Box Éveil Vital</h4>
+                        <p>Sel de mer, romarin, encens d'oliban.</p>
+                        <span class="tag">Rituel matinal</span>
+                        <button class="lnk" onclick="toast('Box Éveil Vital — disponible sur demande.')">Découvrir</button>
+                    </article>
+                    <article class="crea reveal r3">
+                        <div class="ico"><i class="fa-regular fa-star" aria-hidden="true"></i></div>
+                        <h4>Box Ancrage Lunaire</h4>
+                        <p>Sel du bassin, sauge blanche, encens de copal.</p>
+                        <span class="tag">Rituel complet</span>
+                        <button class="lnk" onclick="toast('Box Ancrage Lunaire — disponible sur demande.')">Découvrir</button>
+                    </article>
+                </div>
+                <p class="reveal r2" style="text-align:center;margin-top:42px;font-weight:300;font-size:13px;color:var(--dark);opacity:.55;">Disponibles sur demande, lors des retraites ou en main propre.</p>
+                <button class="crea-cta reveal r3" onclick="toast('Demande de création enregistrée. Nous vous contacterons.')">Commander</button>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        FONDATRICE — VERSION CORRIGÉE (sans hidden sur founder-more-content)
+        ============================================================ -->
+        <section id="fondatrice">
+            <div class="fondatrice-bg-decor" aria-hidden="true"></div>
+            <div class="fondatrice-border top-left" aria-hidden="true"></div>
+            <div class="fondatrice-border bottom-right" aria-hidden="true"></div>
+
+            <div class="fondatrice-container">
+                <div class="fondatrice-header">
+                    <p class="fondatrice-eyebrow reveal">La Fondatrice</p>
+                    <h2 class="fondatrice-title reveal">Asmaa Belh</h2>
+                    <div class="fondatrice-divider reveal"></div>
+                </div>
+
+                <nav class="fondatrice-nav" id="founderNav">
+                    <div class="fondatrice-nav-desktop" id="founderNavDesktop">
+                        <button class="founder-nav-btn active" data-target="qui">Qui est Asmaa ?</button>
+                        <button class="founder-nav-btn" data-target="chemin">Son chemin</button>
+                        <button class="founder-nav-btn" data-target="pourquoi">Pourquoi ORR ?</button>
+                        <button class="founder-nav-btn" data-target="vision">Sa vision</button>
+                    </div>
+                    <div class="fondatrice-nav-mobile" id="founderNavMobile">
+                        <button class="founder-nav-btn-mobile active" data-target="qui">Qui est Asmaa ?</button>
+                        <button class="founder-nav-btn-mobile" data-target="chemin">Son chemin</button>
+                        <button class="founder-nav-btn-mobile" data-target="pourquoi">Pourquoi ORR ?</button>
+                        <button class="founder-nav-btn-mobile" data-target="vision">Sa vision</button>
+                    </div>
+                </nav>
+
+                <div class="fondatrice-sections">
+
+                    <!-- Section 1: Qui est Asmaa ? -->
+                    <div class="founder-section active" id="section-qui">
+                        <div class="founder-grid">
+                            <div class="founder-portrait reveal">
+                                <img src="https://www.image2url.com/r2/default/images/1787407574189-930b4b9b-7352-495b-8551-36c3838af50d.png" alt="Asmaa Belh" loading="lazy">
+                            </div>
+                            <div class="founder-content reveal">
+                                <p class="founder-label">Son histoire</p>
+                                <h3 class="founder-name">Qui est Asmaa Belh ?</h3>
+                                <div class="founder-text">
+                                    <p>Asmaa Belh est la fondatrice d'ORR. Son cheminement personnel, ses rencontres et ses questionnements l'ont naturellement conduite à créer cet espace dédié aux rituels et à la reconnexion.</p>
+                                    <p>Passionnée par les savoirs traditionnels et la transmission, elle a souhaité offrir à d'autres femmes un cadre pour ralentir, s'écouter et renouer avec des gestes porteurs de sens.</p>
+                                    <!-- PLUS DE hidden ICI ! -->
+                                    <div class="founder-more-content">
+                                        <p>Asmaa puise son inspiration dans les traditions marocaines et les savoirs ancestraux qu'elle a découverts au fil de ses voyages et de ses rencontres. Elle croit que chaque geste, chaque plante, chaque mot porte une mémoire qu'il est essentiel de préserver et de transmettre.</p>
+                                        <p>Son parcours est marqué par une quête constante de sens, une volonté de comprendre comment les pratiques d'hier peuvent éclairer et enrichir nos vies d'aujourd'hui.</p>
+                                    </div>
+                                </div>
+                                <button class="founder-read-more">Lire la suite</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Son chemin -->
+                    <div class="founder-section hidden" id="section-chemin">
+                        <div class="founder-single">
+                            <p class="founder-label">Son cheminement</p>
+                            <h3 class="founder-name">Le chemin vers les rituels</h3>
+                            <div class="founder-text">
+                                <p>Les rituels ne sont pas pour Asmaa une simple mode ou un concept, mais une réponse à une nécessité intérieure. C'est un langage du corps et de l'âme qui s'est imposé à elle comme une évidence.</p>
+                                <p>Son parcours l'a amenée à explorer différentes pratiques et à se questionner sur la manière dont les gestes ancestraux peuvent encore avoir du sens dans nos vies contemporaines.</p>
+                                <!-- PLUS DE hidden ICI ! -->
+                                <div class="founder-more-content">
+                                    <p>Asmaa a longtemps cherché des réponses dans les livres, les rencontres et les voyages. C'est en revenant à l'essentiel, en écoutant son corps et en observant la nature qu'elle a trouvé un chemin qui résonnait profondément avec elle.</p>
+                                    <p>Aujourd'hui, à travers ORR, elle souhaite partager cette approche et offrir des outils pour que chacune puisse se réapproprier ces pratiques, à son rythme et selon ses propres besoins.</p>
+                                    <div class="founder-blockquote">"J'ai compris que les rituels ne sont pas des souvenirs du passé, mais des chemins vers soi."</div>
+                                </div>
+                            </div>
+                            <button class="founder-read-more">Lire la suite</button>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Pourquoi ORR ? -->
+                    <div class="founder-section hidden" id="section-pourquoi">
+                        <div class="founder-grid">
+                            <div class="founder-content reveal">
+                                <p class="founder-label">La naissance d'ORR</p>
+                                <h3 class="founder-name">Pourquoi créer ORR ?</h3>
+                                <div class="founder-text">
+                                    <p>ORR est né d'une volonté de transmettre et de rassembler. Asmaa a voulu créer un espace où les rituels, les savoirs ancestraux et la mémoire du corps peuvent être honorés et réinterprétés pour le monde d'aujourd'hui.</p>
+                                    <p>Ce n'est pas une simple marque de produits, mais une proposition de chemin, une invitation à renouer avec une forme de sagesse oubliée.</p>
+                                    <!-- PLUS DE hidden ICI ! -->
+                                    <div class="founder-more-content">
+                                        <p>ORR, ce sont des gestes, des paroles et des objets qui agissent comme des portes vers l'intime, vers une présence plus pleine à soi-même et au monde.</p>
+                                        <p>Asmaa croit que la transmission est un acte de résistance face à l'oubli. En créant ORR, elle souhaite offrir un héritage vivant, accessible et contemporain.</p>
+                                    </div>
+                                </div>
+                                <button class="founder-read-more">Lire la suite</button>
+                            </div>
+                            <div class="founder-quote reveal">
+                                <blockquote>"Chaque geste, chaque ingrédient, chaque création ORR porte une intention. Celle d'un retour à l'essentiel et d'une réconciliation avec ce qui nous habite profondément."</blockquote>
+                                <p class="founder-quote-author">— Asmaa Belh, fondatrice d'ORR</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Sa vision -->
+                    <div class="founder-section hidden" id="section-vision">
+                        <div class="founder-single">
+                            <p class="founder-label">Sa vision</p>
+                            <h3 class="founder-name">Ce qu'elle défend à travers ORR</h3>
+                            <div class="founder-text">
+                                <p>La vision d'Asmaa pour ORR va au-delà des produits. Il s'agit de défendre une certaine idée de la lenteur, de la présence et de la transmission.</p>
+                                <p>Elle croit en l'importance de renouer avec un héritage oublié, de redonner sa place au corps et au sensible dans un monde qui va trop vite.</p>
+                                <!-- PLUS DE hidden ICI ! -->
+                                <div class="founder-more-content">
+                                    <p>ORR est son moyen de contribuer à cette renaissance, en offrant des espaces de reconnexion, des gestes porteurs de sens et une communauté de femmes qui partagent cette quête d'authenticité.</p>
+                                    <p>Asmaa souhaite que chaque personne qui croise le chemin d'ORR puisse y trouver une résonance personnelle, un espace pour se poser et se redécouvrir.</p>
+                                    <div class="founder-vision-line"></div>
+                                    <div class="founder-vision-quote">"Redonner au corps sa place sacrée et au geste sa profondeur."</div>
+                                </div>
+                            </div>
+                            <button class="founder-read-more">Lire la suite</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fondatrice-signature">
+                    <div class="fondatrice-signature-text">"Habiter le bas du corps, <br>là où vibre la vie."</div>
+                    <div class="fondatrice-signature-line"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== COMMUNAUTÉ ===== -->
+        <section class="sec" id="communaute" style="background:var(--nude-light);">
+            <div class="wrap center">
+                <p class="eyebrow reveal">Communauté</p>
+                <h2 class="hd reveal r1">Vous n'êtes pas seule</h2>
+                <p class="reveal r2" style="font-weight:300;font-size:14px;color:var(--dark);opacity:.55;max-width:520px;margin:12px auto 0;">Un cercle de femmes qui choisissent de guérir ensemble.</p>
+                <div class="rule reveal r2" style="margin-left:auto;margin-right:auto;"></div>
+            </div>
+            <div class="wrap">
+                <div class="com-grid">
+                    <article class="com reveal r1">
+                        <div class="ico"><i class="fa-regular fa-circle" aria-hidden="true"></i></div>
+                        <h4>Le Cercle ORR</h4>
+                        <p>Espace intime de partage mensuel.</p>
+                        <button class="act" onclick="toast('Demande au Cercle ORR enregistrée.')">Rejoindre</button>
+                    </article>
+                    <article class="com reveal r2">
+                        <div class="ico"><i class="fa-regular fa-play-circle" aria-hidden="true"></i></div>
+                        <h4>Masterclasses</h4>
+                        <p>Sessions profondes, accessibles de chez vous.</p>
+                        <button class="act" onclick="toast('Prochaines masterclasses bientôt.')">Voir le programme</button>
+                    </article>
+                    <article class="com reveal r3">
+                        <div class="ico"><i class="fa-regular fa-compass" aria-hidden="true"></i></div>
+                        <h4>Retraites au Maroc</h4>
+                        <p>Immersion totale, de 3 à 7 jours.</p>
+                        <button class="act" onclick="toast('Dates bientôt communiquées.')">En savoir plus</button>
+                    </article>
+                    <article class="com reveal r1">
+                        <div class="ico"><i class="fa-regular fa-calendar" aria-hidden="true"></i></div>
+                        <h4>Événements</h4>
+                        <p>Soirées rituelles, cercles de pleine lune.</p>
+                        <button class="act" onclick="toast('Agenda bientôt disponible.')">Voir l'agenda</button>
+                    </article>
+                    <article class="com reveal r2">
+                        <div class="ico"><i class="fa-regular fa-envelope" aria-hidden="true"></i></div>
+                        <h4>Lettre ORR</h4>
+                        <p>Des mots et des rituels dans votre boîte mail.</p>
+                        <form class="nl" onsubmit="return newsletter(event)">
+                            <input type="email" required placeholder="votre@email.com" aria-label="Votre email" />
+                            <button type="submit" class="go">S'inscrire</button>
+                        </form>
+                    </article>
+                    <article class="com reveal r3">
+                        <div class="ico"><i class="fa-regular fa-gem" aria-hidden="true"></i></div>
+                        <h4>Contenu Exclusif</h4>
+                        <p>Méditations inédites, rituels secrets.</p>
+                        <button class="act" onclick="toast('Accès en préparation.')">Demander l'accès</button>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="foot-logo">ORR</div>
+        <p class="foot-tag">Origin Rituals &amp; Revelations</p>
+        <div class="foot-social">
+            <a href="#" aria-label="Instagram" onclick="event.preventDefault();toast('Suivez ORR sur Instagram @orr.universe')"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube" onclick="event.preventDefault();toast('YouTube bientôt disponible')"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" aria-label="Spotify" onclick="event.preventDefault();toast('Spotify bientôt disponible')"><i class="fa-brands fa-spotify"></i></a>
         </div>
-
-        <div class="f-signature">
-          <div class="big">« Habiter le bas du corps,<br>là où vibre la vie. »</div>
-          <div class="line"></div>
+        <a class="foot-mail" href="mailto:contact@orr-universe.com">contact@orr-universe.com</a>
+        <div class="foot-bottom">
+            <span>© 2026 ORR. Tous droits réservés.</span>
+            <span class="serif">« Habiter le bas du corps, là où vibre la vie. »</span>
         </div>
-      </div>
-    </section>
+    </footer>
 
-    <!-- ===== COMMUNAUTÉ ===== -->
-    <section class="sec" id="communaute" style="background:var(--nude-light);">
-      <div class="wrap center">
-        <p class="eyebrow reveal">Communauté</p>
-        <h2 class="hd reveal r1">Vous n'êtes pas seule</h2>
-        <p class="reveal r2" style="font-weight:300;font-size:14px;color:var(--dark);opacity:.55;max-width:520px;margin:12px auto 0;">Un cercle de femmes qui choisissent de guérir ensemble.</p>
-        <div class="rule reveal r2" style="margin-left:auto;margin-right:auto;"></div>
-      </div>
+    <div class="toast" id="toast"></div>
 
-      <div class="wrap">
-        <div class="com-grid">
-          <article class="com reveal r1">
-            <div class="ico"><i class="fa-regular fa-circle" aria-hidden="true"></i></div>
-            <h4>Le Cercle ORR</h4>
-            <p>Espace intime de partage mensuel.</p>
-            <button class="act" onclick="toast('Demande au Cercle ORR enregistrée.')">Rejoindre</button>
-          </article>
-          <article class="com reveal r2">
-            <div class="ico"><i class="fa-regular fa-play-circle" aria-hidden="true"></i></div>
-            <h4>Masterclasses</h4>
-            <p>Sessions profondes, accessibles de chez vous.</p>
-            <button class="act" onclick="toast('Prochaines masterclasses bientôt.')">Voir le programme</button>
-          </article>
-          <article class="com reveal r3">
-            <div class="ico"><i class="fa-regular fa-compass" aria-hidden="true"></i></div>
-            <h4>Retraites au Maroc</h4>
-            <p>Immersion totale, de 3 à 7 jours.</p>
-            <button class="act" onclick="toast('Dates bientôt communiquées.')">En savoir plus</button>
-          </article>
-          <article class="com reveal r1">
-            <div class="ico"><i class="fa-regular fa-calendar" aria-hidden="true"></i></div>
-            <h4>Événements</h4>
-            <p>Soirées rituelles, cercles de pleine lune.</p>
-            <button class="act" onclick="toast('Agenda bientôt disponible.')">Voir l'agenda</button>
-          </article>
-          <article class="com reveal r2">
-            <div class="ico"><i class="fa-regular fa-envelope" aria-hidden="true"></i></div>
-            <h4>Lettre ORR</h4>
-            <p>Des mots et des rituels dans votre boîte mail.</p>
-            <form class="nl" onsubmit="return newsletter(event)">
-              <input type="email" required placeholder="votre@email.com" aria-label="Votre email">
-              <button type="submit" class="go">S'inscrire</button>
-            </form>
-          </article>
-          <article class="com reveal r3">
-            <div class="ico"><i class="fa-regular fa-gem" aria-hidden="true"></i></div>
-            <h4>Contenu Exclusif</h4>
-            <p>Méditations inédites, rituels secrets.</p>
-            <button class="act" onclick="toast('Accès en préparation.')">Demander l'accès</button>
-          </article>
-        </div>
-      </div>
-    </section>
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" /></noscript>
 
-  </main>
+    <!-- ===== JS ===== -->
+    <script>
+        (function() {
+            'use strict';
 
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    <div class="foot-logo">ORR</div>
-    <p class="foot-tag">Origin Rituals &amp; Revelations</p>
-    <div class="foot-social">
-      <a href="#" aria-label="Instagram" onclick="event.preventDefault();toast('Suivez ORR sur Instagram @orr.universe')"><i class="fa-brands fa-instagram"></i></a>
-      <a href="#" aria-label="YouTube" onclick="event.preventDefault();toast('YouTube bientôt disponible')"><i class="fa-brands fa-youtube"></i></a>
-      <a href="#" aria-label="Spotify" onclick="event.preventDefault();toast('Spotify bientôt disponible')"><i class="fa-brands fa-spotify"></i></a>
-    </div>
-    <a class="foot-mail" href="mailto:contact@orr-universe.com">contact@orr-universe.com</a>
-    <div class="foot-bottom">
-      <span>© 2026 ORR. Tous droits réservés.</span>
-      <span class="serif">« Habiter le bas du corps, là où vibre la vie. »</span>
-    </div>
-  </footer>
+            // ENTRÉE
+            var entrance = document.getElementById('entrance');
 
-  <div class="toast" id="toast"></div>
+            function closeEntrance() { entrance.classList.add('done'); }
+            window.addEventListener('load', function() { setTimeout(closeEntrance, 3200); });
+            entrance.addEventListener('click', closeEntrance);
 
-  <!-- FONT AWESOME (non-bloquant) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
+            // NAVBAR SCROLL
+            var nav = document.getElementById('nav');
+            window.addEventListener('scroll', function() {
+                nav.classList.toggle('scrolled', window.scrollY > 60);
+            }, { passive: true });
 
-  <!-- ===== JS ALLÉGÉ ===== -->
-  <script>
-  (function(){
-    'use strict';
-    var entrance = document.getElementById('entrance');
-    function closeEntrance(){ entrance.classList.add('done'); }
-    window.addEventListener('load', function(){ setTimeout(closeEntrance, 3200); });
-    entrance.addEventListener('click', closeEntrance);
+            // MENU MOBILE
+            var burger = document.getElementById('burger'),
+                mmenu = document.getElementById('mmenu'),
+                open = false;
 
-    // Navbar scroll
-    var nav = document.getElementById('nav');
-    window.addEventListener('scroll', function(){
-      nav.classList.toggle('scrolled', window.scrollY > 60);
-    }, { passive:true });
+            function toggleMenu(force) {
+                open = typeof force === 'boolean' ? force : !open;
+                burger.classList.toggle('open', open);
+                mmenu.classList.toggle('open', open);
+                burger.setAttribute('aria-expanded', open);
+                document.body.style.overflow = open ? 'hidden' : '';
+            }
+            burger.addEventListener('click', function() { toggleMenu(); });
+            document.querySelectorAll('.mlink').forEach(function(a) {
+                a.addEventListener('click', function() { toggleMenu(false); });
+            });
 
-    // Menu mobile
-    var burger = document.getElementById('burger'), mmenu = document.getElementById('mmenu'), open = false;
-    function toggleMenu(force){
-      open = typeof force === 'boolean' ? force : !open;
-      burger.classList.toggle('open', open);
-      mmenu.classList.toggle('open', open);
-      burger.setAttribute('aria-expanded', open);
-      document.body.style.overflow = open ? 'hidden' : '';
-    }
-    burger.addEventListener('click', function(){ toggleMenu(); });
-    document.querySelectorAll('.mlink').forEach(function(a){ a.addEventListener('click', function(){ toggleMenu(false); }); });
+            // REVEAL
+            var robs = new IntersectionObserver(function(es) {
+                es.forEach(function(e) {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('in');
+                        robs.unobserve(e.target);
+                    }
+                });
+            }, { threshold: .12, rootMargin: '0px 0px -8% 0px' });
+            document.querySelectorAll('.reveal').forEach(function(el) { robs.observe(el); });
 
-    // Reveal
-    var robs = new IntersectionObserver(function(es){
-      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); robs.unobserve(e.target); } });
-    }, { threshold:.12, rootMargin:'0px 0px -8% 0px' });
-    document.querySelectorAll('.reveal').forEach(function(el){ robs.observe(el); });
+            // TOAST
+            window.toast = function(m) {
+                var t = document.getElementById('toast');
+                t.textContent = m;
+                t.classList.add('show');
+                clearTimeout(t._t);
+                t._t = setTimeout(function() { t.classList.remove('show'); }, 3000);
+            };
 
-    // Toast
-    window.toast = function(m){
-      var t = document.getElementById('toast');
-      t.textContent = m; t.classList.add('show');
-      clearTimeout(t._t); t._t = setTimeout(function(){ t.classList.remove('show'); }, 3000);
-    };
+            // NEWSLETTER
+            window.newsletter = function(e) {
+                e.preventDefault();
+                var in_ = e.target.querySelector('input');
+                if (in_ && in_.value) {
+                    toast('Bienvenue dans la Lettre ORR.');
+                    in_.value = '';
+                }
+                return false;
+            };
 
-    // Newsletter
-    window.newsletter = function(e){
-      e.preventDefault();
-      var in_ = e.target.querySelector('input');
-      if(in_ && in_.value){ toast('Bienvenue dans la Lettre ORR.'); in_.value=''; }
-      return false;
-    };
+            // SCROLL
+            function scrollTo(s) {
+                var el = document.querySelector(s);
+                if (!el) return;
+                var navEl = document.getElementById('nav');
+                var navHeight = navEl ? navEl.offsetHeight : 72;
+                var padding = 20;
+                var rect = el.getBoundingClientRect();
+                var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                var targetY = rect.top + scrollTop - navHeight - padding;
+                window.scrollTo({ top: targetY, behavior: 'smooth' });
+            }
 
-    // Fondatrice : onglets
-    var map = { qui:'s-qui', chemin:'s-chemin', pourquoi:'s-pourquoi', vision:'s-vision' };
-    document.querySelectorAll('.f-nav button').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        document.querySelectorAll('.f-nav button').forEach(function(b){ b.classList.remove('active'); });
-        btn.classList.add('active');
-        var t = btn.dataset.t;
-        document.querySelectorAll('.f-sec').forEach(function(s){ s.classList.remove('active'); });
-        var sec = document.getElementById(map[t]); if(sec) sec.classList.add('active');
-        document.querySelectorAll('.f-more').forEach(function(m){ m.classList.remove('open'); });
-        document.querySelectorAll('.f-btn').forEach(function(b){ b.textContent = 'Lire la suite'; });
-      });
-    });
+            document.querySelectorAll('.nav-links a, .nav-cta, .mlink, .manifeste-cta').forEach(function(a) {
+                a.addEventListener('click', function(e) {
+                    var h = a.getAttribute('href');
+                    if (h && h.charAt(0) === '#') {
+                        e.preventDefault();
+                        scrollTo(h);
+                    }
+                });
+            });
 
-    // Lire la suite
-    document.querySelectorAll('.f-btn').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        var box = document.getElementById(btn.dataset.open);
-        if(!box) return;
-        var isOpen = box.classList.contains('open');
-        box.classList.toggle('open', !isOpen);
-        btn.textContent = isOpen ? 'Lire la suite' : 'Voir moins';
-      });
-    });
+            document.getElementById('heroCta').addEventListener('click', function(e) {
+                e.preventDefault();
+                scrollTo('#manifeste');
+            });
 
-    // Scroll
-    function scrollTo(s){ var el=document.querySelector(s); if(el) el.scrollIntoView({behavior:'smooth'}); }
-    document.getElementById('heroCta').addEventListener('click', function(e){ e.preventDefault(); scrollTo('#manifeste'); });
-    var sbtn = document.querySelector('.hero-scroll');
-    if(sbtn) sbtn.addEventListener('click', function(){ scrollTo(sbtn.dataset.scroll); });
-    document.querySelectorAll('.nav-links a, .nav-cta, .mlink').forEach(function(a){
-      a.addEventListener('click', function(e){
-        var h = a.getAttribute('href'); if(h && h.charAt(0)==='#'){ e.preventDefault(); scrollTo(h); }
-      });
-    });
-  })();
-  </script>
+            // ============================================================
+            // FONDATRICE — NAVIGATION PAR ONGLETS (CORRIGÉ)
+            // ============================================================
+            (function() {
+                var fNav = document.getElementById('founderNav');
+                if (!fNav) return;
+
+                var sections = {
+                    qui: document.getElementById('section-qui'),
+                    chemin: document.getElementById('section-chemin'),
+                    pourquoi: document.getElementById('section-pourquoi'),
+                    vision: document.getElementById('section-vision')
+                };
+
+                var navButtons = document.querySelectorAll('.founder-nav-btn, .founder-nav-btn-mobile');
+
+                function switchSection(targetId) {
+                    // Desktop buttons
+                    document.querySelectorAll('.founder-nav-btn').forEach(function(btn) {
+                        btn.classList.remove('active');
+                    });
+                    var activeDesktop = document.querySelector('.founder-nav-btn[data-target="' + targetId + '"]');
+                    if (activeDesktop) {
+                        activeDesktop.classList.add('active');
+                    }
+
+                    // Mobile buttons
+                    document.querySelectorAll('.founder-nav-btn-mobile').forEach(function(btn) {
+                        btn.classList.remove('active');
+                    });
+                    var activeMobile = document.querySelector('.founder-nav-btn-mobile[data-target="' + targetId +
+                        '"]');
+                    if (activeMobile) {
+                        activeMobile.classList.add('active');
+                    }
+
+                    // Sections
+                    Object.values(sections).forEach(function(section) {
+                        if (section) {
+                            section.classList.remove('active');
+                            section.classList.add('hidden');
+                        }
+                    });
+                    var targetSection = sections[targetId];
+                    if (targetSection) {
+                        targetSection.classList.remove('hidden');
+                        targetSection.classList.add('active');
+                    }
+
+                    // Reset "Lire la suite" — on enlève open et on remet le texte
+                    document.querySelectorAll('.founder-more-content').forEach(function(content) {
+                        content.classList.remove('open');
+                    });
+                    document.querySelectorAll('.founder-read-more').forEach(function(btn) {
+                        btn.textContent = 'Lire la suite';
+                        btn.classList.remove('active');
+                    });
+
+                    history.pushState(null, null, '#fondatrice-' + targetId);
+                }
+
+                navButtons.forEach(function(btn) {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        var target = this.dataset.target;
+                        if (target && sections[target]) {
+                            switchSection(target);
+                        }
+                    });
+                });
+
+                if (window.location.hash.includes('fondatrice-')) {
+                    var target = window.location.hash.replace('#fondatrice-', '');
+                    if (sections[target]) {
+                        setTimeout(function() { switchSection(target); }, 100);
+                    }
+                }
+
+                // ============================================================
+                // "Lire la suite" / "Voir moins" — CORRIGÉ
+                // ============================================================
+                document.querySelectorAll('.founder-read-more').forEach(function(btn) {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+
+                        // Trouver le parent contenant le .founder-more-content
+                        var parent = this.closest('.founder-section');
+                        if (!parent) {
+                            parent = this.closest('.founder-single');
+                        }
+                        if (!parent) {
+                            parent = this.closest('.founder-grid');
+                        }
+
+                        var moreContent = parent ? parent.querySelector('.founder-more-content') : null;
+
+                        if (moreContent) {
+                            if (moreContent.classList.contains('open')) {
+                                // Fermer
+                                moreContent.classList.remove('open');
+                                this.textContent = 'Lire la suite';
+                                this.classList.remove('active');
+                            } else {
+                                // Ouvrir
+                                moreContent.classList.add('open');
+                                this.textContent = 'Voir moins';
+                                this.classList.add('active');
+                                setTimeout(function() {
+                                    moreContent.scrollIntoView({ behavior: 'smooth',
+                                        block: 'nearest' });
+                                }, 100);
+                            }
+                        }
+                    });
+                });
+            })();
+
+        })();
+    </script>
+
 </body>
 </html>
