@@ -1363,6 +1363,316 @@
             transform: translateX(-50%) translateY(0);
         }
 
+        /* ===== MODAL COMMANDE PREMIUM ===== */
+        .order-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 10002;
+            background: rgba(74, 8, 16, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s var(--ease), visibility 0.4s;
+        }
+
+        .order-modal-backdrop.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .order-modal-backdrop.closing {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .order-modal {
+            background: var(--cream);
+            width: 100%;
+            max-width: 640px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(212, 175, 127, 0.3);
+            box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 175, 127, 0.1);
+            padding: clamp(32px, 5vw, 48px);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+        }
+
+        .order-modal-backdrop.open .order-modal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .order-modal-backdrop.closing .order-modal {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Ornement décoratif */
+        .order-modal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .order-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(212, 175, 127, 0.08);
+            border: 1px solid rgba(212, 175, 127, 0.2);
+            color: var(--burgundy);
+            font-size: 24px;
+            font-weight: 300;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s var(--ease);
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .order-modal-close:hover {
+            background: rgba(212, 175, 127, 0.15);
+            transform: rotate(90deg);
+            color: var(--burgundy-deep);
+        }
+
+        .order-modal-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .order-modal-eyebrow {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--burgundy-soft);
+            margin-bottom: 12px;
+        }
+
+        .order-modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(26px, 4vw, 34px);
+            font-weight: 400;
+            color: var(--burgundy-deep);
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .order-modal-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: rgba(61, 43, 43, 0.6);
+            line-height: 1.7;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .order-modal-divider {
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            margin: 24px auto;
+            opacity: 0.6;
+        }
+
+        .order-form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .order-field {
+            position: relative;
+        }
+
+        .order-field label {
+            display: block;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--burgundy-soft);
+            margin-bottom: 8px;
+        }
+
+        .order-field input,
+        .order-field textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(110, 11, 20, 0.2);
+            padding: 12px 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--dark);
+            transition: all 0.3s var(--ease);
+            outline: none;
+            border-radius: 0;
+        }
+
+        .order-field textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .order-field input:focus,
+        .order-field textarea:focus {
+            border-bottom-color: var(--burgundy);
+            box-shadow: 0 1px 0 0 var(--burgundy);
+        }
+
+        .order-field input::placeholder,
+        .order-field textarea::placeholder {
+            color: rgba(61, 43, 43, 0.3);
+            font-weight: 300;
+        }
+
+        .order-field-disabled input {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: rgba(212, 175, 127, 0.05);
+            padding-left: 12px;
+        }
+
+        .order-field-error {
+            font-size: 11px;
+            color: var(--burgundy);
+            margin-top: 4px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            opacity: 0;
+            transform: translateY(-4px);
+            transition: all 0.3s var(--ease);
+        }
+
+        .order-field-error.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .order-field.error input,
+        .order-field.error textarea {
+            border-bottom-color: var(--burgundy);
+            box-shadow: 0 1px 0 0 var(--burgundy);
+        }
+
+        .order-submit {
+            background: linear-gradient(135deg, var(--burgundy-deep) 0%, var(--burgundy) 100%);
+            color: var(--nude);
+            border: 1px solid rgba(212, 175, 127, 0.3);
+            padding: 18px 40px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s var(--ease);
+            position: relative;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .order-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 127, 0.2), transparent);
+            transition: left 0.6s var(--ease);
+        }
+
+        .order-submit:hover::before {
+            left: 100%;
+        }
+
+        .order-submit:hover {
+            background: linear-gradient(135deg, var(--burgundy) 0%, var(--burgundy-deep) 100%);
+            box-shadow: 0 8px 24px rgba(74, 8, 16, 0.3);
+            transform: translateY(-1px);
+        }
+
+        /* Confirmation */
+        .order-confirmation {
+            text-align: center;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            padding: 20px 0;
+        }
+
+        .order-confirmation.show {
+            display: flex;
+        }
+
+        .order-confirmation-icon {
+            width: 64px;
+            height: 64px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: var(--gold);
+            background: rgba(212, 175, 127, 0.08);
+            margin-bottom: 8px;
+        }
+
+        .order-confirmation-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(22px, 3vw, 28px);
+            font-weight: 400;
+            color: var(--burgundy-deep);
+        }
+
+        .order-confirmation-message {
+            font-size: 14px;
+            font-weight: 300;
+            color: rgba(61, 43, 43, 0.6);
+            line-height: 1.8;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .order-confirmation-signature {
+            font-family: 'Playfair Display', serif;
+            font-size: 12px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .order-confirmation-divider {
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            opacity: 0.5;
+        }
+
         /* ===== SCROLLBAR ===== */
         ::-webkit-scrollbar {
             width: 4px;
@@ -1522,6 +1832,37 @@
                 margin: 6px 0 14px 0;
                 font-size: 10px;
             }
+            
+            /* Modal responsive */
+            .order-modal-backdrop {
+                padding: 12px;
+                align-items: flex-end;
+            }
+
+            .order-modal {
+                max-height: 95vh;
+                padding: 32px 20px;
+                border-radius: 8px 8px 0 0;
+            }
+
+            .order-modal-close {
+                top: 16px;
+                right: 16px;
+                width: 36px;
+                height: 36px;
+                font-size: 20px;
+            }
+
+            .order-field input,
+            .order-field textarea {
+                font-size: 16px;
+                padding: 14px 0;
+            }
+
+            .order-submit {
+                padding: 16px 24px;
+                font-size: 10px;
+            }
         }
 
         @media(max-width:600px) {
@@ -1550,6 +1891,26 @@
                 padding: 8px 4px !important;
                 min-height: 36px;
             }
+            
+            .order-modal-backdrop {
+                padding: 8px;
+            }
+
+            .order-modal {
+                padding: 24px 16px;
+            }
+
+            .order-modal-close {
+                top: 12px;
+                right: 12px;
+                width: 32px;
+                height: 32px;
+                font-size: 18px;
+            }
+
+            .order-modal-title {
+                font-size: 22px;
+            }
         }
 
         /* ===== ACCESSIBILITÉ ===== */
@@ -1576,6 +1937,18 @@
                 opacity: 1;
                 animation: none;
                 transform: none;
+            }
+            .order-modal-backdrop,
+            .order-modal {
+                transition-duration: .01ms !important;
+            }
+            .order-submit::before {
+                transition: none;
+            }
+        }
+        @media screen and (max-width: 768px) {
+            #pictue2 {
+                display: none !important;
             }
         }
     </style>
@@ -1604,7 +1977,6 @@
                 <a href="#origine">Origines</a>
                 <a href="#creations">Créations</a>
                 <a href="#fondatrice">Fondatrice</a>
-                <a href="#communaute">Communauté</a>
             </nav>
             <a href="#communaute" class="nav-cta">Rejoindre</a>
             <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
@@ -1693,7 +2065,7 @@
                 </div>
             </div>
             <div class="og-row">
-                <div class="og-img reveal" aria-hidden="true">
+                <div class="og-img reveal" aria-hidden="true" id="pictue2">
                     <img src="https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/Sans%20titre%20(983%20x%20793%20px)%20(1).png" alt="Transmission" loading="lazy" />
                 </div>
                 <div class="og-txt r reveal r2">
@@ -1718,7 +2090,7 @@
                 </div>
             </div>
             <div class="og-row">
-                <div class="og-img reveal" aria-hidden="true">
+                <div class="og-img reveal" aria-hidden="true"id="pictue2">
                     <img src="https://github.com/Imanebouras/Orrhealing/blob/main/images/Sans%20titre%20(983%20x%20793%20px)%20(3).png?raw=true" alt="Matière" loading="lazy" />
                 </div>
                 <div class="og-txt r reveal r2">
@@ -1747,21 +2119,21 @@
                         <h4>Collection Lunaire</h4>
                         <p>Sels, plantes et encens accordés à chaque phase de la lune.</p>
                         <span class="tag">Cérémonial</span>
-                        <button class="lnk" onclick="toast('Collection Lunaire — disponible sur demande.')">Découvrir</button>
+                        <button class="lnk order-trigger" data-box="Collection Lunaire">Découvrir</button>
                     </article>
                     <article class="crea photo reveal r2">
                         <div class="ico"><img src="https://www.image2url.com/r2/default/images/1786460751758-5dbd4967-7cad-4b06-be7c-3572389021a0.jpg" alt="Collection Sacrée" loading="lazy" /></div>
                         <h4>Collection Sacrée</h4>
                         <p>Pour les rituels profonds, les cérémonies et les passages.</p>
                         <span class="tag">Cérémonial</span>
-                        <button class="lnk" onclick="toast('Collection Sacrée — disponible sur demande.')">Découvrir</button>
+                        <button class="lnk order-trigger" data-box="Collection Sacrée">Découvrir</button>
                     </article>
                     <article class="crea photo reveal r3">
                         <div class="ico"><img src="https://www.image2url.com/r2/default/images/1786461053402-99eb9be0-f080-4a9d-8d57-9aebc04f24f8.jpg" alt="Collection Sauvage" loading="lazy" /></div>
                         <h4>Collection Sauvage</h4>
                         <p>Plantes et encens cueillis dans la nature, pour une connexion brute.</p>
                         <span class="tag">Sauvage</span>
-                        <button class="lnk" onclick="toast('Collection Sauvage — disponible sur demande.')">Découvrir</button>
+                        <button class="lnk order-trigger" data-box="Collection Sauvage">Découvrir</button>
                     </article>
                 </div>
                 <p class="eyebrow reveal r1" style="text-align:center;margin:64px 0 -20px;">Les Box Rituelles</p>
@@ -1771,25 +2143,25 @@
                         <h4>Box Nuit Sacrée</h4>
                         <p>Sel de l'Atlas, fleurs de camomille, encens de myrrhe.</p>
                         <span class="tag">Rituel du soir</span>
-                        <button class="lnk" onclick="toast('Box Nuit Sacrée — disponible sur demande.')">Découvrir</button>
+                        <button class="lnk order-trigger" data-box="Box Nuit Sacrée">Commander</button>
                     </article>
                     <article class="crea reveal r2">
                         <div class="ico"><i class="fa-regular fa-sun" aria-hidden="true"></i></div>
                         <h4>Box Éveil Vital</h4>
                         <p>Sel de mer, romarin, encens d'oliban.</p>
                         <span class="tag">Rituel matinal</span>
-                        <button class="lnk" onclick="toast('Box Éveil Vital — disponible sur demande.')">Découvrir</button>
+                        <button class="lnk order-trigger" data-box="Box Éveil Vital">Commander</button>
                     </article>
                     <article class="crea reveal r3">
                         <div class="ico"><i class="fa-regular fa-star" aria-hidden="true"></i></div>
                         <h4>Box Ancrage Lunaire</h4>
                         <p>Sel du bassin, sauge blanche, encens de copal.</p>
                         <span class="tag">Rituel complet</span>
-                        <button class="lnk" onclick="toast('Box Ancrage Lunaire — disponible sur demande.')">Découvrir</button>
+                        <button class="lnk order-trigger" data-box="Box Ancrage Lunaire">Commander</button>
                     </article>
                 </div>
                 <p class="reveal r2" style="text-align:center;margin-top:42px;font-weight:300;font-size:13px;color:var(--dark);opacity:.55;">Disponibles sur demande, lors des retraites ou en main propre.</p>
-                <button class="crea-cta reveal r3" onclick="toast('Demande de création enregistrée. Nous vous contacterons.')">Commander</button>
+                <button class="crea-cta order-trigger reveal r3" data-box="Commande personnalisée">Commander</button>
             </div>
         </section>
 
@@ -1837,7 +2209,6 @@
                                 <div class="founder-text">
                                     <p>Asmaa Belh est la fondatrice d'ORR. Son cheminement personnel, ses rencontres et ses questionnements l'ont naturellement conduite à créer cet espace dédié aux rituels et à la reconnexion.</p>
                                     <p>Passionnée par les savoirs traditionnels et la transmission, elle a souhaité offrir à d'autres femmes un cadre pour ralentir, s'écouter et renouer avec des gestes porteurs de sens.</p>
-                                    <!-- PLUS DE hidden ICI ! -->
                                     <div class="founder-more-content">
                                         <p>Asmaa puise son inspiration dans les traditions marocaines et les savoirs ancestraux qu'elle a découverts au fil de ses voyages et de ses rencontres. Elle croit que chaque geste, chaque plante, chaque mot porte une mémoire qu'il est essentiel de préserver et de transmettre.</p>
                                         <p>Son parcours est marqué par une quête constante de sens, une volonté de comprendre comment les pratiques d'hier peuvent éclairer et enrichir nos vies d'aujourd'hui.</p>
@@ -1856,7 +2227,6 @@
                             <div class="founder-text">
                                 <p>Les rituels ne sont pas pour Asmaa une simple mode ou un concept, mais une réponse à une nécessité intérieure. C'est un langage du corps et de l'âme qui s'est imposé à elle comme une évidence.</p>
                                 <p>Son parcours l'a amenée à explorer différentes pratiques et à se questionner sur la manière dont les gestes ancestraux peuvent encore avoir du sens dans nos vies contemporaines.</p>
-                                <!-- PLUS DE hidden ICI ! -->
                                 <div class="founder-more-content">
                                     <p>Asmaa a longtemps cherché des réponses dans les livres, les rencontres et les voyages. C'est en revenant à l'essentiel, en écoutant son corps et en observant la nature qu'elle a trouvé un chemin qui résonnait profondément avec elle.</p>
                                     <p>Aujourd'hui, à travers ORR, elle souhaite partager cette approche et offrir des outils pour que chacune puisse se réapproprier ces pratiques, à son rythme et selon ses propres besoins.</p>
@@ -1876,7 +2246,6 @@
                                 <div class="founder-text">
                                     <p>ORR est né d'une volonté de transmettre et de rassembler. Asmaa a voulu créer un espace où les rituels, les savoirs ancestraux et la mémoire du corps peuvent être honorés et réinterprétés pour le monde d'aujourd'hui.</p>
                                     <p>Ce n'est pas une simple marque de produits, mais une proposition de chemin, une invitation à renouer avec une forme de sagesse oubliée.</p>
-                                    <!-- PLUS DE hidden ICI ! -->
                                     <div class="founder-more-content">
                                         <p>ORR, ce sont des gestes, des paroles et des objets qui agissent comme des portes vers l'intime, vers une présence plus pleine à soi-même et au monde.</p>
                                         <p>Asmaa croit que la transmission est un acte de résistance face à l'oubli. En créant ORR, elle souhaite offrir un héritage vivant, accessible et contemporain.</p>
@@ -1899,7 +2268,6 @@
                             <div class="founder-text">
                                 <p>La vision d'Asmaa pour ORR va au-delà des produits. Il s'agit de défendre une certaine idée de la lenteur, de la présence et de la transmission.</p>
                                 <p>Elle croit en l'importance de renouer avec un héritage oublié, de redonner sa place au corps et au sensible dans un monde qui va trop vite.</p>
-                                <!-- PLUS DE hidden ICI ! -->
                                 <div class="founder-more-content">
                                     <p>ORR est son moyen de contribuer à cette renaissance, en offrant des espaces de reconnexion, des gestes porteurs de sens et une communauté de femmes qui partagent cette quête d'authenticité.</p>
                                     <p>Asmaa souhaite que chaque personne qui croise le chemin d'ORR puisse y trouver une résonance personnelle, un espace pour se poser et se redécouvrir.</p>
@@ -1989,6 +2357,71 @@
             <span class="serif">« Habiter le bas du corps, là où vibre la vie. »</span>
         </div>
     </footer>
+
+    <!-- MODAL COMMANDE -->
+    <div class="order-modal-backdrop" id="orderModalBackdrop" role="dialog" aria-label="Formulaire de commande ORR">
+        <div class="order-modal">
+            <button class="order-modal-close" id="orderModalClose" aria-label="Fermer la fenêtre">×</button>
+            
+            <!-- Formulaire -->
+            <div class="order-form-wrapper" id="orderFormWrapper">
+                <div class="order-modal-header">
+                    <p class="order-modal-eyebrow">Commande Privée</p>
+                    <h3 class="order-modal-title">Votre rituel commence ici.</h3>
+                    <p class="order-modal-subtitle">Laissez-nous vos coordonnées et les détails de votre demande. Notre équipe ORR vous contactera dans les plus brefs délais pour finaliser votre commande.</p>
+                    <div class="order-modal-divider"></div>
+                </div>
+                
+                <form class="order-form" id="orderForm" novalidate>
+                    <div class="order-field order-field-disabled">
+                        <label for="orderBox">Box sélectionnée</label>
+                        <input type="text" id="orderBox" readonly>
+                        <div class="order-field-error" id="orderBoxError">Veuillez sélectionner une box</div>
+                    </div>
+                    
+                    <div class="order-field">
+                        <label for="orderName">Nom complet *</label>
+                        <input type="text" id="orderName" placeholder="Votre nom et prénom" required>
+                        <div class="order-field-error" id="orderNameError">Veuillez indiquer votre nom complet</div>
+                    </div>
+                    
+                    <div class="order-field">
+                        <label for="orderEmail">Adresse e-mail *</label>
+                        <input type="email" id="orderEmail" placeholder="votre@email.com" required>
+                        <div class="order-field-error" id="orderEmailError">Veuillez indiquer une adresse e-mail valide</div>
+                    </div>
+                    
+                    <div class="order-field">
+                        <label for="orderPhone">Téléphone *</label>
+                        <input type="tel" id="orderPhone" placeholder="Votre numéro de téléphone" required>
+                        <div class="order-field-error" id="orderPhoneError">Veuillez indiquer votre numéro de téléphone</div>
+                    </div>
+                    
+                    <div class="order-field">
+                        <label for="orderQuantity">Quantité souhaitée *</label>
+                        <input type="number" id="orderQuantity" min="1" value="1" required>
+                        <div class="order-field-error" id="orderQuantityError">Quantité minimale : 1</div>
+                    </div>
+                    
+                    <div class="order-field">
+                        <label for="orderMessage">Message / précision (optionnel)</label>
+                        <textarea id="orderMessage" placeholder="Une intention particulière, une question, une précision..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="order-submit">Envoyer ma demande</button>
+                </form>
+            </div>
+            
+            <!-- Confirmation -->
+            <div class="order-confirmation" id="orderConfirmation">
+                <div class="order-confirmation-icon">✦</div>
+                <h3 class="order-confirmation-title">Merci pour votre demande.</h3>
+                <p class="order-confirmation-message">Nous avons bien reçu vos informations et nous vous contacterons dans les plus brefs délais afin de finaliser votre commande.</p>
+                <div class="order-confirmation-divider"></div>
+                <p class="order-confirmation-signature">ORR — Origin Rituals & Revelations</p>
+            </div>
+        </div>
+    </div>
 
     <div class="toast" id="toast"></div>
 
@@ -2205,6 +2638,225 @@
                         }
                     });
                 });
+            })();
+
+            // ============================================================
+            // SYSTÈME DE COMMANDE PREMIUM
+            // ============================================================
+            (function() {
+                'use strict';
+
+                const modalBackdrop = document.getElementById('orderModalBackdrop');
+                const modalClose = document.getElementById('orderModalClose');
+                const orderForm = document.getElementById('orderForm');
+                const orderFormWrapper = document.getElementById('orderFormWrapper');
+                const orderConfirmation = document.getElementById('orderConfirmation');
+                
+                // Inputs
+                const orderBox = document.getElementById('orderBox');
+                const orderName = document.getElementById('orderName');
+                const orderEmail = document.getElementById('orderEmail');
+                const orderPhone = document.getElementById('orderPhone');
+                const orderQuantity = document.getElementById('orderQuantity');
+                const orderMessage = document.getElementById('orderMessage');
+                
+                // Error elements
+                const orderBoxError = document.getElementById('orderBoxError');
+                const orderNameError = document.getElementById('orderNameError');
+                const orderEmailError = document.getElementById('orderEmailError');
+                const orderPhoneError = document.getElementById('orderPhoneError');
+                const orderQuantityError = document.getElementById('orderQuantityError');
+                
+                let currentBox = '';
+                let isModalOpen = false;
+                let lastFocusedElement = null;
+
+                // Fonction pour ouvrir la modal
+                function openOrderModal(boxName) {
+                    if (!boxName) {
+                        toast('Veuillez sélectionner une box');
+                        return;
+                    }
+                    
+                    currentBox = boxName;
+                    orderBox.value = boxName;
+                    
+                    // Reset du formulaire
+                    orderForm.reset();
+                    orderBox.value = boxName;
+                    orderQuantity.value = '1';
+                    clearErrors();
+                    orderFormWrapper.style.display = 'block';
+                    orderConfirmation.classList.remove('show');
+                    orderConfirmation.style.display = 'none';
+                    
+                    // Sauvegarder l'élément focalisé pour le retour
+                    lastFocusedElement = document.activeElement;
+                    
+                    // Ouvrir la modal
+                    modalBackdrop.classList.remove('closing');
+                    modalBackdrop.classList.add('open');
+                    isModalOpen = true;
+                    
+                    // Bloquer le scroll du body
+                    document.body.style.overflow = 'hidden';
+                    
+                    // Focus sur le premier champ après l'animation
+                    setTimeout(() => {
+                        orderName.focus();
+                    }, 500);
+                }
+
+                // Fonction pour fermer la modal
+                function closeOrderModal() {
+                    if (!isModalOpen) return;
+                    
+                    modalBackdrop.classList.remove('open');
+                    modalBackdrop.classList.add('closing');
+                    isModalOpen = false;
+                    
+                    // Restaurer le scroll du body
+                    document.body.style.overflow = '';
+                    
+                    // Restaurer le focus
+                    if (lastFocusedElement) {
+                        lastFocusedElement.focus();
+                    }
+                    
+                    // Nettoyer après l'animation
+                    setTimeout(() => {
+                        modalBackdrop.classList.remove('closing');
+                    }, 400);
+                }
+
+                // Fonction pour afficher les erreurs
+                function showError(input, errorElement) {
+                    input.parentElement.classList.add('error');
+                    errorElement.classList.add('visible');
+                }
+
+                function clearError(input, errorElement) {
+                    input.parentElement.classList.remove('error');
+                    errorElement.classList.remove('visible');
+                }
+
+                function clearErrors() {
+                    const fields = [
+                        { input: orderBox, error: orderBoxError },
+                        { input: orderName, error: orderNameError },
+                        { input: orderEmail, error: orderEmailError },
+                        { input: orderPhone, error: orderPhoneError },
+                        { input: orderQuantity, error: orderQuantityError }
+                    ];
+                    
+                    fields.forEach(field => clearError(field.input, field.error));
+                }
+
+                // Fonction de validation
+                function validateForm() {
+                    let isValid = true;
+                    
+                    // Box
+                    if (!orderBox.value.trim()) {
+                        showError(orderBox, orderBoxError);
+                        isValid = false;
+                    }
+                    
+                    // Nom
+                    if (!orderName.value.trim()) {
+                        showError(orderName, orderNameError);
+                        isValid = false;
+                    }
+                    
+                    // Email
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!orderEmail.value.trim() || !emailRegex.test(orderEmail.value.trim())) {
+                        showError(orderEmail, orderEmailError);
+                        isValid = false;
+                    }
+                    
+                    // Téléphone
+                    if (!orderPhone.value.trim()) {
+                        showError(orderPhone, orderPhoneError);
+                        isValid = false;
+                    }
+                    
+                    // Quantité
+                    const quantity = parseInt(orderQuantity.value);
+                    if (!quantity || quantity < 1) {
+                        showError(orderQuantity, orderQuantityError);
+                        isValid = false;
+                    }
+                    
+                    return isValid;
+                }
+
+                // Fonction pour afficher la confirmation
+                function showConfirmation() {
+                    orderFormWrapper.style.display = 'none';
+                    orderConfirmation.style.display = 'flex';
+                    orderConfirmation.classList.add('show');
+                }
+
+                // Écouteurs d'événements pour la modal
+                modalClose.addEventListener('click', closeOrderModal);
+                
+                modalBackdrop.addEventListener('click', function(e) {
+                    if (e.target === modalBackdrop) {
+                        closeOrderModal();
+                    }
+                });
+                
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && isModalOpen) {
+                        closeOrderModal();
+                    }
+                });
+
+                // Écouteurs pour la validation en temps réel
+                orderName.addEventListener('input', () => clearError(orderName, orderNameError));
+                orderEmail.addEventListener('input', () => clearError(orderEmail, orderEmailError));
+                orderPhone.addEventListener('input', () => clearError(orderPhone, orderPhoneError));
+                orderQuantity.addEventListener('input', () => clearError(orderQuantity, orderQuantityError));
+
+                // Soumission du formulaire
+                orderForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    if (validateForm()) {
+                        // Préparation des données pour un futur backend
+                        const orderData = {
+                            box: orderBox.value.trim(),
+                            name: orderName.value.trim(),
+                            email: orderEmail.value.trim(),
+                            phone: orderPhone.value.trim(),
+                            quantity: parseInt(orderQuantity.value),
+                            message: orderMessage.value.trim(),
+                            timestamp: new Date().toISOString()
+                        };
+                        
+                        // Log des données (à remplacer par un appel backend)
+                        console.log('Commande ORR:', orderData);
+                        
+                        // Afficher la confirmation
+                        showConfirmation();
+                    }
+                });
+
+                // Gestionnaire pour les boutons de commande
+                document.querySelectorAll('.order-trigger').forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const boxName = this.dataset.box;
+                        if (boxName) {
+                            openOrderModal(boxName);
+                        }
+                    });
+                });
+
+                // Exposer les fonctions au scope global
+                window.openOrderModal = openOrderModal;
+                window.closeOrderModal = closeOrderModal;
             })();
 
         })();
