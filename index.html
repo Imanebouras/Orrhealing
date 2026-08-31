@@ -1,210 +1,210 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ORR — Maison de rituels inspirée des savoirs ancestraux marocains.">
-  <meta name="theme-color" content="#4a0810">
-  <title>ORR — Origin Rituals & Revelations</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap');
-
-:root{--story-progress:0;--wine:#6e0b14;--blood:#4a0810;--wine-soft:#8b2030;--clay:#8a5a3e;--earth:#3a241b;--ink:#2b1c16;--parchment:#dfccb0;--old-ivory:#eee0c7;--brass:#aa8350;--fade:#c8a879}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#2a150f;color:var(--ink);font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;overflow-x:hidden}a{color:inherit;text-decoration:none}button,input,textarea{font:inherit;color:inherit}button{cursor:pointer}img{display:block;width:100%}.grain{position:fixed;z-index:200;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.42' filter='url(%23n)'/%3E%3C/svg%3E")}.age-patina{position:fixed;z-index:199;inset:0;pointer-events:none;box-shadow:inset 0 0 150px rgba(35,14,7,.3);background:repeating-linear-gradient(90deg,transparent 0,transparent 5px,rgba(79,41,23,.012) 6px)}.reveal{opacity:0;transform:translateY(45px) rotate(.35deg);transition:opacity 1.15s ease,transform 1.25s cubic-bezier(.16,1,.3,1)}.reveal.delayed{transition-delay:.16s}.reveal.seen{opacity:1;transform:none}.overline{margin:0;font-family:'IM Fell English SC',serif;text-transform:uppercase;letter-spacing:.24em;font-size:14px;color:#d6b47f}.overline.dark{color:var(--wine)}
-.threshold{position:fixed;inset:0;z-index:500;color:#ead7b6;pointer-events:auto;transition:visibility .1s 2.3s}.threshold-open{visibility:hidden;pointer-events:none}.threshold-panel{position:absolute;top:0;bottom:0;width:50.2%;background-color:#4b171a;background-image:linear-gradient(90deg,rgba(23,7,6,.45),transparent 25%,rgba(206,158,99,.07) 52%,rgba(22,6,5,.36)),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70'%3E%3Cpath d='M0 35h70M35 0v70M0 0l70 70M70 0L0 70' stroke='%23b78958' stroke-opacity='.09' fill='none'/%3E%3C/svg%3E");box-shadow:inset 0 0 120px #22080a;transition:transform 1.8s cubic-bezier(.72,0,.2,1) .45s}.threshold-left{left:0;border-right:1px solid #8f6740}.threshold-right{right:0;border-left:1px solid #8f6740}.threshold-open .threshold-left{transform:translateX(-101%)}.threshold-open .threshold-right{transform:translateX(101%)}.threshold-seal{position:absolute;left:50%;top:50%;width:190px;height:190px;transform:translate(-50%,-50%);border:1px solid #bd9762;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#4a0b12;box-shadow:0 0 0 9px #4a0b12,0 0 0 10px rgba(194,153,95,.55),0 10px 45px #160304;transition:opacity .35s,transform .6s}.threshold-open .threshold-seal{opacity:0;transform:translate(-50%,-50%) scale(.72)}.threshold-seal b{font-family:'IM Fell English SC';font-size:53px;font-weight:400;letter-spacing:.12em}.threshold-seal span{font-family:'IM Fell English SC';font-size:9px;letter-spacing:.22em}.threshold-seal i{font-style:normal;color:#c69d63;margin-top:10px;font-size:10px}.story-thread{position:fixed;z-index:78;left:22px;top:105px;bottom:35px;width:1px;background:rgba(237,210,169,.18);pointer-events:none}.story-thread span{display:block;width:1px;height:calc(var(--story-progress)*100%);background:#c9a56d;box-shadow:0 0 8px #bc8951}
-.site-nav{position:fixed;z-index:100;top:0;left:0;width:100%;height:98px;padding:0 4.5vw;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;color:#eadac2;transition:.5s}.has-scrolled .site-nav{height:72px;background:rgba(49,10,11,.94);border-bottom:1px solid rgba(210,169,109,.22);backdrop-filter:blur(10px)}.wordmark{font-family:'IM Fell English SC';font-size:32px;line-height:.7;letter-spacing:.08em}.wordmark small{display:block;font-family:'Cormorant Garamond';font-size:7px;letter-spacing:.2em;margin-top:9px}.nav-links{display:flex;gap:40px}.nav-links a,.nav-circle{font-family:'IM Fell English SC';font-size:18px;letter-spacing:.15em;position:relative}.nav-links a:before{content:'✦';position:absolute;left:50%;top:-17px;transform:translateX(-50%);font-size:6px;color:#bd925a;opacity:0;transition:.3s}.nav-links a:hover:before{opacity:1}.nav-circle{justify-self:end;border:1px solid rgba(211,171,114,.55);padding:10px 17px;box-shadow:inset 0 0 0 3px rgba(120,65,39,.25)}.menu-button{display:none;background:none;border:0}
-.hero{height:100svh;min-height:760px;position:relative;overflow:hidden;color:#f0dec0}.hero-bg{position:absolute;inset:-3%;background:url('https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/orr-hero-ancient.webp') center/cover no-repeat;animation:heroBreath 18s ease-in-out infinite alternate}.hero-shadow{position:absolute;inset:0;background:linear-gradient(90deg,rgba(27,8,5,.82) 0%,rgba(31,10,7,.38) 48%,rgba(26,7,5,.46)),linear-gradient(0deg,rgba(30,6,6,.72),transparent 50%,rgba(27,7,4,.25))}@keyframes heroBreath{to{transform:scale(1.045)}}.hero-arch{position:absolute;top:70px;left:5vw;width:43vw;height:calc(100% - 120px);border:1px solid rgba(212,174,119,.3);border-radius:48% 48% 2px 2px/25% 25% 2px 2px;box-shadow:inset 0 0 0 7px rgba(105,53,28,.08)}.hero-copy{position:absolute;z-index:2;left:10vw;top:51%;transform:translateY(-50%)}.hero-copy h1{font-weight:400;margin:24px 0 0;line-height:.72;font-size:clamp(70px,9vw,140px);text-shadow:0 3px 22px #2a0907}.hero-copy h1 span,.hero-copy h1 em{display:block}.hero-copy h1 span{font-family:'IM Fell English',serif}.hero-copy h1 em{font-family:'Cormorant Garamond';font-weight:400;color:#d5af78;margin-left:1.05em}.hero-inscription{margin:48px 0 0 70px;display:flex;gap:22px;align-items:center}.hero-inscription i{font-style:normal;font-size:9px;border:1px solid #c19a62;border-radius:50%;width:43px;height:43px;display:grid;place-items:center}.hero-inscription p{font-style:italic;font-size:20px;line-height:1.4;margin:0}.enter-link{position:absolute;z-index:3;right:7vw;bottom:6vh;width:130px;height:130px;border:1px solid rgba(219,183,132,.55);border-radius:50%;display:grid;place-items:center;text-align:center;font-family:'IM Fell English SC'; font-size:15px; letter-spacing:.1em;background:rgba(70,13,18,.35);transition:.5s}.enter-link:before{content:'';position:absolute;inset:7px;border:1px dashed rgba(218,180,125,.45);border-radius:50%}.enter-link:hover{transform:rotate(8deg);background:#6e0b14}.enter-link i{font-style:normal;position:absolute;bottom:17px}.hero-folio{position:absolute;right:4vw;top:50%;writing-mode:vertical-rl;text-transform:uppercase;font-family:'IM Fell English SC';font-size:11px;letter-spacing:.35em}
-.manifesto{min-height:1050px;padding:160px 8vw 140px 10vw;display:grid;grid-template-columns:130px 1.08fr .82fr;gap:5vw;align-items:center;position:relative;background-color:#b98d66;background-image:linear-gradient(90deg,rgba(68,39,24,.12),transparent 18%,rgba(238,211,169,.14) 55%,rgba(80,43,24,.16)),url('https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/ChatGPT%20Image%2031%20ao%C3%BBt%202026%2C%2010_24_04.png');background-size:cover;background-position:center}.manifesto:after{content:'';position:absolute;inset:23px;border:1px solid rgba(83,48,30,.35);pointer-events:none}.cloth-edge{position:absolute;right:0;top:0;bottom:0;width:34%;background:linear-gradient(90deg,transparent,rgba(65,20,19,.12));border-left:1px solid rgba(95,50,33,.22)}.margin-note{align-self:start;padding-top:70px;text-align:center;position:relative;z-index:2}.margin-note span{font-family:'IM Fell English';font-size:74px;color:rgb(79 37 22)}.margin-note p{font-family:'IM Fell English SC';font-size:9px;letter-spacing:.12em;line-height:1.8;border-top:1px solid rgba(78,40,26,.35);padding-top:15px}.manifesto-text{position:relative;z-index:2;background:rgba(227,202,165,.78);padding:65px 55px;box-shadow:0 18px 55px rgba(53,25,13,.19),inset 0 0 55px rgba(114,73,43,.15);clip-path:polygon(.7% 0,99.4% .5%,100% 98.8%,68% 99.4%,43% 99%,0 100%)}.manifesto-text h2,.origins h2,.matter h2,.creations h2,.founder h2,.circle h2,.order-modal h2{font-family:'IM Fell English';font-size:clamp(55px,6vw,90px);line-height:1;font-weight:400;margin:25px 0 30px}.manifesto-text h2 em,.origins h2 em,.matter h2 em,.order-modal h2 em{font-family:'Cormorant Garamond';font-weight:400;color:var(--wine)}.ornament{width:150px;display:flex;align-items:center;gap:12px;color:var(--wine);margin:30px 0}.ornament:before,.ornament:after{content:'';flex:1;border-top:1px solid}.ornament span{font-size:8px}.manifesto-text>p:not(.overline){line-height:1.7}.dropcap:first-letter{float:left;font-family:'IM Fell English';font-size:77px;line-height:.7;color:var(--wine);margin:12px 9px 0 0}.manifesto-text blockquote{font-style:italic;color:var(--wine);font-size:24px;margin:38px 0 0;padding-top:25px;border-top:1px solid rgba(87,46,27,.3)}.archive-figure{position:relative;z-index:2;margin:0;transform:rotate(1.2deg)}.photo-mat{padding:12px;background:#d8bf99;border:1px solid rgba(72,37,22,.48);box-shadow:14px 18px 32px rgba(47,20,10,.32)}.photo-mat img{height:570px;object-fit:cover;filter:sepia(.55) saturate(.6) contrast(.92)}.archive-figure figcaption{font-family:'IM Fell English';font-size:12px;font-style:italic;margin-top:18px;text-align:center}.archive-figure figcaption span{display:block;font-family:'IM Fell English SC';font-size:7px;letter-spacing:.2em;margin-top:6px}
-.origins{position:relative;padding:160px 10vw 190px;color:#ead8bc;background:#35100e;overflow:hidden}.origins:before{content:'';position:absolute;inset:0;background:url('https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/WhatsApp%20Image%202026-08-15%20at%2019.13.40.jpeg') center/cover fixed no-repeat;opacity:.36;filter:saturate(.75)}.origins:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(35,7,7,.85),rgba(53,11,11,.55) 45%,rgba(42,8,8,.85)),linear-gradient(0deg,#310b0b 0%,transparent 25%,transparent 75%,#310b0b 100%)}.origins-intro,.chapters{position:relative;z-index:2}.origins-intro{max-width:780px;margin-left:auto;margin-bottom:130px}.origins-intro h2 em{color:#d3aa70}.origins-intro>p:last-child{font-style:italic;color:#c9ad87}.chapters{max-width:1050px}.chapter{display:grid;grid-template-columns:105px 1fr;gap:55px;align-items:start;margin:0 0 70px;padding:45px 60px 50px 20px;border-top:1px solid rgba(219,183,132,.28);background:linear-gradient(90deg,rgba(63,15,15,.72),rgba(52,15,12,.25));box-shadow:0 22px 65px rgba(15,3,2,.12)}.chapter:nth-child(even){margin-left:14vw}.chapter-medallion{width:85px;height:85px;border:1px solid rgba(214,175,118,.5);border-radius:50%;display:grid;place-items:center;font-family:'IM Fell English';font-size:27px;box-shadow:inset 0 0 0 7px rgba(155,103,58,.08)}.chapter-copy>p:first-child{margin:0;font-family:'IM Fell English SC';text-transform:uppercase;letter-spacing:.2em;font-size:17px;color:#c9a064}.chapter-copy h3{font-family:'IM Fell English';font-weight:400;font-size:48px;margin:9px 0 8px}.chapter-copy>p:last-child{line-height:1.75;color:#d4bea0;max-width:700px;margin:16px 0 0}.hand-rule{font-size:8px;color:#c59b60;display:flex;align-items:center;gap:12px}.hand-rule:before,.hand-rule:after{content:'';width:50px;border-top:1px solid rgba(200,158,97,.5)}
-.matter{min-height:860px;padding:140px 8vw;display:flex;align-items:center;justify-content:flex-end;position:relative;color:#ead7b8;background:url('https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/orr-library.webp') center/cover no-repeat}.matter:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(54,18,12,.15),rgba(46,7,11,.44) 55%,rgba(40,6,9,.78))}.matter-panel{position:relative;max-width:610px;padding:65px 65px 55px;background:rgba(65,15,16,.83);border:1px solid rgba(216,174,117,.35);box-shadow:0 18px 55px rgba(42,10,7,.35),inset 0 0 70px rgba(24,5,4,.2)}.matter-panel:before,.matter-panel:after{content:'';position:absolute;width:55px;height:55px}.matter-panel:before{left:10px;top:10px;border-left:1px solid #b78d55;border-top:1px solid #b78d55}.matter-panel:after{right:10px;bottom:10px;border-right:1px solid #b78d55;border-bottom:1px solid #b78d55}.matter h2 em{color:#d7ac71}.matter-panel>p:not(.overline){font-style:italic;line-height:1.7;color:#d5bf9f}.elements{display:flex;flex-wrap:wrap;gap:10px;margin-top:35px}.elements span{font-family:'IM Fell English SC';font-size:18px;letter-spacing:.15em;border:1px solid rgba(207,167,110,.35);padding:8px 11px;background:rgba(37,7,7,.26)}
-.creations{padding:150px 7vw 175px;position:relative;background-color:#c7a77d;background-image:linear-gradient(100deg,rgba(95,53,31,.12),transparent 50%,rgba(72,33,22,.12)),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.025' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.12' filter='url(%23n)'/%3E%3C/svg%3E")}.creations:before{content:'HERBIER  ·  RITUELS  ·  ORR';position:absolute;left:28px;top:50%;writing-mode:vertical-rl;transform:rotate(180deg);font-family:'IM Fell English SC';letter-spacing:.4em;font-size:14px;color:rgba(72,33,20,.55)}.creations-head{text-align:center;max-width:700px;margin:0 auto 95px}.creations-head h2{color:var(--wine)}.creations-head .ornament{margin:30px auto}.creations-head>p:last-child{font-style:normal}.collection-ledger{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}.collection{position:relative;background:#d9c09a;padding:13px 13px 42px;box-shadow:7px 10px 0 rgba(83,44,26,.12);border:1px solid rgba(67,34,22,.42)}.collection:nth-child(2){transform:translateY(35px) rotate(.5deg)}.collection-top{height:52px;display:flex;justify-content:space-between;align-items:center;padding:0 10px;border-bottom:1px solid rgba(70,38,25,.26)}.collection-top span{font-family:'IM Fell English';font-size:23px;color:var(--wine)}.collection-top p{font-family:'IM Fell English SC';font-size:17px;letter-spacing:.16em}.collection figure{margin:13px 0 28px;overflow:hidden;border:1px solid rgba(55,30,21,.45);height:410px}.collection figure img{height:100%;object-fit:cover;filter:sepia(.65) saturate(.65) contrast(.95);transition:1s}.collection:hover figure img{transform:scale(1.05);filter:sepia(.35) saturate(.8)}.collection h3{font-family:'IM Fell English';font-size:34px;font-weight:400;line-height:.85;margin:0 18px 18px}.collection h3 em{font-family:'Cormorant Garamond';font-size:45px;color:var(--wine);font-weight:400}.collection>p{margin:0 18px;line-height:1.6;color:#54392b}.collection button{background:none;border:0;border-bottom:1px solid var(--wine);padding:0 0 6px;margin:28px 18px 0;font-family:'IM Fell English SC';font-size:17px;letter-spacing:.1em;color:var(--wine)}.collection button span{margin-left:18px}
-.founder{min-height:970px;padding:150px 9vw;display:grid;grid-template-columns:.75fr 1fr;gap:9vw;align-items:center;color:#ead6b6;position:relative;background:url('https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/ChatGPT%20Image%2031%20ao%C3%BBt%202026%2C%2016_30_29.png') center/cover no-repeat}.founder:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(36,7,6,.45),rgba(40,6,8,.84) 59%,rgba(30,5,6,.93))}.founder-image,.founder-story{position:relative;z-index:2}.founder-image>div{padding:12px;border:1px solid rgba(207,165,107,.52);background:rgba(73,31,20,.55);box-shadow:18px 20px 55px rgba(17,3,2,.45)}.founder-image img{height:610px;object-fit:cover}.founder-image>p{text-align:center;font-family:'IM Fell English SC';font-size:17px;letter-spacing:.18em}.founder-story{padding:55px 0}.founder-story h2{font-size:clamp(55px,6vw,88px)}.founder-story>p:not(.overline){max-width:650px;line-height:1.8;color:#d5bea0}.founder-lead{font-style:italic;font-size:24px!important;color:#e2caa8!important}.founder-story blockquote{font-size:24px;font-style:italic;margin:42px 0 0;padding:28px 0;border-top:1px solid rgba(207,166,109,.35);border-bottom:1px solid rgba(207,166,109,.35);color:#dcb982}.signature{font-family:'Cormorant Garamond';font-size:55px;font-style:italic;display:block;text-align:right;margin-top:25px;color:#ba8c54;transform:rotate(-6deg)}
-.circle{padding:140px 20px;background-color:#b78662;background-image:linear-gradient(rgba(201,163,115,.48),rgba(173,121,82,.65)),url('https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/orr-encens.png');background-size:cover;background-position:center}.circle-inner{max-width:760px;margin:auto;padding:80px 65px;text-align:center;background:rgb(226 202 165);border:1px solid rgba(73,38,23,.45);box-shadow:0 17px 55px rgba(53,24,12,.2),inset 0 0 55px rgba(111,67,38,.12);position:relative}.circle-inner:before{content:'';position:absolute;inset:12px;border:1px solid rgba(90,48,28,.25)}.circle-symbol{display:block;color:var(--wine);margin:22px 0 5px}.circle h2{color:var(--wine);margin-top:10px}.circle-inner>p:not(.overline){font-style:italic}.circle form{max-width:500px;margin:45px auto 0}.circle form label{font-family:'IM Fell English SC';font-size:22px;letter-spacing:.15em}.circle form div{display:flex;margin-top:13px;border-bottom:1px solid var(--ink)}.circle input{flex:1;padding:14px 5px;background:none;border:0;outline:0;font-style:italic}.circle form button{border:0;background:none;font-family:'IM Fell English SC';font-size:19px;color:var(--wine)}footer{padding:95px 7vw 35px;text-align:center;color:#d7bc94;background:#260708;border-top:1px solid #7e4b2f}.footer-brand{font-family:'IM Fell English SC';font-size:110px;line-height:.8;letter-spacing:.12em}footer>.footer-brand+p{font-family:'IM Fell English SC';font-size:18px;letter-spacing:.35em;margin:25px 0}footer>a{font-style:italic}footer>div:last-child{display:flex;justify-content:space-between;margin-top:70px;padding-top:25px;border-top:1px solid rgba(210,168,108,.22);font-family:'IM Fell English SC';font-size:16px;letter-spacing:.18em}
-.modal-backdrop{position:fixed;z-index:300;inset:0;background:rgba(26,4,5,.86);display:grid;place-items:center;padding:22px;backdrop-filter:blur(8px)}.order-modal{width:min(670px,100%);max-height:92vh;overflow:auto;padding:65px;background-color:#dbc39f;background-image:radial-gradient(circle at 30% 20%,rgba(248,226,190,.35),transparent 32%);border:1px solid #7c4c2d;box-shadow:0 0 0 8px #dbc39f,0 0 0 9px #9d7044;position:relative}.modal-close{position:absolute;right:22px;top:15px;border:0;background:none;font-family:'IM Fell English';font-size:32px}.order-modal h2{font-size:58px;margin:20px 0}.chosen{font-style:italic;color:var(--wine);padding-bottom:18px;border-bottom:1px solid rgba(73,39,25,.3)}.order-modal form{display:grid;grid-template-columns:1fr 1fr;gap:23px;margin-top:30px}.order-modal label{display:flex;flex-direction:column;font-family:'IM Fell English SC';font-size:17px;letter-spacing:.12em}.order-modal label:last-of-type{grid-column:1/-1}.order-modal input,.order-modal textarea{background:none;border:0;border-bottom:1px solid rgba(70,37,24,.35);padding:9px 0;outline:0;font-family:'Cormorant Garamond';font-size:17px;letter-spacing:0}.order-modal form>button{grid-column:1/-1;padding:16px;border:1px solid #6f2b27;background:#5d1015;color:#ecd4b1;font-family:'IM Fell English SC';font-size:19px;letter-spacing:.12em}.thanks{text-align:center;padding:30px}.thanks>span{color:var(--wine)}.thanks p{line-height:1.7}.thanks button{background:none;border:0;border-bottom:1px solid;font-family:'IM Fell English SC';font-size:9px}
-@media(max-width:900px){body{font-size:16px}.story-thread{display:none}.site-nav{height:72px;padding:0 22px;grid-template-columns:1fr auto}.nav-circle{display:none}.menu-button{display:flex;flex-direction:column;gap:7px;width:35px;padding:8px;border:0;z-index:2}.menu-button span{border-top:1px solid #eadac2;width:25px;transition:.3s}.menu-button.active span:first-child{transform:translateY(4px) rotate(45deg)}.menu-button.active span:last-child{transform:translateY(-4px) rotate(-45deg)}.wordmark{z-index:2}.nav-links{position:fixed;inset:0;background-color:#410c11;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70'%3E%3Cpath d='M0 35h70M35 0v70M0 0l70 70M70 0L0 70' stroke='%23b78958' stroke-opacity='.08' fill='none'/%3E%3C/svg%3E");display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;opacity:0;visibility:hidden;transition:.45s}.nav-links.open{opacity:1;visibility:visible}.nav-links a{font-family:'IM Fell English';font-size:32px}.hero{min-height:700px}.hero-bg{inset:0;background-position:63% center}.hero-shadow{background:linear-gradient(90deg,rgba(28,7,5,.78),rgba(28,7,5,.22)),linear-gradient(0deg,rgba(30,5,6,.65),transparent 60%)}.hero-arch{left:18px;width:calc(100% - 36px);top:85px;height:70%}.hero-copy{left:32px;right:25px;top:48%}.hero-copy h1{font-size:clamp(58px,18vw,88px);line-height:.8}.hero-copy h1 em{margin-left:.35em}.hero-inscription{margin:34px 0 0 10px}.enter-link{width:92px;height:92px;right:25px;bottom:35px;font-size:8px}.hero-folio{display:none}.manifesto{padding:110px 25px 100px;display:block;min-height:0;background-position:62% center}.manifesto:after{inset:10px}.margin-note{display:none}.manifesto-text{padding:48px 28px}.manifesto-text h2,.origins h2,.matter h2,.creations h2,.founder h2,.circle h2{font-size:50px}.archive-figure{width:86%;margin:75px auto 0}.photo-mat img{height:440px}.cloth-edge{display:none}.origins{padding:110px 24px;background:#35100e}.origins:before{background-attachment:scroll;background-position:38% center}.origins-intro{margin-bottom:70px}.chapter,.chapter:nth-child(even){grid-template-columns:55px 1fr;gap:18px;margin-left:0;padding:30px 10px 40px 0}.chapter-medallion{width:52px;height:52px;font-size:18px}.chapter-copy h3{font-size:36px}.matter{min-height:760px;padding:90px 20px;background-position:64% center}.matter-panel{padding:48px 30px}.creations{padding:105px 18px 130px}.collection-ledger{grid-template-columns:1fr;gap:35px}.collection,.collection:nth-child(2){max-width:480px;margin:auto;transform:none}.collection figure{height:420px}.founder{padding:105px 24px;display:block;background-position:30% center}.founder:before{background:rgba(41,6,8,.82)}.founder-image{width:87%;margin:auto}.founder-image img{height:480px}.founder-story{margin-top:65px}.circle{padding:85px 15px}.circle-inner{padding:60px 25px}.footer-brand{font-size:75px}footer>div:last-child{flex-direction:column;gap:14px}.order-modal{padding:50px 25px}.order-modal form{grid-template-columns:1fr}.order-modal label:last-of-type,.order-modal form>button{grid-column:auto}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-bg{animation:none}.reveal{opacity:1;transform:none;transition:none}.threshold{display:none}}
-[hidden]{display:none!important}
-.site-nav .logo {
-            height: 34px;
-            width: auto;
-            display: flex;
-            align-items: center;
-            flex-shrink: 0;
-        }
-        .site-nav .logo img {
-            height: 100%;
-            width: auto;
-            filter: brightness(0) invert(1);
-            opacity: .95;
-            transition: filter .3s var(--ease), opacity .3s;
-        }
-        .site-nav.scrolled .logo img {
-            filter: none;
-            opacity: .85;
-        }
-  </style>
-
-</head>
-<body>
-  <div class="grain" aria-hidden="true"></div>
-  <div class="age-patina" aria-hidden="true"></div>
-  <div class="story-thread" aria-hidden="true"><span></span></div>
-
-  <div class="threshold" id="threshold">
-    <!-- <div class="threshold-panel threshold-left"></div>
-    <div class="threshold-panel threshold-right"></div>
-    <div class="threshold-seal"><b>ORR</b><span>Maison de rituels</span><i>✦</i></div> -->
-  </div>
-
-  <header class="site-nav">
-    <a href="#accueil" class="logo" aria-label="ORR — Accueil">
-                <img src="https://www.image2url.com/r2/default/images/1786963418142-bf624e31-8ef5-48ec-9139-ce2e816b8794.png" alt="ORR" loading="lazy" width="132" height="34" />
-            </a>
-    <nav class="nav-links" id="navLinks" aria-label="Navigation principale">
-      <a href="#manifeste">Le manifeste</a>
-      <a href="#origines">Les origines</a>
-      <a href="#creations">Les créations</a>
-      <a href="#fondatrice">La fondatrice</a>
-    </nav>
-    <a class="nav-circle" href="#cercle">Le cercle</a>
-    <button class="menu-button" id="menuButton" aria-label="Ouvrir le menu"><span></span><span></span></button>
-  </header>
-
-  <main>
-    <section class="hero" id="accueil">
-      <div class="hero-bg"></div><div class="hero-shadow"></div><div class="hero-arch" aria-hidden="true"></div>
-      <div class="hero-copy">
-        <p class="overline">Maison marocaine de rituels · MMXXVI</p>
-        <h1><span>Des gestes</span><em>plus anciens</em><span>que les mots.</span></h1>
-        <div class="hero-inscription"><i>✦</i><p>Habiter le bas du corps,<br>là où vibre la vie.</p></div>
-      </div>
-      <a class="enter-link" href="#manifeste"><span>Entrer dans<br>le récit</span><i>↓</i></a>
-      <p class="hero-folio">Feuillet premier</p>
-    </section>
-
-    <section class="manifesto" id="manifeste">
-      <div class="cloth-edge" aria-hidden="true"></div>
-      <aside class="margin-note reveal"><span>01</span></aside>
-      <article class="manifesto-text reveal">
-        <p class="overline dark">Le manifeste</p>
-        <h2>Retrouver le<br><em>langage oublié.</em></h2>
-        <div class="ornament"><span>◆</span></div>
-        <p class="dropcap">Tu as appris à chercher les réponses partout. Et si les réponses les plus précieuses se trouvaient déjà là où tout commence ?</p>
-        <p>Ton corps porte une mémoire plus ancienne que les mots. Il connaît le rythme, les saisons, les gestes et les silences. ORR lui redonne un espace pour parler.</p>
-        <blockquote>« Habiter le bas du corps,<br>là où vibre la vie. »</blockquote>
-      </article>
-    </section>
-
-    <section class="origins" id="origines">
-      <div class="origins-intro reveal"><p class="overline">Archives vivantes · Chapitre II</p><h2>Ce que la terre<br><em>n’oublie jamais.</em></h2><p>Revenir à l’essentiel, là où tout commence.</p></div>
-      <div class="chapters">
-        <article class="chapter reveal"><div class="chapter-medallion">I</div><div class="chapter-copy"><p>La terre se souvient</p><h3>Les racines</h3><span class="hand-rule">✦</span><p>Avant les tendances et les formulations modernes, il y avait les gestes. Simples, liés à la terre, aux saisons et à la vie quotidienne. Transmis de mère en fille, ils n’avaient pas besoin d’être expliqués pour être compris.</p></div></article>
-        <article class="chapter reveal"><div class="chapter-medallion">II</div><div class="chapter-copy"><p>Ce qui demeure</p><h3>La transmission</h3><span class="hand-rule">✦</span><p>Les savoirs ancestraux vivent dans les gestes que l’on répète, les matières que l’on reconnaît et les histoires que l’on raconte à voix basse. La transmission relie hier à aujourd’hui.</p></div></article>
-        <article class="chapter reveal"><div class="chapter-medallion">III</div><div class="chapter-copy"><p>Le savoir des femmes</p><h3>L’observation</h3><span class="hand-rule">✦</span><p>Pendant des générations, les femmes ont observé leur environnement, connu les propriétés des matières et appris à les inviter naturellement dans leur quotidien.</p></div></article>
-        <article class="chapter reveal"><div class="chapter-medallion">IV</div><div class="chapter-copy"><p>Le langage sensible</p><h3>La matière</h3><span class="hand-rule">✦</span><p>La terre. Le végétal. Le minéral. L’eau. Le feu. Des matières brutes, imparfaites, dont la texture, le parfum et le poids portent encore une histoire.</p></div></article>
-      </div>
-    </section>
-
-    <section class="matter">
-      <div class="matter-panel reveal"><p class="overline">Traité de la matière</p><h2>Toucher.<br>Sentir.<br><em>Se souvenir.</em></h2><p>Une matière ne se regarde pas seulement. Elle se reçoit par la peau, par le souffle, par la mémoire.</p><div class="elements"><span>Terre</span><span>Eau</span><span>Feu</span><span>Végétal</span><span>Minéral</span></div></div>
-    </section>
-
-    <section class="creations" id="creations">
-      <header class="creations-head reveal"><p class="overline dark">Herbier cérémoniel · Volume I</p><h2>Les créations</h2><div class="ornament"><span>◆</span></div><p>Chaque composition est pensée comme un passage : une matière, un geste, une intention.</p></header>
-      <div class="collection-ledger">
-        <article class="collection reveal"><div class="collection-top"><span>I</span><p>Sel · plante · encens</p></div><figure><img src="https://www.image2url.com/r2/default/images/1786459457358-1dbb6d45-c10b-4fad-9430-d0d0b8828760.jpg" alt="Collection Lunaire"></figure><h3>Collection<br><em>Lunaire</em></h3><p>Une composition accordée aux phases de la lune et aux silences de la nuit.</p><button class="order-trigger" data-product="Collection Lunaire">Ouvrir le coffret <span>→</span></button></article>
-        <article class="collection reveal"><div class="collection-top"><span>II</span><p>Cérémonie · passage</p></div><figure><img src="https://www.image2url.com/r2/default/images/1786460751758-5dbd4967-7cad-4b06-be7c-3572389021a0.jpg" alt="Collection Sacrée"></figure><h3>Collection<br><em>Sacrée</em></h3><p>Des matières choisies pour accompagner les passages et les rituels profonds.</p><button class="order-trigger" data-product="Collection Sacrée">Ouvrir le coffret <span>→</span></button></article>
-        <article class="collection reveal"><div class="collection-top"><span>III</span><p>Herbes · résines</p></div><figure><img src="https://www.image2url.com/r2/default/images/1786461053402-99eb9be0-f080-4a9d-8d57-9aebc04f24f8.jpg" alt="Collection Sauvage"></figure><h3>Collection<br><em>Sauvage</em></h3><p>Cueillie dans la nature pour retrouver une relation plus brute au vivant.</p><button class="order-trigger" data-product="Collection Sauvage">Ouvrir le coffret <span>→</span></button></article>
-      </div>
-    </section>
-
-    <section class="founder" id="fondatrice">
-      <div class="founder-image reveal"><div><img src="https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/ChatGPT%20Image%2031%20ao%C3%BBt%202026%2C%2015_25_03.png" alt="Asmaa Belh"></div><p>Asmaa Belh · Fondatrice</p></div>
-      <article class="founder-story reveal delayed"><p class="overline">La gardienne du récit</p><h2>Une histoire<br>de transmission.</h2><p class="founder-lead">ORR est né d’une volonté de transmettre et de rassembler.</p><p>Son cheminement, ses rencontres et ses questionnements ont conduit Asmaa à créer un espace où les rituels, les savoirs ancestraux et la mémoire du corps peuvent être honorés sans être figés.</p><blockquote>« Redonner au corps sa place sacrée<br>et au geste sa profondeur. »</blockquote><span class="signature">Asmaa BELH</span></article>
-    </section>
-
-    <section class="circle" id="cercle"><div class="circle-inner reveal"><p class="overline dark">La communauté</p><span class="circle-symbol">✦</span><h2>Le cercle ORR</h2><p>Un espace intime de transmission, de masterclasses et de retraites au Maroc.</p><form id="newsletter"><label for="mail">Recevoir la lettre privée</label><div><input id="mail" type="email" required placeholder="Votre adresse e-mail"><button>S’inscrire</button></div></form></div></section>
-  </main>
-
-  <footer><div class="footer-brand">ORR</div><p>Origin Rituals & Revelations</p><a href="mailto:contact@orr-universe.com">contact@orr-universe.com</a><div><span>Tous droits réservés</span></div></footer>
-
-  <div class="modal-backdrop" id="modalBackdrop" hidden>
-    <div class="order-modal" role="dialog" aria-modal="true">
-      <button class="modal-close" id="modalClose" aria-label="Fermer">×</button>
-      <div id="orderContent"><p class="overline dark">Commande privée</p><h2>Votre rituel<br><em>commence ici.</em></h2><p class="chosen" id="chosenProduct"></p><form id="orderForm"><label>Nom complet<input required></label><label>Adresse e-mail<input type="email" required></label><label>Téléphone<input type="tel" required></label><label>Votre intention<textarea rows="3"></textarea></label><button type="submit">Confier ma demande à ORR</button></form></div>
-      <div class="thanks" id="thanks" hidden><span>✦</span><h2>Merci.</h2><p>Votre demande a bien été reçue. L’équipe ORR vous contactera prochainement.</p><button id="thanksClose">Refermer</button></div>
-    </div>
-  </div>
-
-  <script>
-    const threshold = document.getElementById('threshold');
-const menuButton = document.getElementById('menuButton');
-const navLinks = document.getElementById('navLinks');
-const backdrop = document.getElementById('modalBackdrop');
-const modalClose = document.getElementById('modalClose');
-const thanksClose = document.getElementById('thanksClose');
-const orderForm = document.getElementById('orderForm');
-const orderContent = document.getElementById('orderContent');
-const thanks = document.getElementById('thanks');
-const chosenProduct = document.getElementById('chosenProduct');
-
-function openThreshold() { threshold.classList.add('threshold-open'); }
-setTimeout(openThreshold, 2300);
-threshold.addEventListener('click', openThreshold);
-
-function updateScroll() {
-  const max = document.documentElement.scrollHeight - window.innerHeight;
-  document.documentElement.style.setProperty('--story-progress', max ? window.scrollY / max : 0);
-  document.body.classList.toggle('has-scrolled', window.scrollY > 45);
-}
-window.addEventListener('scroll', updateScroll, { passive: true });
-updateScroll();
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('seen'); });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
-
-menuButton.addEventListener('click', () => {
-  menuButton.classList.toggle('active');
-  navLinks.classList.toggle('open');
-});
-navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-  menuButton.classList.remove('active');
-  navLinks.classList.remove('open');
-}));
-
-function openModal(product) {
-  chosenProduct.textContent = product;
-  orderContent.hidden = false;
-  thanks.hidden = true;
-  backdrop.hidden = false;
-  document.body.style.overflow = 'hidden';
-}
-function closeModal() {
-  backdrop.hidden = true;
-  document.body.style.overflow = '';
-  orderForm.reset();
-}
-document.querySelectorAll('.order-trigger').forEach(button => {
-  button.addEventListener('click', () => openModal(button.dataset.product));
-});
-modalClose.addEventListener('click', closeModal);
-thanksClose.addEventListener('click', closeModal);
-backdrop.addEventListener('click', event => { if (event.target === backdrop) closeModal(); });
-document.addEventListener('keydown', event => { if (event.key === 'Escape' && !backdrop.hidden) closeModal(); });
-
-orderForm.addEventListener('submit', event => {
-  event.preventDefault();
-  orderContent.hidden = true;
-  thanks.hidden = false;
-});
-document.getElementById('newsletter').addEventListener('submit', event => {
-  event.preventDefault();
-  alert('Merci. Votre inscription à la lettre ORR a bien été reçue.');
-  event.currentTarget.reset();
-});
-
-  </script>
-</body>
-</html>
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="ORR — Maison de rituels inspirée des savoirs ancestraux marocains."><meta name="theme-color" content="#4a0810"><title>ORR — Origin Rituals & Revelations</title><style>@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap');:root{--story-progress:0;--wine:#6e0b14;--blood:#4a0810;--wine-soft:#8b2030;--clay:#8a5a3e;--earth:#3a241b;--ink:#2b1c16;--parchment:#dfccb0;--old-ivory:#eee0c7;--brass:#aa8350;--fade:#c8a879}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#2a150f;color:var(--ink);font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;overflow-x:hidden}a{color:inherit;text-decoration:none}button,input,textarea{font:inherit;color:inherit}button{cursor:pointer}img{display:block;width:100%}main p,footer p,blockquote{font-weight:600}.manifesto-text>p:not(.overline),.origins-intro>p:last-child,.chapter-copy>p:last-child,.matter-panel>p:not(.overline),.creations-head>p:last-child,.collection>p,.founder-story>p:not(.overline),.circle-inner>p:not(.overline),.hero-inscription p{font-weight:600}.grain{position:fixed;z-index:200;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.42' filter='url(%23n)'/%3E%3C/svg%3E")}.age-patina{position:fixed;z-index:199;inset:0;pointer-events:none;box-shadow:inset 0 0 150px rgba(35,14,7,.3);background:repeating-linear-gradient( 90deg,transparent 0,transparent 5px,rgba(79,41,23,.012) 6px )}.reveal{opacity:0;transform:translateY(45px) rotate(.35deg);transition:opacity 1.15s ease,transform 1.25s cubic-bezier(.16,1,.3,1)}.reveal.delayed{transition-delay:.16s}.reveal.seen{opacity:1;transform:none}.overline{margin:0;font-family:'IM Fell English SC',serif;text-transform:uppercase;letter-spacing:.24em;font-size:14px;color:#d6b47f}.overline.dark{color:var(--wine)}body::before,body::after{position:fixed;top:50%;z-index:70;transform:translateY(-50%);pointer-events:none;writing-mode:vertical-rl;font-size:18px;line-height:2;color:rgba(210,169,105,.55);letter-spacing:.18em;text-shadow:0 0 10px rgba(60,15,10,.35)}body::before{content:"ⵣ ◆ ⵉ ◇ ⵣ ✦ ⵎ ◆ ⵣ ◇ ⵜ ✦ ⵣ ◆ ⵉ ◇ ⵣ";left:10px}body::after{content:"ⵣ ✦ ⵜ ◇ ⵣ ◆ ⵎ ✦ ⵣ ◇ ⵉ ◆ ⵣ ✦ ⵜ ◇ ⵣ";right:10px;transform:translateY(-50%) rotate(180deg)}.story-thread{position:fixed;z-index:78;left:39px;top:105px;bottom:35px;width:1px;background:rgba(237,210,169,.18);pointer-events:none}.story-thread span{display:block;width:1px;height:calc(var(--story-progress) * 100%);background:#c9a56d;box-shadow:0 0 8px #bc8951}.amazigh-corner{position:absolute;z-index:5;font-size:28px;color:rgba(121,72,42,.38);pointer-events:none;user-select:none;line-height:1}.amazigh-corner.light{color:rgba(220,182,125,.32)}.amazigh-top-left{top:20px;left:22px}.amazigh-top-right{top:20px;right:22px}.amazigh-bottom-left{bottom:20px;left:22px}.amazigh-bottom-right{bottom:20px;right:22px}.amazigh-strip{display:flex;align-items:center;justify-content:flex-start;gap:13px;margin:22px 0;color:rgba(111,47,32,.65);font-size:16px;letter-spacing:.12em}.amazigh-strip::before,.amazigh-strip::after{content:"";width:55px;border-top:1px solid currentColor;opacity:.45}.amazigh-strip.light{color:rgba(217,177,117,.62)}.amazigh-vertical{position:absolute;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:16px;font-size:14px;opacity:.34;pointer-events:none}.amazigh-vertical.left{left:12px}.amazigh-vertical.right{right:12px}.site-nav{position:fixed;z-index:100;top:0;left:0;width:100%;height:98px;padding:0 4.5vw;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;color:#eadac2;transition:.5s}.has-scrolled .site-nav{height:72px;background:rgba(49,10,11,.94);border-bottom:1px solid rgba(210,169,109,.22);backdrop-filter:blur(10px)}.site-nav .logo{height:34px;width:auto;display:flex;align-items:center;flex-shrink:0}.site-nav .logo img{height:100%;width:auto;filter:brightness(0) invert(1);opacity:.95}.nav-links{display:flex;gap:40px}.nav-links a,.nav-circle{font-family:'IM Fell English SC';font-size:18px;letter-spacing:.15em;position:relative}.nav-links a::before{content:'ⵣ';position:absolute;left:50%;top:-20px;transform:translateX(-50%);font-size:9px;color:#bd925a;opacity:0;transition:.3s}.nav-links a:hover::before{opacity:1}.nav-circle{justify-self:end;border:1px solid rgba(211,171,114,.55);padding:10px 17px;box-shadow:inset 0 0 0 3px rgba(120,65,39,.25)}.menu-button{display:none;background:none;border:0}.hero{height:100svh;min-height:760px;position:relative;overflow:hidden;color:#f0dec0}.hero-bg{position:absolute;inset:-3%;background:url('https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/orr-hero-ancient.webp') center/cover no-repeat;animation:heroBreath 18s ease-in-out infinite alternate}.hero-shadow{position:absolute;inset:0;background:linear-gradient( 90deg,rgba(27,8,5,.82) 0%,rgba(31,10,7,.38) 48%,rgba(26,7,5,.46) ),linear-gradient( 0deg,rgba(30,6,6,.72),transparent 50%,rgba(27,7,4,.25) )}@keyframes heroBreath{to{transform:scale(1.045)}}.hero-copy{position:absolute;z-index:2;left:10vw;top:51%;transform:translateY(-50%)}.hero-copy h1{color:rgb(217 177 117 / 80%);font-weight:400;margin:24px 0 0;line-height:.72;font-size:clamp(70px,9vw,140px);text-shadow:0 3px 22px #2a0907}.hero-copy h1 span,.hero-copy h1 em{display:block}.hero-copy h1 span{font-family:'IM Fell English',serif}.hero-copy h1 em{font-family:'Cormorant Garamond';font-weight:400;color:#d5af78;margin-left:1.05em}.hero-inscription{margin:48px 0 0 70px;display:flex;gap:22px;align-items:center}.hero-inscription i{font-style:normal;font-size:14px;border:1px solid #c19a62;border-radius:50%;width:43px;height:43px;display:grid;place-items:center}.hero-inscription p{font-style:italic;font-size:20px;line-height:1.4;margin:0}.enter-link{position:absolute;z-index:3;right:7vw;bottom:6vh;width:130px;height:130px;border:1px solid rgba(219,183,132,.55);border-radius:50%;display:grid;place-items:center;text-align:center;font-family:'IM Fell English SC';font-size:15px;letter-spacing:.1em;background:rgba(70,13,18,.35);transition:.5s}.enter-link::before{content:'ⵣ ⵣ ⵣ';position:absolute;inset:7px;border:1px dashed rgba(218,180,125,.45);border-radius:50%;display:grid;place-items:end center;padding-bottom:11px;font-size:7px;letter-spacing:.25em}.enter-link:hover{transform:rotate(8deg);background:#6e0b14}.enter-link i{font-style:normal;position:absolute;bottom:17px}.hero-folio{position:absolute;right:4vw;top:50%;writing-mode:vertical-rl;text-transform:uppercase;font-family:'IM Fell English SC';font-size:11px;letter-spacing:.35em}.manifesto{min-height:1050px;padding:160px 8vw 140px 10vw;display:grid;grid-template-columns:130px 1.08fr .82fr;gap:5vw;align-items:center;position:relative;background-color:#b98d66;background-image:linear-gradient( 90deg,rgba(68,39,24,.12),transparent 18%,rgba(238,211,169,.14) 55%,rgba(80,43,24,.16) ),url('https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/ChatGPT%20Image%2031%20ao%C3%BBt%202026%2C%2010_24_04.png');background-size:cover;background-position:center}.manifesto::after{content:'';position:absolute;inset:23px;border:1px solid rgba(83,48,30,.35);pointer-events:none}.cloth-edge{position:absolute;right:0;top:0;bottom:0;width:34%;background:linear-gradient( 90deg,transparent,rgba(65,20,19,.12) );border-left:1px solid rgba(95,50,33,.22)}.margin-note{align-self:start;padding-top:70px;text-align:center;position:relative;z-index:2}.margin-note span{font-family:'IM Fell English';font-size:74px;color:rgb(79 37 22)}.manifesto-text{position:relative;z-index:2;background:rgba(227,202,165,.78);padding:65px 55px;box-shadow:0 18px 55px rgba(53,25,13,.19),inset 0 0 55px rgba(114,73,43,.15);clip-path:polygon(.7% 0,99.4% .5%,100% 98.8%,68% 99.4%,43% 99%,0 100%)}.manifesto-text::before{content:"ⵣ ◇ ⵣ";position:absolute;top:16px;right:23px;color:rgba(91,41,29,.35);font-size:14px;letter-spacing:.3em}.manifesto-text::after{content:"ⵉ";position:absolute;bottom:20px;right:22px;font-size:105px;color:rgba(91,41,29,.10);transform:rotate(-8deg)}.manifesto-text h2,.origins h2,.matter h2,.creations h2,.founder h2,.circle h2,.order-modal h2{font-family:'IM Fell English';font-size:clamp(55px,6vw,90px);line-height:1;font-weight:400;margin:25px 0 30px}.manifesto-text h2 em,.origins h2 em,.matter h2 em,.order-modal h2 em{font-family:'Cormorant Garamond';font-weight:400;color:var(--wine)}.ornament{width:180px;display:flex;align-items:center;gap:12px;color:var(--wine);margin:30px 0}.ornament::before,.ornament::after{content:'';flex:1;border-top:1px solid}.ornament span{font-size:13px}.manifesto-text>p:not(.overline){line-height:1.7}.dropcap::first-letter{float:left;font-family:'IM Fell English';font-size:77px;line-height:.7;color:var(--wine);margin:12px 9px 0 0}.manifesto-text blockquote{font-style:italic;color:var(--wine);font-size:24px;margin:38px 0 0;padding-top:25px;border-top:1px solid rgba(87,46,27,.3)}.origins{position:relative;padding:160px 10vw 190px;color:#ead8bc;background:#35100e;overflow:hidden}.origins::before{content:'';position:absolute;inset:0;background:url('https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/WhatsApp%20Image%202026-08-15%20at%2019.13.40.jpeg') center/cover fixed no-repeat;opacity:.36;filter:saturate(.75)}.origins::after{content:'';position:absolute;inset:0;background:linear-gradient( 90deg,rgba(35,7,7,.85),rgba(53,11,11,.55) 45%,rgba(42,8,8,.85) ),linear-gradient( 0deg,#310b0b 0%,transparent 25%,transparent 75%,#310b0b 100% )}.origins-intro,.chapters{position:relative;z-index:2}.origins-intro{max-width:780px;margin-left:auto;margin-bottom:130px}.origins-intro h2 em{color:#d3aa70}.origins-intro>p:last-child{font-style:italic;color:#c9ad87}.chapters{max-width:1050px}.chapter{position:relative;display:grid;grid-template-columns:105px 1fr;gap:55px;align-items:start;margin:0 0 70px;padding:45px 60px 50px 20px;border-top:1px solid rgba(219,183,132,.28);background:linear-gradient( 90deg,rgba(63,15,15,.72),rgba(52,15,12,.25) );box-shadow:0 22px 65px rgba(15,3,2,.12);overflow:hidden}.chapter:nth-child(even){margin-left:14vw}.chapter::before{content:"ⵣ ⵣ ⵣ";position:absolute;right:18px;top:12px;font-size:11px;letter-spacing:.25em;color:rgba(211,170,109,.35)}.chapter::after{content:"ⵢ";position:absolute;right:18px;bottom:-20px;font-size:95px;color:rgba(211,170,109,.06);transform:rotate(12deg)}.chapter-medallion{width:85px;height:85px;border:1px solid rgba(214,175,118,.5);border-radius:50%;display:grid;place-items:center;font-family:'IM Fell English';font-size:27px;box-shadow:inset 0 0 0 7px rgba(155,103,58,.08)}.chapter-copy>p:first-child{margin:0;font-family:'IM Fell English SC';text-transform:uppercase;letter-spacing:.2em;font-size:17px;color:#c9a064}.chapter-copy h3{font-family:'IM Fell English';font-weight:400;font-size:48px;margin:9px 0 8px}.chapter-copy>p:last-child{line-height:1.75;color:#d4bea0;max-width:700px;margin:16px 0 0}.hand-rule{font-size:12px;color:#c59b60;display:flex;align-items:center;gap:12px}.hand-rule::before,.hand-rule::after{content:'';width:50px;border-top:1px solid rgba(200,158,97,.5)}.matter{min-height:860px;padding:140px 8vw;display:flex;align-items:center;justify-content:flex-end;position:relative;color:#ead7b8;background:url('https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/orr-library.webp') center/cover no-repeat}.matter::before{content:'';position:absolute;inset:0;background:linear-gradient( 90deg,rgba(54,18,12,.15),rgba(46,7,11,.44) 55%,rgba(40,6,9,.78) )}.matter-panel{position:relative;max-width:610px;padding:65px 65px 55px;background:rgba(65,15,16,.83);border:1px solid rgba(216,174,117,.35);box-shadow:0 18px 55px rgba(42,10,7,.35),inset 0 0 70px rgba(24,5,4,.2)}.matter-panel::before{content:"ⴴ";position:absolute;left:13px;top:12px;width:55px;height:55px;border-left:1px solid #b78d55;border-top:1px solid #b78d55;padding:8px 0 0 10px;font-size:18px;color:rgba(215,175,113,.55)}.matter-panel::after{content:"ⵣ";position:absolute;right:13px;bottom:12px;width:55px;height:55px;border-right:1px solid #b78d55;border-bottom:1px solid #b78d55;display:flex;align-items:flex-end;justify-content:flex-end;padding:0 10px 8px 0;font-size:18px;color:rgba(215,175,113,.55)}.matter h2 em{color:#d7ac71}.matter-panel>p:not(.overline){font-style:italic;line-height:1.7;color:#d5bf9f}.elements{display:flex;flex-wrap:wrap;gap:10px;margin-top:35px}.elements span{font-family:'IM Fell English SC';font-size:18px;letter-spacing:.15em;border:1px solid rgba(207,167,110,.35);padding:8px 11px;background:rgba(37,7,7,.26)}.creations{padding:150px 7vw 175px;position:relative;background-color:#c7a77d;background-image:linear-gradient( 100deg,rgba(95,53,31,.12),transparent 50%,rgba(72,33,22,.12) )}.creations::before{content:'ⵣ · HERBIER · ⵣ · RITUELS · ⵣ · ORR';position:absolute;left:28px;top:50%;writing-mode:vertical-rl;transform:translateY(-50%) rotate(180deg);font-family:'IM Fell English SC';letter-spacing:.32em;font-size:13px;color:rgba(72,33,20,.55)}.creations-head{text-align:center;max-width:700px;margin:0 auto 95px}.creations-head h2{color:var(--wine)}.creations-head .ornament{margin:30px auto}.collection-ledger{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}.collection{position:relative;background:#d9c09a;padding:13px 13px 42px;box-shadow:7px 10px 0 rgba(83,44,26,.12);border:1px solid rgba(67,34,22,.42);overflow:hidden}.collection::before{content:"ⵣ ◇ ⵣ";position:absolute;right:16px;bottom:10px;font-size:10px;color:rgba(83,44,26,.40);letter-spacing:.2em}.collection::after{content:"ⵣ";position:absolute;left:-4px;bottom:-20px;font-size:80px;color:rgba(80,40,24,.055);transform:rotate(-10deg)}.collection:nth-child(2){transform:translateY(35px) rotate(.5deg)}.collection-top{height:52px;display:flex;justify-content:space-between;align-items:center;padding:0 10px;border-bottom:1px solid rgba(70,38,25,.26)}.collection-top span{font-family:'IM Fell English';font-size:23px;color:var(--wine)}.collection-top p{font-family:'IM Fell English SC';font-size:17px;letter-spacing:.16em}.collection figure{margin:13px 0 28px;overflow:hidden;border:1px solid rgba(55,30,21,.45);height:410px}.collection figure img{height:100%;object-fit:cover;filter:sepia(.65) saturate(.65) contrast(.95);transition:1s}.collection:hover figure img{transform:scale(1.05);filter:sepia(.35) saturate(.8)}.collection h3{font-family:'IM Fell English';font-size:34px;font-weight:400;line-height:.85;margin:0 18px 18px}.collection h3 em{font-family:'Cormorant Garamond';font-size:45px;color:var(--wine);font-weight:400}.collection>p{margin:0 18px;line-height:1.6;color:#54392b}.collection button{background:none;border:0;border-bottom:1px solid var(--wine);padding:0 0 6px;margin:28px 18px 0;font-family:'IM Fell English SC';font-size:17px;letter-spacing:.1em;color:var(--wine)}.founder{min-height:970px;padding:150px 9vw;display:grid;grid-template-columns:.75fr 1fr;gap:9vw;align-items:center;color:#ead6b6;position:relative;background:url('https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/ChatGPT%20Image%2031%20ao%C3%BBt%202026%2C%2016_30_29.png') center/cover no-repeat}.founder::before{content:'';position:absolute;inset:0;background:linear-gradient( 90deg,rgba(36,7,6,.45),rgba(40,6,8,.84) 59%,rgba(30,5,6,.93) )}.founder-image,.founder-story{position:relative;z-index:2}.founder-image>div{position:relative;padding:12px;border:1px solid rgba(207,165,107,.52);background:rgba(73,31,20,.55);box-shadow:18px 20px 55px rgba(17,3,2,.45)}.founder-image>div::before{content:"ⵎ";position:absolute;z-index:2;top:20px;left:20px;width:42px;height:42px;display:grid;place-items:center;border:1px solid rgba(215,178,118,.55);border-radius:50%;background:rgba(63,10,13,.5);color:#d9b77d}.founder-image img{height:610px;object-fit:cover}.founder-image>p{text-align:center;font-family:'IM Fell English SC';font-size:17px;letter-spacing:.18em}.founder-story{padding:55px 0}.founder-story h2{font-size:clamp(55px,6vw,88px)}.founder-story>p:not(.overline){max-width:650px;line-height:1.8;color:#d5bea0}.founder-lead{font-style:italic;font-size:24px !important;color:#e2caa8 !important}.founder-story blockquote{font-size:24px;font-style:italic;margin:42px 0 0;padding:28px 0;border-top:1px solid rgba(207,166,109,.35);border-bottom:1px solid rgba(207,166,109,.35);color:#dcb982}.signature{font-family:'Cormorant Garamond';font-size:55px;font-style:italic;display:block;text-align:right;margin-top:25px;color:#ba8c54;transform:rotate(-6deg)}.circle{padding:140px 20px;position:relative;background-color:#b78662;background-image:linear-gradient( rgba(201,163,115,.48),rgba(173,121,82,.65) ),url('https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/orr-encens.png');background-size:cover;background-position:center}.circle-inner{max-width:760px;margin:auto;padding:80px 65px;text-align:center;background:rgb(226 202 165);border:1px solid rgba(73,38,23,.45);box-shadow:0 17px 55px rgba(53,24,12,.2),inset 0 0 55px rgba(111,67,38,.12);position:relative}.circle-inner::before{content:'';position:absolute;inset:12px;border:1px solid rgba(90,48,28,.25)}.circle-symbol{display:block;color:var(--wine);margin:22px 0 5px;font-size:28px}.circle h2{color:var(--wine);margin-top:10px}.circle-inner>p:not(.overline){font-style:italic}.circle form{max-width:500px;margin:45px auto 0}.circle form label{font-family:'IM Fell English SC';font-size:22px;letter-spacing:.15em}.circle form div{display:flex;margin-top:13px;border-bottom:1px solid var(--ink)}.circle input{flex:1;padding:14px 5px;background:none;border:0;outline:0;font-style:italic}.circle form button{border:0;background:none;font-family:'IM Fell English SC';font-size:19px;color:var(--wine)}footer{position:relative;padding:95px 7vw 35px;text-align:center;color:#d7bc94;background:#260708;border-top:1px solid #7e4b2f}.footer-brand{font-family:'IM Fell English SC';font-size:110px;line-height:.8;letter-spacing:.12em}footer>.footer-brand+p{font-family:'IM Fell English SC';font-size:18px;letter-spacing:.35em;margin:25px 0}footer>a{font-style:italic}footer>div:last-child{display:flex;justify-content:space-between;margin-top:70px;padding-top:25px;border-top:1px solid rgba(210,168,108,.22);font-family:'IM Fell English SC';font-size:16px;letter-spacing:.18em}.modal-backdrop{position:fixed;z-index:300;inset:0;background:rgba(26,4,5,.86);display:grid;place-items:center;padding:22px;backdrop-filter:blur(8px)}.order-modal{width:min(670px,100%);max-height:92vh;overflow:auto;padding:65px;background-color:#dbc39f;background-image:radial-gradient( circle at 30% 20%,rgba(248,226,190,.35),transparent 32% );border:1px solid #7c4c2d;box-shadow:0 0 0 8px #dbc39f,0 0 0 9px #9d7044;position:relative}.order-modal::before{content:"ⵣ ◇ ⵣ";position:absolute;left:22px;bottom:17px;font-size:11px;color:rgba(86,43,29,.48);letter-spacing:.25em}.modal-close{position:absolute;right:22px;top:15px;border:0;background:none;font-family:'IM Fell English';font-size:32px}.order-modal h2{font-size:58px;margin:20px 0}.chosen{font-style:italic;color:var(--wine);padding-bottom:18px;border-bottom:1px solid rgba(73,39,25,.3)}.order-modal form{display:grid;grid-template-columns:1fr 1fr;gap:23px;margin-top:30px}.order-modal label{display:flex;flex-direction:column;font-family:'IM Fell English SC';font-size:17px;letter-spacing:.12em}.order-modal label:last-of-type{grid-column:1 / -1}.order-modal input,.order-modal textarea{background:none;border:0;border-bottom:1px solid rgba(70,37,24,.35);padding:9px 0;outline:0;font-family:'Cormorant Garamond';font-size:17px;letter-spacing:0}.order-modal form>button{grid-column:1 / -1;padding:16px;border:1px solid #6f2b27;background:#5d1015;color:#ecd4b1;font-family:'IM Fell English SC';font-size:19px;letter-spacing:.12em}.thanks{text-align:center;padding:30px}.thanks>span{color:var(--wine)}.thanks p{line-height:1.7}@media (max-width:900px){body{font-size:16px}body::before,body::after{font-size:11px;opacity:.34}body::before{left:2px}body::after{right:2px}.story-thread{display:none}.site-nav{height:72px;padding:0 22px;grid-template-columns:1fr auto}.nav-circle{display:none}.menu-button{display:flex;flex-direction:column;gap:7px;width:35px;padding:8px;border:0;z-index:2}.menu-button span{border-top:1px solid #eadac2;width:25px;transition:.3s}.menu-button.active span:first-child{transform:translateY(4px) rotate(45deg)}.menu-button.active span:last-child{transform:translateY(-4px) rotate(-45deg)}.nav-links{position:fixed;inset:0;background:#410c11;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;opacity:0;visibility:hidden;transition:.45s}.nav-links.open{opacity:1;visibility:visible}.nav-links a{font-family:'IM Fell English';font-size:32px}.hero{min-height:700px}.hero-bg{inset:0}.hero-copy{left:32px;right:25px;top:48%}.hero-copy h1{font-size:clamp(58px,18vw,88px);line-height:.8}.hero-copy h1 em{margin-left:.35em}.hero-inscription{margin:34px 0 0 10px}.enter-link{width:92px;height:92px;right:25px;bottom:35px;font-size:8px}.hero-folio{display:none}.manifesto{padding:110px 25px 100px;display:block;min-height:0}.manifesto::after{inset:10px}.margin-note{display:none}.manifesto-text{padding:48px 28px}.manifesto-text h2,.origins h2,.matter h2,.creations h2,.founder h2,.circle h2{font-size:50px}.origins{padding:110px 24px}.origins::before{background-attachment:scroll;background-position:38% center}.origins-intro{margin-bottom:70px}.chapter,.chapter:nth-child(even){grid-template-columns:55px 1fr;gap:18px;margin-left:0;padding:30px 10px 40px 0}.chapter-medallion{width:52px;height:52px;font-size:18px}.chapter-copy h3{font-size:36px}.matter{min-height:760px;padding:90px 20px;background-position:64% center}.matter-panel{padding:48px 30px}.creations{padding:105px 18px 130px}.creations::before{display:none}.collection-ledger{grid-template-columns:1fr;gap:35px}.collection,.collection:nth-child(2){max-width:480px;margin:auto;transform:none}.collection figure{height:420px}.founder{padding:105px 24px;display:block;background-position:30% center}.founder::before{background:rgba(41,6,8,.82)}.founder-image{width:87%;margin:auto}.founder-image img{height:480px}.founder-story{margin-top:65px}.circle{padding:85px 15px}.circle-inner{padding:60px 25px 80px}.footer-brand{font-size:75px}footer>div:last-child{flex-direction:column;gap:14px}.order-modal{padding:50px 25px}.order-modal form{grid-template-columns:1fr}.order-modal label:last-of-type,.order-modal form>button{grid-column:auto}}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-bg{animation:none}.reveal{opacity:1;transform:none;transition:none}}[hidden]{display:none !important}</style></head><body><div class="grain" aria-hidden="true"></div><div class="age-patina" aria-hidden="true"></div><div class="story-thread" aria-hidden="true"><span></span></div><header class="site-nav"><a href="#accueil" class="logo" aria-label="ORR — Accueil"><img
+ src="https://www.image2url.com/r2/default/images/1786963418142-bf624e31-8ef5-48ec-9139-ce2e816b8794.png"
+ alt="ORR"></a><nav class="nav-links" id="navLinks"><a href="#manifeste">Le manifeste</a><a href="#origines">Les origines</a><a href="#creations">Les créations</a><a href="#fondatrice">La fondatrice</a></nav><a class="nav-circle" href="#cercle">Le cercle</a><button class="menu-button" id="menuButton"><span></span><span></span></button></header><main><section class="hero" id="accueil"><div class="hero-bg"></div><div class="hero-shadow"></div><div class="hero-arch"></div><div class="hero-copy"><p class="overline">
+ Maison marocaine de rituels
+ </p><div class="amazigh-strip light">
+ ◆
+ </div><h1><span>Des rituels</span><em>d’hier pour vivre</em><span style="padding: 10px;">aujourd’hui</span></h1><div class="hero-inscription"><i>ⵣ</i><p>
+ Habiter le bas du corps,<br>
+ là où vibre la vie.
+ </p></div></div><a class="enter-link" href="#manifeste"><span>
+ Entrer dans<br>
+ le récit
+ </span><i>↓</i></a></section><section class="manifesto" id="manifeste"><aside class="margin-note reveal"><span>01</span></aside><article class="manifesto-text reveal"><p class="overline dark">Le manifeste</p><div class="amazigh-strip">
+ ◇
+ </div><h2>
+ Retrouver le<br><em>langage oublié.</em></h2><p class="dropcap">
+ Tu as appris à chercher les réponses partout.
+ Et si les réponses les plus précieuses se trouvaient déjà
+ là où tout commence ?
+ </p><div class="amazigh-strip">
+ ⵣ ◇ ⵣ
+ </div><p>
+ Ton corps porte une mémoire plus ancienne que les mots.
+ Il connaît le rythme, les saisons, les gestes et les silences.
+ ORR lui redonne un espace pour parler.
+ </p><blockquote>
+ « Habiter le bas du corps,<br>
+ là où vibre la vie. »
+ </blockquote></article></section><section class="origins" id="origines"><div class="origins-intro reveal"><p class="overline">
+ Les origines
+ </p><div class="amazigh-strip light">
+ ⵣ ◆ ⵣ ◆ ⵣ
+ </div><h2>
+ Ce que la terre<br><em>n’oublie jamais.</em></h2><p>
+ Revenir à l’essentiel, là où tout commence.
+ </p></div><div class="chapters"><article class="chapter reveal"><div class="chapter-medallion">I</div><div class="chapter-copy"><p>La terre se souvient</p><h3>Les racines</h3><span class="hand-rule">ⵣ</span><p>
+ Avant les tendances et les formulations modernes,
+ il y avait les gestes.
+ Simples, liés à la terre, aux saisons et à la vie quotidienne.
+ Transmis de mère en fille, ils n’avaient pas besoin
+ d’être expliqués pour être compris.
+ </p></div></article><article class="chapter reveal"><div class="chapter-medallion">II</div><div class="chapter-copy"><p>Ce qui demeure</p><h3>La transmission</h3><span class="hand-rule">ⵣ</span><p>
+ Les savoirs ancestraux vivent dans les gestes que l’on répète,
+ les matières que l’on reconnaît et les histoires que l’on raconte
+ à voix basse.
+ La transmission relie hier à aujourd’hui.
+ </p></div></article><article class="chapter reveal"><div class="chapter-medallion">III</div><div class="chapter-copy"><p>Le savoir des femmes</p><h3>L’observation</h3><span class="hand-rule">ⵣ</span><p>
+ Pendant des générations, les femmes ont observé leur environnement,
+ connu les propriétés des matières et appris à les inviter
+ naturellement dans leur quotidien.
+ </p></div></article><article class="chapter reveal"><div class="chapter-medallion">IV</div><div class="chapter-copy"><p>Le langage sensible</p><h3>La matière</h3><span class="hand-rule">ⵣ</span><p>
+ La terre. Le végétal. Le minéral. L’eau. Le feu.
+ Des matières brutes, imparfaites,
+ dont la texture, le parfum et le poids
+ portent encore une histoire.
+ </p></div></article></div></section><section class="matter"><div class="matter-panel reveal"><p class="overline">
+ Traité de la matière
+ </p><div class="amazigh-strip light">
+ ⵣ ◇ ⵣ
+ </div><h2>
+ Toucher.<br>
+ Sentir.<br><em>Se souvenir.</em></h2><p>
+ Une matière ne se regarde pas seulement.
+ Elle se reçoit par la peau,
+ par le souffle,
+ par la mémoire.
+ </p><div class="amazigh-strip light">
+ ⵣ ◆ ⵣ ◆ ⵣ
+ </div><div class="elements"><span>Terre</span><span>Eau</span><span>Feu</span><span>Végétal</span><span>Minéral</span></div></div></section><section class="creations" id="creations"><header class="creations-head reveal"><p class="overline dark">
+ Herbier cérémoniel
+ </p><div class="amazigh-strip"style="justify-content:center">
+ ⵣ ◆ ⵣ ◇ ⵣ
+ </div><h2>Les créations</h2><p>
+ Chaque composition est pensée comme un passage :
+ une matière, un geste, une intention.
+ </p></header><div class="collection-ledger"><article class="collection reveal"><div class="collection-top"><span>I</span><p>Sel · plante · encens</p></div><figure><img
+ src="https://www.image2url.com/r2/default/images/1786459457358-1dbb6d45-c10b-4fad-9430-d0d0b8828760.jpg"
+ alt="Collection Lunaire"></figure><div class="amazigh-strip">
+ ⵣ ◇ ⵣ
+ </div><h3>
+ Collection<br><em>Lunaire</em></h3><p>
+ Une composition accordée aux phases de la lune
+ et aux silences de la nuit.
+ </p><button
+ class="order-trigger"
+ data-product="Collection Lunaire">
+ Ouvrir le coffret →
+ </button></article><article class="collection reveal"><div class="collection-top"><span>II</span><p>Cérémonie · passage</p></div><figure><img
+ src="https://www.image2url.com/r2/default/images/1786460751758-5dbd4967-7cad-4b06-be7c-3572389021a0.jpg"
+ alt="Collection Sacrée"></figure><div class="amazigh-strip">
+ ⵣ ◆ ⵣ
+ </div><h3>
+ Collection<br><em>Sacrée</em></h3><p>
+ Des matières choisies pour accompagner
+ les passages et les rituels profonds.
+ </p><button
+ class="order-trigger"
+ data-product="Collection Sacrée">
+ Ouvrir le coffret →
+ </button></article><article class="collection reveal"><div class="collection-top"><span>III</span><p>Herbes · résines</p></div><figure><img
+ src="https://www.image2url.com/r2/default/images/1786461053402-99eb9be0-f080-4a9d-8d57-9aebc04f24f8.jpg"
+ alt="Collection Sauvage"></figure><div class="amazigh-strip">
+ ⵣ ◇ ⵣ
+ </div><h3>
+ Collection<br><em>Sauvage</em></h3><p>
+ Cueillie dans la nature
+ pour retrouver une relation plus brute au vivant.
+ </p><button
+ class="order-trigger"
+ data-product="Collection Sauvage">
+ Ouvrir le coffret →
+ </button></article></div></section><section class="founder" id="fondatrice"><div class="founder-image reveal"><div><img
+ src="https://raw.githubusercontent.com/Imanebouras/Orrhealing/refs/heads/main/images/ChatGPT%20Image%2031%20ao%C3%BBt%202026%2C%2015_25_03.png"
+ alt="Asmaa Belh"></div><p>
+ ⵣ · Asmaa Belh · Fondatrice · ⵣ
+ </p></div><article class="founder-story reveal delayed"><p class="overline">
+ La gardienne du récit
+ </p><div class="amazigh-strip light">
+ ⵣ ◇ ⵣ ◆ ⵣ
+ </div><h2>
+ Une histoire<br>
+ de transmission.
+ </h2><p class="founder-lead">
+ ORR est né d’une volonté
+ de transmettre et de rassembler.
+ </p><p>
+ Son cheminement, ses rencontres et ses questionnements
+ ont conduit Asmaa à créer un espace où les rituels,
+ les savoirs ancestraux et la mémoire du corps
+ peuvent être honorés sans être figés.
+ </p><blockquote>
+ « Redonner au corps sa place sacrée<br>
+ et au geste sa profondeur. »
+ </blockquote><span class="signature">
+ Asmaa BELH
+ </span></article></section><section class="circle" id="cercle"><div class="circle-inner reveal"><p class="overline dark">
+ La communauté
+ </p><div class="amazigh-strip"style="justify-content:center">
+ ⵣ ◇ ⵣ ◆ ⵣ
+ </div><h2>
+ Le cercle ORR
+ </h2><p>
+ Un espace intime de transmission,
+ de masterclasses et de retraites au Maroc.
+ </p><form id="newsletter"><label for="mail">
+ Recevoir la lettre privée
+ </label><div><input
+ id="mail"
+ type="email"
+ required
+ placeholder="Votre adresse e-mail"><button>
+ S’inscrire
+ </button></div></form></div></section></main><footer><div class="footer-brand">
+ ORR
+ </div><p>
+ Origin Rituals & Revelations
+ </p><a href="mailto:contact@orr-universe.com">
+ contact@orr-universe.com
+ </a><div><span>
+ · Tous droits réservés ·
+ </span></div></footer><div
+ class="modal-backdrop"
+ id="modalBackdrop"
+ hidden><div
+ class="order-modal"
+ role="dialog"
+ aria-modal="true"><button
+ class="modal-close"
+ id="modalClose">
+ ×
+ </button><div id="orderContent"><p class="overline dark">
+ Commande privée
+ </p><div class="amazigh-strip">
+ ⵣ ◇ ⵣ
+ </div><h2>
+ Votre rituel<br><em>commence ici.</em></h2><p
+ class="chosen"
+ id="chosenProduct"></p><form id="orderForm"><label>
+ Nom complet
+ <input required></label><label>
+ Adresse e-mail
+ <input
+ type="email"
+ required></label><label>
+ Téléphone
+ <input
+ type="tel"
+ required></label><label>
+ Votre intention
+ <textarea rows="3"></textarea></label><button type="submit">
+ Confier ma demande à ORR
+ </button></form></div><div
+ class="thanks"
+ id="thanks"
+ hidden><span>ⵣ</span><h2>
+ Merci.
+ </h2><p>
+ Votre demande a bien été reçue.
+ L’équipe ORR vous contactera prochainement.
+ </p><button id="thanksClose">
+ Refermer
+ </button></div></div></div><script>const menuButton = document.getElementById('menuButton');const navLinks = document.getElementById('navLinks');const backdrop = document.getElementById('modalBackdrop');const modalClose = document.getElementById('modalClose');const thanksClose = document.getElementById('thanksClose');const orderForm = document.getElementById('orderForm');const orderContent = document.getElementById('orderContent');const thanks = document.getElementById('thanks');const chosenProduct = document.getElementById('chosenProduct');function updateScroll(){const max =
+ document.documentElement.scrollHeight -
+ window.innerHeight;document.documentElement.style.setProperty('--story-progress',max ? window.scrollY / max:0);document.body.classList.toggle('has-scrolled',window.scrollY > 45);}window.addEventListener('scroll',updateScroll,{passive:true});updateScroll();const observer =
+ new IntersectionObserver(entries =>{entries.forEach(entry =>{if(entry.isIntersecting){entry.target.classList.add('seen');}});},{threshold:0.12});document
+ .querySelectorAll('.reveal').forEach(element =>{observer.observe(element);});menuButton.addEventListener('click',()=>{menuButton.classList.toggle('active');navLinks.classList.toggle('open');});navLinks
+ .querySelectorAll('a').forEach(link =>{link.addEventListener('click',()=>{menuButton.classList.remove('active');navLinks.classList.remove('open');});});function openModal(product){chosenProduct.textContent = product;orderContent.hidden = false;thanks.hidden = true;backdrop.hidden = false;document.body.style.overflow = 'hidden';}function closeModal(){backdrop.hidden = true;document.body.style.overflow = '';orderForm.reset();}document
+ .querySelectorAll('.order-trigger').forEach(button =>{button.addEventListener('click',()=> openModal(button.dataset.product));});modalClose.addEventListener('click',closeModal);thanksClose.addEventListener('click',closeModal);backdrop.addEventListener('click',event =>{if(event.target === backdrop){closeModal();}});document.addEventListener('keydown',event =>{if(event.key === 'Escape' &&
+ !backdrop.hidden){closeModal();}});orderForm.addEventListener('submit',event =>{event.preventDefault();orderContent.hidden = true;thanks.hidden = false;});document
+ .getElementById('newsletter').addEventListener('submit',event =>{event.preventDefault();alert('Merci. Votre inscription à la lettre ORR a bien été reçue.');event.currentTarget.reset();});</script></body></html>
